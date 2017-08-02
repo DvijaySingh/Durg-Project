@@ -1,0 +1,81 @@
+﻿@model IEnumerable<DAL.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<div >
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="tblOrders">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeliveryDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsDelevered)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDelevered)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+
+<script>
+    $(document).ready(function () {
+        $("#tblOrders").DataTable({
+            paging: true,
+            aaSorting: [],
+
+        });
+        $('#tblOrders_length').remove();
+        $('#tblOrders_filter input').addClass('form-control');
+    })
+
+</script>
