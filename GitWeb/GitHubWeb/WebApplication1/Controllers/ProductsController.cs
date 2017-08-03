@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using System.IO;
 
 namespace WebApplication1.Controllers
 {
@@ -48,10 +49,16 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,ProdDesc,IsActive,CategoryID")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,ProdDesc,IsActive,CategoryID")] Product product, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    MemoryStream ms = new MemoryStream();
+                    file.InputStream.CopyTo(ms);
+                    product.Image = ms.ToArray();
+                }
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +89,16 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,ProdDesc,IsActive,CategoryID")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,ProdDesc,IsActive,CategoryID")] Product product, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    MemoryStream target = new MemoryStream();
+                    file.InputStream.CopyTo(target);
+                    product.Image = target.ToArray();
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

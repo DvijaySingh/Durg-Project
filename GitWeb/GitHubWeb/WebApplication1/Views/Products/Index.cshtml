@@ -5,60 +5,101 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
+    img.zoom {
+        width: 350px;
+        height: 200px;
+        border: 1px solid;
+        border-color: seagreen;
+        -webkit-transition: all .2s ease-in-out;
+        -moz-transition: all .2s ease-in-out;
+        -o-transition: all .2s ease-in-out;
+        -ms-transition: all .2s ease-in-out;
+    }
+
+    .transition {
+        -webkit-transform: scale(1.8);
+        -moz-transform: scale(1.8);
+        -o-transform: scale(1.8);
+        transform: scale(4.8);
+    }
+</style>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table" id="tblProducts">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProdDesc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+              Category Name
+            </th>
+            <th>
+               Product Name
+            </th>
+            <th>
+               Description
+            </th>
+            <th>
+                 Active
+            </th>
+            
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var @ActiveString = "";
+            ActiveString = item.IsActive == true ? "Yes" : "No";
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdDesc)
+                </td>
+                <td>
+                    @ActiveString
+                </td>
+               
+                <td>
+                    @{
+                        var imgSrc = "";
+                        if (item.Image != null)
+                        {
+                            var base64 = Convert.ToBase64String(item.Image);
+                            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        }
+                    }
+                    <div>
+                        <img class="zoom" style="max-height:50px; max-width:50px;" src="@imgSrc" alt="">
+                    </div>
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProdDesc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
-        </td>
-    </tr>
-}
-
+                <td>
+                    @Html.ActionLink("Update", "Edit", new { id = item.ProductID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+                </td>
+            </tr>
+                        }
+    </tbody>
 </table>
 <script>
     $(document).ready(function () {
-        $("#tblOrders").DataTable({
+        $("#tblProducts").DataTable({
             paging: true,
             aaSorting: [],
 
         });
-        $('#tblOrders_length').remove();
-        $('#tblOrders_filter input').addClass('form-control');
+        $('#tblProducts_length').remove();
+        //$('#tblProducts_filter label').remove();
+        $('#tblProducts_filter input').addClass('form-control');
     })
 
 </script>

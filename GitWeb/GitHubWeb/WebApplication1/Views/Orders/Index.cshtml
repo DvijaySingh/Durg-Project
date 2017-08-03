@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<DAL.Order>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-<div >
+<div>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
     </p>
     <table class="table" id="tblOrders">
         <thead>
@@ -65,17 +63,41 @@
             }
         </tbody>
     </table>
-    </div>
+</div>
 
 <script>
     $(document).ready(function () {
         $("#tblOrders").DataTable({
             paging: true,
             aaSorting: [],
-
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                 {
+                     extend: 'pdfHtml5',
+                     exportOptions: {
+                         columns: [0, 1, 2, 3, 4]
+                     }
+                 },
+                  {
+                      extend: "print",
+                      className: "btn-sm",
+                      title: $('#hdnTitle').val(),
+                      text: $('#hdnprint').val(),
+                      exportOptions: {
+                          columns: [0,1, 2, 3,4]
+                      }
+                  },
+            ],
         });
         $('#tblOrders_length').remove();
         $('#tblOrders_filter input').addClass('form-control');
+        $('div .dt-button').find('a .dt-button').each(function () { this.addClass('btn btn-default') })
     })
 
 </script>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8fc836c3b8d644a7ab845ec8c98b4fdc" Name="Diagram1">
+      <Diagram DiagramId="ade779e0d32942088927f13c82dd2a98" Name="Diagram1">
         <EntityTypeShape EntityType="ShopDevModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopDevModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopDevModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
@@ -16,8 +16,6 @@
         <AssociationConnector Association="ShopDevModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ShopDevModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ShopDevModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ShopDevModel.Category" Width="1.5" PointX="4.5" PointY="11" />
-        <AssociationConnector Association="ShopDevModel.FK_Product_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

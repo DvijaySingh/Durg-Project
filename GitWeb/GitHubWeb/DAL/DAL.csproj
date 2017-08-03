@@ -51,75 +51,60 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AspNetRole.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUser.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
-    </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
+      <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomerProduct.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
+      <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EmailSender.cs" />
     <Compile Include="Order.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
+      <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>ShopDev.tt</DependentUpon>
+      <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShopDev.Context.cs">
+    <Compile Include="ShopDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ShopDev.Context.tt</DependentUpon>
+      <DependentUpon>ShopDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ShopDev.cs">
+    <Compile Include="ShopDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ShopDev.tt</DependentUpon>
+      <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ShopDev.Designer.cs">
+    <Compile Include="ShopDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ShopDev.edmx</DependentUpon>
+      <DependentUpon>ShopDB.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="ShopDev.edmx">
+    <EntityDeploy Include="ShopDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ShopDev.Designer.cs</LastGenOutput>
+      <LastGenOutput>ShopDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ShopDev.edmx.diagram">
-      <DependentUpon>ShopDev.edmx</DependentUpon>
+    <None Include="ShopDB.edmx.diagram">
+      <DependentUpon>ShopDB.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ShopDev.Context.tt">
+    <Content Include="ShopDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ShopDev.edmx</DependentUpon>
-      <LastGenOutput>ShopDev.Context.cs</LastGenOutput>
+      <DependentUpon>ShopDB.edmx</DependentUpon>
+      <LastGenOutput>ShopDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ShopDev.tt">
+    <Content Include="ShopDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ShopDev.edmx</DependentUpon>
-      <LastGenOutput>ShopDev.cs</LastGenOutput>
+      <DependentUpon>ShopDB.edmx</DependentUpon>
+      <LastGenOutput>ShopDB.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

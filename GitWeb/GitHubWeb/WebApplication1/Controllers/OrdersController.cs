@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using Web.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -38,7 +39,9 @@ namespace WebApplication1.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            return View();
+            OrderModel objOrderModel = new OrderModel();
+            objOrderModel.lstcusProduct = new List<CustomerProductModel>();
+            return View(objOrderModel);
         }
 
         // POST: Orders/Create

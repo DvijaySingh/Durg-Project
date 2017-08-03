@@ -15,10 +15,11 @@ namespace DAL
     public partial class Product
     {
         public long ProductID { get; set; }
+        public Nullable<long> CategoryID { get; set; }
         public string ProductName { get; set; }
         public string ProdDesc { get; set; }
+        public byte[] Image { get; set; }
         public bool IsActive { get; set; }
-        public Nullable<long> CategoryID { get; set; }
     
         public virtual Category Category { get; set; }
     }
