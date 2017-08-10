@@ -4696,7 +4696,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     background-color: #336948;
     border-color: rgba(0, 0, 0, 0);
     font-weight: bold;
-        height: 65px;
+        /*height: 65px;*/
 }
 
     .navbar-inverse .navbar-brand {
