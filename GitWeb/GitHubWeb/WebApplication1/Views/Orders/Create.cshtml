@@ -1,87 +1,97 @@
 ﻿@model Web.Models.OrderModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
+ <center>Add Order</center>
+<br />
+<br />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal ">
-        <h4>Order</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        Customer Name
+                    </div>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model.CustomerName,  new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CustomerAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                       Address
+                    </div>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.CustomerAddress,  new { @class = "form-control" } )
                         @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.BookingAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        Booking Amount
+                    </div>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.BookingAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.BookingAmount, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+           
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        Order Date
+                    </div>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model.OrderDate,   new { @class = "form-control" } )
                         @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.DeliveryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        Delivery Date
+                    </div>
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                </div>
-            <div class="col-md-6">
+            </div>
+            <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.IsDelevered, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        IsDelevered
+                    </div>
                     <div class="col-md-10">
                         <div class="checkbox">
-                            @Html.EditorFor(model => model.IsDelevered)
+                            @Html.CheckBoxFor(model => model.IsDelevered)
                             @Html.ValidationMessageFor(model => model.IsDelevered, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
         <div class="row">
             <p>
-                @Html.ActionLink("Create New", "Create")
+                @Html.ActionLink("Add customer Products", "Create")
             </p>
         </div>
         <table class="table">
