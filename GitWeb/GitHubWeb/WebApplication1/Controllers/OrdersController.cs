@@ -8,19 +8,34 @@ using System.Web;
 using System.Web.Mvc;
 using DAL;
 using Web.Models;
+using DAL.Interface;
 
 namespace WebApplication1.Controllers
 {
     public class OrdersController : Controller
     {
         private ShopDevEntities db = new ShopDevEntities();
-
+        private IOrder _IOrder;
+        public OrdersController(IOrder iorder)
+        {
+            this._IOrder = iorder;
+        }
         // GET: Orders
         public ActionResult Index()
         {
             return View(db.Orders.ToList());
         }
-
+        public ActionResult Add()
+        {
+            OrderModel objOrderModel = new OrderModel();
+            objOrderModel.lstcusProduct = new List<CustomerProductModel>();
+            return View(objOrderModel);
+        }
+        
+        public JsonResult AllProducts()
+        {
+            return Json(db.Products.Select(m=> m.ProductName  + "(" + m.ProductID + ")").ToList(), JsonRequestBehavior.AllowGet);
+        }
         // GET: Orders/Details/5
         public ActionResult Details(long? id)
         {
@@ -40,7 +55,10 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             OrderModel objOrderModel = new OrderModel();
+            objOrderModel.cusProduct = new CustomerProductModel();
             objOrderModel.lstcusProduct = new List<CustomerProductModel>();
+            //var data = new CustomerProductModel { ActualWeight = 10, AppxWeight = 20, ProductName = "Test", IsActive = true, Description = "Test" };
+            //objOrderModel.lstcusProduct.Add(data);
             return View(objOrderModel);
         }
 
@@ -49,13 +67,13 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderId,CustomerName,CustomerAddress,BookingAmount,OrderDate,DeliveryDate,IsDelevered")] Order order)
+        public ActionResult Create( OrderModel order)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //db.Orders.Add(order);
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }
 
             return View(order);
@@ -116,6 +134,29 @@ namespace WebApplication1.Controllers
             db.Orders.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public ActionResult AddProduct()
+        {
+            OrderModel objOrderModel = new OrderModel();
+            objOrderModel = (OrderModel)TempData["cusproduct"];
+            //return PartialView("~/Views/Shared/_AddCustomerProduct.cshtml", objOrderModel);
+            return PartialView("~/Views/Shared/_AddCustomerProduct.cshtml", objOrderModel);
+        }
+        [HttpPost]
+        public ActionResult AddOrderProduct(CustomerProductModel objOrderProduct)
+        {
+            OrderModel objOrderModel = new OrderModel();
+            if ((OrderModel)TempData["cusproduct"] != null)
+            {
+                objOrderModel = (OrderModel)TempData["cusproduct"];
+            }
+            List<CustomerProductModel> objCustomerProductModel = new List<CustomerProductModel>();
+            objCustomerProductModel.Add(objOrderProduct);
+            objOrderModel.lstcusProduct = objCustomerProductModel;
+            TempData["cusproduct"] = objOrderModel;
+
+           return Json(objOrderModel,JsonRequestBehavior.AllowGet);
+            //return PartialView("~/Views/Shared/_AddCustomerProduct.cshtml", objOrderModel);
         }
 
         protected override void Dispose(bool disposing)

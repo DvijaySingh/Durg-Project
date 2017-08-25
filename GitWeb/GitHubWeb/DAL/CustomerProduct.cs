@@ -25,5 +25,8 @@ namespace DAL
         public Nullable<long> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<long> Updatedby { get; set; }
+        public Nullable<long> Type { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public Nullable<int> Qty { get; set; }
     }
 }

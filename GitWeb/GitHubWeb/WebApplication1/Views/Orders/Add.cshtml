@@ -1,0 +1,19 @@
+﻿@model Web.Models.OrderModel
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#btnsave').click(function () {
+           $('#_recentfive').load('./AddT') ;
+        })
+       
+    });
+</script>
+<input type="button" id="btnsave"  value="Save"/>
+<div id="_recentfive">
+    @Html.Partial("~/Views/Orders/_CustomerProduct.cshtml", Model.lstcusProduct)
+</div>  
+

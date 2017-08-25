@@ -58,6 +58,14 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EmailSender.cs" />
+    <Compile Include="Implementation\CustomerProductDAL.cs" />
+    <Compile Include="Implementation\OrderDAL.cs" />
+    <Compile Include="Interface\ICustomerProduct.cs" />
+    <Compile Include="Interface\IOrder.cs" />
+    <Compile Include="MapProperties.cs" />
+    <Compile Include="MType.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
@@ -106,6 +114,13 @@
       <DependentUpon>ShopDB.edmx</DependentUpon>
       <LastGenOutput>ShopDB.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Web.Models\Web.Models.csproj">
+      <Project>{dbac2255-9a95-4d6b-9ef1-c161f91260b3}</Project>
+      <Name>Web.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

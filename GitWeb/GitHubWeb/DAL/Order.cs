@@ -21,5 +21,8 @@ namespace DAL
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public bool IsDelevered { get; set; }
+        public Nullable<decimal> GRate { get; set; }
+        public Nullable<decimal> SRate { get; set; }
+        public Nullable<decimal> OutstandingAmount { get; set; }
     }
 }

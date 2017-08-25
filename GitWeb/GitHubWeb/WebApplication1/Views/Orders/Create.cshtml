@@ -4,147 +4,214 @@
     ViewBag.Title = "Add Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")">
+</script>
 
- <center>Add Order</center>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<center> <label> Add Order</label></center>
 <br />
 <br />
 
+<script>
+    $(document).ready(function () {
+        var dateFormat = "dd/mm/yyyy",
+         from = $("#txtOrderDate")
+           .datepicker({
+               minDate: new Date(2000, 1 - 1, 01),
+               showOtherMonths: true,
+               changeYear: true,
+               selectOtherMonths: true,
+               beforeShow: function (textbox, instance) {
+                   $('#ui-datepicker-div').css({
+                       position: 'absolute',
+                       top: -20,
+                       left: 5
+                   });
+                   $('#testingContainer').append($('#ui-datepicker-div'));
+                   $('#ui-datepicker-div').hide();
+               }
+           })
+           .on("change", function () {
+               to.datepicker("option", "minDate", getDate(this) == null ? new Date(2000, 1 - 1, 01) : getDate(this));
+           }),
+         to = $("#txtDelivaryDate").datepicker({
+             minDate: new Date(2000, 1 - 1, 01),
+             showOtherMonths: true,
+             changeYear: true,
+             selectOtherMonths: true,
+         })
+         .on("change", function () {
+             from.datepicker("option", "maxDate", getDate(this));
+         });
+
+        //$('#btnAjaxSubmit').click(function () {
+        //    $('#ajaxform input').val('');
+        //})
+    });
+        function getDate(element) {
+            var date;
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+
+
+</script>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal ">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*<fieldset>
+        <legend>Customer Information</legend>
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <div class="col-md-2">
-                        Customer Name
-                    </div>
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.CustomerName,  new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
-                    </div>
+            <div class="col-md-3 form-group">
+                <label>Customer Name </label>
+                @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Address </label>
+                @Html.TextAreaFor(model => model.CustomerAddress, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Booking Amount </label>
+                @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
+                @Html.ValidationMessageFor(model => model.BookingAmount, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Oustanding Amount </label>
+                @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
+                @Html.ValidationMessageFor(model => model.OutstandingAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>  Order Date </label>
+                @Html.TextBoxFor(model => model.OrderDate, new { @class = "form-control", @id = "txtOrderDate" })
+                @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Delivery Date </label>
+                @Html.TextBoxFor(model => model.DeliveryDate, new { @class = "form-control", @id = "txtDelivaryDate" })
+                @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Gold </label>
+                <div class="checkbox">
+                    @Html.TextBoxFor(model => model.Grate, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Grate, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-5">
-                <div class="form-group">
-                    <div class="col-md-2">
-                       Address
-                    </div>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.CustomerAddress,  new { @class = "form-control" } )
-                        @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
-                    </div>
+            <div class="col-md-3 form-group">
+                <label> Silver </label>
+                <div class="checkbox">
+                    @Html.TextBoxFor(model => model.SRate, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.SRate, "", new { @class = "text-danger" })
                 </div>
+            </div>
+        </div>
+    </fieldset>*@
+    <div id="lstCusProducts">
+        @Html.Partial("~/Views/Orders/_CustomerProduct.cshtml", Model)
+    </div>
+   <input type="submit" value="Save" class="form-control" />
+
+}
+
+<fieldset>
+    <legend> Product Information</legend>
+    @using (Ajax.BeginForm("AddProduct", "CustomerProducts",
+                                                                      new AjaxOptions
+                                                                      {
+                                                                          HttpMethod = "Post",
+                                                                          UpdateTargetId = "lstCusProducts"
+                                                                      }))
+    {
+        <div id="ajaxform">
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> ProductName </label>
+                   
+                        @Html.TextBoxFor(model => model.cusProduct.ProductName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
+                     
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Type </label>
+                     
+                        @Html.DropDownListFor(model => model.cusProduct.TypeID, new SelectList(
+                  new List<Object>{
+                       new { value = 1 , text = "Silver"  },
+                       new { value = 2 , text = "Gold" }
+                    }, "value",
+                  "text"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
+                    
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> AppxWeight(gm) </label>
+                    
+                        @Html.TextBoxFor(model => model.cusProduct.AppxWeight, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.cusProduct.AppxWeight, "", new { @class = "text-danger" })
+                     
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Actual Weight(gm) </label>
+                   
+                        @Html.TextBoxFor(model => model.cusProduct.ActualWeight, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.cusProduct.ActualWeight, "", new { @class = "text-danger" })
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Quantity </label>
+                   
+                        @*@Html.TextBoxFor(model => model.cusProduct.Quantity, new { @class = "form-control"})
+                         @Html.ValidationMessageFor(model => model.cusProduct.Quantity, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Amount </label>
+                    
+                        @Html.TextBoxFor(model => model.cusProduct.Amount, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.cusProduct.Amount, "", new { @class = "text-danger" })
+                    
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Description </label>
+                     
+                        @Html.TextBoxFor(model => model.cusProduct.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.cusProduct.Description, "", new { @class = "text-danger" })
+                     
+                </div>
+                <div class="col-md-3 form-group">
+
+                </div>
+
+            </div>
+        </div>
+        <input type="submit" id="btnAjaxSubmit" value="Submit" />
+    }
+
+    @*<div class="row">
+            <div class="col-md-9">
+
             </div>
             <div class="col-md-3">
-                <div class="form-group">
-                    <div class="col-md-2">
-                        Booking Amount
-                    </div>
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.BookingAmount, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                <input type="button" id="btnAddCP" value="Add Produc" class="btn btn-default" />
+                <input type="button" id="btnRemoveCP" value="Remove Produc" class="btn btn-default" />
             </div>
-        </div>
-        <div class="row">
-           
+        </div>*@
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <div class="col-md-2">
-                        Order Date
-                    </div>
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.OrderDate,   new { @class = "form-control" } )
-                        @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <div class="col-md-2">
-                        Delivery Date
-                    </div>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <div class="col-md-2">
-                        IsDelevered
-                    </div>
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(model => model.IsDelevered)
-                            @Html.ValidationMessageFor(model => model.IsDelevered, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <p>
-                @Html.ActionLink("Add customer Products", "Create")
-            </p>
-        </div>
-        <table class="table">
-            <tr>
-                <th>
-                    Product Name
-                </th>
-                <th>
-                    AppxWeight
-                </th>
-                <th>
-                    ActualWeight
-                </th>
-                <th>
-                    Description
-                </th>
+</fieldset>
 
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.lstcusProduct)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AppxWeight)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ActualWeight)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
-                    </td>
-                </tr>
-            }
-
-        </table>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
 
 <div>
     @Html.ActionLink("Back to List", "Index")

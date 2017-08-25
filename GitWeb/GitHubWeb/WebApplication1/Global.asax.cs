@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebApplication1.FactoryMethods;
 
 namespace WebApplication1
 {
@@ -16,6 +17,12 @@ namespace WebApplication1
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RegisterCustomControllerFactory();
+        }
+        private void RegisterCustomControllerFactory()
+        {
+            IControllerFactory factory = new CustomControllerFactory("WebApplication1.Controllers");
+            ControllerBuilder.Current.SetControllerFactory(factory);
         }
     }
 }

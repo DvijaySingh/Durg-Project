@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="db5ae8b958e1b947fbb352a7c400ba93b4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="db5ae8b958e1b947fbb352a7c400ba93b4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -20,6 +20,9 @@
           <Property Name="ProductID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="OrderID" Type="bigint" />
+          <Property Name="Type" Type="bigint" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="int" />
           <Property Name="AppxWeight" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ActualWeight" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Description" Type="nvarchar(max)" />
@@ -29,6 +32,13 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="Updatedby" Type="bigint" />
         </EntityType>
+        <EntityType Name="MType">
+          <Key>
+            <PropertyRef Name="MtypeID" />
+          </Key>
+          <Property Name="MtypeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -36,10 +46,13 @@
           <Property Name="OrderId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
           <Property Name="CustomerAddress" Type="nvarchar(max)" />
+          <Property Name="OutstandingAmount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="BookingAmount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="OrderDate" Type="datetime" />
           <Property Name="DeliveryDate" Type="datetime" />
           <Property Name="IsDelevered" Type="bit" Nullable="false" />
+          <Property Name="GRate" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="SRate" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -67,6 +80,7 @@
         <EntityContainer Name="db5ae8b958e1b947fbb352a7c400ba93b4ModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerProduct" EntityType="Self.CustomerProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MType" EntityType="Self.MType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
@@ -74,8 +88,7 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db5ae8b958e1b947fbb352a7c400ba93b4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -103,6 +116,9 @@
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="Updatedby" Type="Int64" />
+          <Property Name="Type" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Int32" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -115,6 +131,9 @@
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
           <Property Name="IsDelevered" Type="Boolean" Nullable="false" />
+          <Property Name="GRate" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SRate" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OutstandingAmount" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -149,7 +168,15 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="MTypes" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.MType" />
         </EntityContainer>
+        <EntityType Name="MType">
+          <Key>
+            <PropertyRef Name="MtypeID" />
+          </Key>
+          <Property Name="MtypeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -168,6 +195,9 @@
           <EntitySetMapping Name="CustomerProducts">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.CustomerProduct">
               <MappingFragment StoreEntitySet="CustomerProduct">
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -185,6 +215,9 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
+                <ScalarProperty Name="SRate" ColumnName="SRate" />
+                <ScalarProperty Name="GRate" ColumnName="GRate" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
@@ -204,6 +237,14 @@
                 <ScalarProperty Name="ProdDesc" ColumnName="ProdDesc" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MTypes">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.MType">
+              <MappingFragment StoreEntitySet="MType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="MtypeID" ColumnName="MtypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

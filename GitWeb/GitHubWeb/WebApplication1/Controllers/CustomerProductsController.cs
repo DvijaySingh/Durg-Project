@@ -7,19 +7,35 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using Web.Models;
+using DAL.Interface;
 
 namespace WebApplication1.Controllers
 {
     public class CustomerProductsController : Controller
     {
         private ShopDevEntities db = new ShopDevEntities();
-
+        private ICustomerProduct _ICustomerProduct;
+        public CustomerProductsController(ICustomerProduct customerProduct)
+        {
+            this._ICustomerProduct = customerProduct;
+        }
         // GET: CustomerProducts
         public ActionResult Index()
         {
             return View(db.CustomerProducts.ToList());
         }
 
+        [HttpPost]
+        public ActionResult AddProduct(OrderModel objOrderModel)
+        {
+            CustomerProductModel objCustomer = objOrderModel.cusProduct;
+            List<CustomerProductModel> lstAddedProducts = _ICustomerProduct.AddCustomerProduct(objOrderModel.cusProduct);
+            objOrderModel.cusProduct = new CustomerProductModel();
+            objOrderModel.lstcusProduct = new List<CustomerProductModel>();
+            objOrderModel.lstcusProduct.AddRange(lstAddedProducts);
+            return PartialView("~/Views/Orders/_CustomerProduct.cshtml", objOrderModel);
+        }
         // GET: CustomerProducts/Details/5
         public ActionResult Details(long? id)
         {
