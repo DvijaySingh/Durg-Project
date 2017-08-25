@@ -59,8 +59,10 @@
     </Compile>
     <Compile Include="EmailSender.cs" />
     <Compile Include="Implementation\CustomerProductDAL.cs" />
+    <Compile Include="Implementation\DashBoardDAL.cs" />
     <Compile Include="Implementation\OrderDAL.cs" />
     <Compile Include="Interface\ICustomerProduct.cs" />
+    <Compile Include="Interface\IDashBoard.cs" />
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="MapProperties.cs" />
     <Compile Include="MType.cs">

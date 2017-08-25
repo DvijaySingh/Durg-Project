@@ -1,0 +1,16 @@
+﻿using DAL.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAL.Implementation
+{
+    public class DashBoardDAL : IDashBoard
+    {
+        public void Get()
+        {
+        }
+    }
+}

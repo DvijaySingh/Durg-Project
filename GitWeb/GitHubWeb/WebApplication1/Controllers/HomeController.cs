@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,11 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private IDashBoard _IDashBoard;
+        public HomeController(IDashBoard idashboard)
+        {
+            this._IDashBoard = idashboard;
+        }
         public ActionResult Index()
         {
             return View();

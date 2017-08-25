@@ -32,6 +32,11 @@ namespace WebApplication1.FactoryMethods
                         service = new OrderDAL();
                         break;
                     }
+                case "Home":
+                    {
+                        service = new DashBoardDAL();
+                        break;
+                    }
             }
             IController controller = Activator.CreateInstance(controllerType, new[] { service }) as Controller;
             return controller;
