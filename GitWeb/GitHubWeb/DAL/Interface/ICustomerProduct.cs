@@ -11,8 +11,8 @@ namespace DAL.Interface
     {
          List<CustomerProductModel> AddCustomerProduct(CustomerProductModel customerProductModel);
         List<CustomerProductModel> UpdateCustomerProduct(CustomerProductModel customerProductModel);
-        List<CustomerProductModel> DeleteCustomerProduct(long Id);
-        CustomerProductModel GetCustomerProduct(long Id);
+        List<CustomerProductModel> DeleteCustomerProduct(long Id, long orderId);
+        CustomerProduct GetCustomerProduct(ShopDevEntities db,long Id);
 
     }
 }

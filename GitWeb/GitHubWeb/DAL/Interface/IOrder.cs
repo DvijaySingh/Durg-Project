@@ -10,5 +10,6 @@ namespace DAL.Interface
     public interface IOrder
     {
         void AddOrder(OrderModel orderModel);
+        List<CustomerProductModel> GetCurrentOrderProducts();
     }
 }

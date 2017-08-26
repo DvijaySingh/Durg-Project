@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
         {
             OrderModel objOrderModel = new OrderModel();
             objOrderModel.cusProduct = new CustomerProductModel();
-            objOrderModel.lstcusProduct = new List<CustomerProductModel>();
+            objOrderModel.lstcusProduct = _IOrder.GetCurrentOrderProducts();
             //var data = new CustomerProductModel { ActualWeight = 10, AppxWeight = 20, ProductName = "Test", IsActive = true, Description = "Test" };
             //objOrderModel.lstcusProduct.Add(data);
             return View(objOrderModel);
@@ -78,6 +78,8 @@ namespace WebApplication1.Controllers
 
             return View(order);
         }
+
+       
 
         // GET: Orders/Edit/5
         public ActionResult Edit(long? id)

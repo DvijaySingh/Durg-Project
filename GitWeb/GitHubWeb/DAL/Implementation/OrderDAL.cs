@@ -12,7 +12,31 @@ namespace DAL.Implementation
     {
         public void AddOrder(OrderModel orderModel)
         {
-            throw new NotImplementedException();
+
+        }
+
+        public List<CustomerProductModel> GetCurrentOrderProducts()
+        {
+            List<CustomerProductModel> lstcsproducts = new List<CustomerProductModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    var lstproducts = db.CustomerProducts.Where(m => m.OrderID == 0).ToList();
+                    foreach (var cusprod in lstproducts)
+                    {
+                        CustomerProductModel objcsproduct = new CustomerProductModel();
+                        cusprod.CopyProperties(objcsproduct);
+                        lstcsproducts.Add(objcsproduct);
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                }
+                return lstcsproducts;
+            }
         }
     }
 }
