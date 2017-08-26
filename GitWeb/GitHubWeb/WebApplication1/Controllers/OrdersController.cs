@@ -135,13 +135,7 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult AddProduct()
-        {
-            OrderModel objOrderModel = new OrderModel();
-            objOrderModel = (OrderModel)TempData["cusproduct"];
-            //return PartialView("~/Views/Shared/_AddCustomerProduct.cshtml", objOrderModel);
-            return PartialView("~/Views/Shared/_AddCustomerProduct.cshtml", objOrderModel);
-        }
+        
         [HttpPost]
         public ActionResult AddOrderProduct(CustomerProductModel objOrderProduct)
         {
