@@ -9,6 +9,7 @@ namespace Web.Models
    public class OrderModel
     {
         public long OrderId { get; set; }
+
         public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
         public  decimal? BookingAmount { get; set; }
