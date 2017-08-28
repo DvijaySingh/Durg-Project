@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Web.Models;
 
 namespace DAL.Implementation
@@ -11,7 +9,7 @@ namespace DAL.Implementation
     public class CustomerProductDAL : ICustomerProduct
     {
         private ShopDevEntities db = new ShopDevEntities();
-        
+
         public List<CustomerProductModel> AddCustomerProduct(CustomerProductModel customerProductModel)
         {
             List<CustomerProductModel> lstcsproducts = new List<CustomerProductModel>();
@@ -20,11 +18,12 @@ namespace DAL.Implementation
                 try
                 {
                     customerProductModel.OrderID = 0;
+                    customerProductModel.IsActive = true;
                     CustomerProduct customerProduct = new CustomerProduct();
                     customerProductModel.CopyProperties(customerProduct);
                     db.CustomerProducts.Add(customerProduct);
                     db.SaveChanges();
-                    var lstproducts = db.CustomerProducts.Where(m => m.IsActive == true).OrderByDescending(m => m.OrderID == 0).ToList();
+                    var lstproducts = db.CustomerProducts.Where(m => m.OrderID == 0 && m.IsActive).ToList();
                     foreach (var cusprod in lstproducts)
                     {
                         CustomerProductModel objcsproduct = new CustomerProductModel();
@@ -40,14 +39,47 @@ namespace DAL.Implementation
             }
         }
 
-        public List<CustomerProductModel> DeleteCustomerProduct(long Id)
+        public List<CustomerProductModel> DeleteCustomerProduct(long Id, long orderId)
         {
-            throw new NotImplementedException();
+            List<CustomerProductModel> lstcsproducts = new List<CustomerProductModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    CustomerProduct customerProduct = GetCustomerProduct(db, Id);
+                    customerProduct.IsActive = false;
+                    db.CustomerProducts.Remove(customerProduct);
+                    db.SaveChanges();
+                    var lstproducts = db.CustomerProducts.Where(m => m.OrderID == orderId && m.IsActive).ToList();
+                    foreach (var cusprod in lstproducts)
+                    {
+                        CustomerProductModel objcsproducts = new CustomerProductModel();
+                        cusprod.CopyProperties(objcsproducts);
+                        lstcsproducts.Add(objcsproducts);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+                return lstcsproducts;
+            }
         }
 
-        public CustomerProductModel GetCustomerProduct(long Id)
+        public CustomerProduct GetCustomerProduct(ShopDevEntities db, long Id)
         {
-            throw new NotImplementedException();
+            CustomerProduct objCustomerProduct = null;
+            try
+            {
+                objCustomerProduct = db.CustomerProducts.Where(m => m.ProductID == Id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return objCustomerProduct;
+
         }
 
         public List<CustomerProductModel> UpdateCustomerProduct(CustomerProductModel customerProductModel)
