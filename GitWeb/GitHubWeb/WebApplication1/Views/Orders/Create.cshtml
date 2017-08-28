@@ -47,43 +47,7 @@
         //$('#btnAjaxSubmit').click(function () {
         //    $('#ajaxform input').val('');
         //})
-        $('#more').click(function () {
-            if ($('button span').hasClass('glyphicon-chevron-down')) {
-                $('#more').html('<span class="glyphicon glyphicon-chevron-right"></span>Less Products');
-            }
-            else {
-                $('#more').html('<span class="glyphicon glyphicon-chevron-down"></span>More Products');
-            }
-        });
-        $('#btncustInfo').click(function () {
-            if ($('button span').hasClass('glyphicon-chevron-down')) {
-                $('#btncustInfo').html('<span class="glyphicon glyphicon-chevron-right"></span>Customer Info');
-            }
-            else {
-                $('#btncustInfo').html('<span class="glyphicon glyphicon-chevron-down"></span>Customer Info');
-            }
-        });
-
-        $('.btnedit').click(function () {
-            debugger;
-            var tr = $(this).closest('tr');
-
-        });
-        RefreshDatatable();
-       
     });
-    function RefreshDatatable()
-    {
-        $("#tblCProducts").DataTable({
-            paging: true,
-            aaSorting: [],
-
-        });
-        $('#tblCProducts_length').remove();
-        //$('#tblProducts_filter label').remove();
-        $('#tblCProducts_filter input').addClass('form-control');
-    }
-    
     function getDate(element) {
         var date;
         try {
@@ -94,10 +58,6 @@
 
         return date;
     }
-    function RemoveRow() {
-        var $tr = $(this).closest('tr');
-        $tr.remove();
-    }
 
 
 </script>
@@ -107,11 +67,7 @@
 
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <button type="button" id="btncustInfo" class="btn btn-info" data-toggle="collapse" data-target="#custInfo">
-        <span class="glyphicon glyphicon-chevron-down"></span> Customer Info
-    </button>
-    <div class="collapse" id="custInfo">
-        <fieldset>
+    @*<fieldset>
             <legend>Customer Information</legend>
             <div class="row">
                 <div class="col-md-3 form-group">
@@ -161,13 +117,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-9"></div>
-                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default " /></div>
-            </div>
-        </fieldset>
+        </fieldset>*@
+    <div id="lstCusProducts">
+        @Html.Partial("~/Views/Orders/_CustomerProduct.cshtml", Model)
     </div>
-   
+    <input type="submit" value="Save" class="form-control" />
 
 }
 
@@ -218,7 +172,7 @@
             <div class="row">
                 <div class="col-md-3 form-group">
                     <label> Quantity </label>
-                    @Html.TextBoxFor(model => model.cusProduct.Quantity, new { @class = "form-control", @type = "number" })
+                    @Html.TextBoxFor(model => model.cusProduct.Quantity, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.cusProduct.Quantity, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
@@ -234,19 +188,14 @@
 
                 </div>
                 <div class="col-md-3 form-group">
-                    <input type="submit" class="btn btn-default" id="btnAjaxSubmit" value="Submit" />
+
                 </div>
 
             </div>
         </div>
-       
+        <input type="submit" id="btnAjaxSubmit" value="Submit" />
     }
-    <button type="button" id="more" class="btn btn-info" data-toggle="collapse" data-target="#lstCusProducts">
-        <span class="glyphicon glyphicon-chevron-down"></span> More Products
-    </button>
-    <div id="lstCusProducts" class="collapse">
-        @Html.Partial("~/Views/Orders/_CustomerProduct.cshtml", Model)
-    </div>
+
     @*<div class="row">
             <div class="col-md-9">
 

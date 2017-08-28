@@ -125,23 +125,12 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-
             CustomerProduct customerProduct = db.CustomerProducts.Find(id);
             db.CustomerProducts.Remove(customerProduct);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        [HttpPost]
-        public ActionResult DeleteCustomerProduct(long productId,long orderId)
-        {
-            OrderModel objOrderModel = new OrderModel();
-            List<CustomerProductModel> lstRemainingProducts = _ICustomerProduct.DeleteCustomerProduct(productId, orderId);
-            objOrderModel.cusProduct = new CustomerProductModel();
-            objOrderModel.lstcusProduct = new List<CustomerProductModel>();
-            objOrderModel.lstcusProduct.AddRange(lstRemainingProducts);
-            return PartialView("~/Views/Orders/_CustomerProduct.cshtml", objOrderModel);
 
-        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
