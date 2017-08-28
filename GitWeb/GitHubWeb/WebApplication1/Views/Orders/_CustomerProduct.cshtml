@@ -3,7 +3,7 @@
 <table class="table table-striped" id="tblCProducts">
     <thead>
         <tr>
-          
+
             <th>
                 Product Name
             </th>
@@ -38,12 +38,17 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
+                    <button id="@item.ProductID" class="btn btn-default btnedit">Edit</button>
+                    @Ajax.ActionLink("Delete", "DeleteCustomerProduct", "CustomerProducts", new { productId = item.ProductID, orderId = item.OrderID },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "lstCusProducts",
+                        OnSuccess = "RefreshDatatable",
+                    })
                 </td>
             </tr>
         }
     </tbody>
 </table>
-

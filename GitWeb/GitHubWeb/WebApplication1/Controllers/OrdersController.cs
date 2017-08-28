@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using DAL;
 using Web.Models;
@@ -31,10 +29,10 @@ namespace WebApplication1.Controllers
             objOrderModel.lstcusProduct = new List<CustomerProductModel>();
             return View(objOrderModel);
         }
-        
+
         public JsonResult AllProducts()
         {
-            return Json(db.Products.Select(m=> m.ProductName  + "(" + m.ProductID + ")").ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.Products.Select(m => m.ProductName + "(" + m.ProductID + ")").ToList(), JsonRequestBehavior.AllowGet);
         }
         // GET: Orders/Details/5
         public ActionResult Details(long? id)
@@ -56,7 +54,7 @@ namespace WebApplication1.Controllers
         {
             OrderModel objOrderModel = new OrderModel();
             objOrderModel.cusProduct = new CustomerProductModel();
-            objOrderModel.lstcusProduct = new List<CustomerProductModel>();
+            objOrderModel.lstcusProduct = _IOrder.GetCurrentOrderProducts();
             //var data = new CustomerProductModel { ActualWeight = 10, AppxWeight = 20, ProductName = "Test", IsActive = true, Description = "Test" };
             //objOrderModel.lstcusProduct.Add(data);
             return View(objOrderModel);
@@ -67,7 +65,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( OrderModel order)
+        public ActionResult Create(OrderModel order)
         {
             if (ModelState.IsValid)
             {
@@ -78,6 +76,8 @@ namespace WebApplication1.Controllers
 
             return View(order);
         }
+
+
 
         // GET: Orders/Edit/5
         public ActionResult Edit(long? id)
@@ -155,7 +155,7 @@ namespace WebApplication1.Controllers
             objOrderModel.lstcusProduct = objCustomerProductModel;
             TempData["cusproduct"] = objOrderModel;
 
-           return Json(objOrderModel,JsonRequestBehavior.AllowGet);
+            return Json(objOrderModel, JsonRequestBehavior.AllowGet);
             //return PartialView("~/Views/Shared/_AddCustomerProduct.cshtml", objOrderModel);
         }
 
