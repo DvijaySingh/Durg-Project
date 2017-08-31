@@ -8,10 +8,19 @@
                 Product Name
             </th>
             <th>
+               Type
+            </th>
+            <th>
                 AppxWeight
             </th>
             <th>
                 ActualWeight
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Amount
             </th>
             <th>
                 Description
@@ -28,10 +37,32 @@
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
+                    @switch (item.Type)
+                    {
+                        case 2:
+                           <span>Gold</span>
+                            break;
+                        case 1:
+                            <span>Silver</span>
+                            break;
+                        default:
+                            <span></span>
+                            break;
+
+                    }
+                   
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.AppxWeight)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ActualWeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)

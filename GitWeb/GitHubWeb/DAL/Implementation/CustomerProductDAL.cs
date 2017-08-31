@@ -17,11 +17,19 @@ namespace DAL.Implementation
             {
                 try
                 {
-                    customerProductModel.OrderID = 0;
+                    
                     customerProductModel.IsActive = true;
-                    CustomerProduct customerProduct = new CustomerProduct();
+                    customerProductModel.OrderID=customerProductModel.OrderID == null ? 0 : customerProductModel.OrderID;
+                    CustomerProduct customerProduct = null;
+                    if (customerProductModel.ProductID > 0)
+                    {
+                        customerProduct = GetCustomerProduct(db, customerProductModel.ProductID);
+                    }
                     customerProductModel.CopyProperties(customerProduct);
-                    db.CustomerProducts.Add(customerProduct);
+                    if (customerProductModel.ProductID == 0)
+                    {
+                        db.CustomerProducts.Add(customerProduct);
+                    }
                     db.SaveChanges();
                     var lstproducts = db.CustomerProducts.Where(m => m.OrderID == 0 && m.IsActive).ToList();
                     foreach (var cusprod in lstproducts)

@@ -69,9 +69,8 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.Orders.Add(order);
-                //db.SaveChanges();
-                //return RedirectToAction("Index");
+                _IOrder.AddOrder(order);
+                return RedirectToAction("Index");
             }
 
             return View(order);
@@ -80,13 +79,9 @@ namespace WebApplication1.Controllers
 
 
         // GET: Orders/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(long id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
+            OrderModel order = _IOrder.GetOrder(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -99,12 +94,11 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderId,CustomerName,CustomerAddress,BookingAmount,OrderDate,DeliveryDate,IsDelevered")] Order order)
+        public ActionResult Edit(OrderModel order)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+                _IOrder.AddOrder(order);
                 return RedirectToAction("Index");
             }
             return View(order);

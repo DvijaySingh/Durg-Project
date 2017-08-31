@@ -7,5 +7,6 @@ namespace DAL.Interface
     {
         void AddOrder(OrderModel orderModel);
         List<CustomerProductModel> GetCurrentOrderProducts();
+        OrderModel GetOrder(long orderID);
     }
 }
