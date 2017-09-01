@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
@@ -10,7 +11,9 @@ namespace Web.Models
         public string CustomerAddress { get; set; }
         public  decimal? BookingAmount { get; set; }
         public decimal? OutstandingAmount { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}")]
         public  DateTime? OrderDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime? DeliveryDate { get; set; }
         public bool IsDelevered { get; set; }
         public decimal? GRate { get; set; }

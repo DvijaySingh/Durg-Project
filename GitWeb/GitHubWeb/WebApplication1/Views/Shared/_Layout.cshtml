@@ -10,6 +10,7 @@
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="~/Scripts/CustomDatatable.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -44,7 +45,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
    <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="http://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js"></script>

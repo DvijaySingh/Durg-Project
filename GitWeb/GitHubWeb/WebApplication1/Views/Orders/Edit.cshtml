@@ -1,7 +1,7 @@
 ﻿@model Web.Models.OrderModel
 
 @{
-    ViewBag.Title = "Add Order";
+    ViewBag.Title = "Update Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")">
@@ -9,10 +9,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 <script src="~/Scripts/Pages/CreateOrder.js"></script>
-<center> <label> Add Order</label></center>
-<br />
-<br />
-
+<center> <label> Update Order</label></center>
 
 @using (Html.BeginForm())
 {
@@ -62,17 +59,17 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Gold </label>
-                    <div class="checkbox">
+                    
                         @Html.TextBoxFor(model => model.GRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.GRate, "", new { @class = "text-danger" })
-                    </div>
+                    
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Silver </label>
-                    <div class="checkbox">
+                  
                         @Html.TextBoxFor(model => model.SRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.SRate, "", new { @class = "text-danger" })
-                    </div>
+                    
                 </div>
             </div>
             <div class="row">
@@ -87,7 +84,7 @@
 <button type="button" id="more" class="btn btn-info" data-toggle="collapse" data-target="#divcusProducts">
     More Products <span class="glyphicon glyphicon-chevron-down"></span>
 </button>
-<div id="divcusProducts">
+<div id="divcusProducts" class="customer-information">
     <fieldset>
         <legend> Product Information</legend>
         @using (Ajax.BeginForm("AddProduct", "CustomerProducts",
@@ -103,6 +100,7 @@
                     <div class="col-md-3 form-group">
                         <label> ProductName </label>
                         @Html.HiddenFor(m => m.cusProduct.ProductID, new { @id = "hdnProductId" })
+                        @Html.HiddenFor(model => model.cusProduct.OrderID, new { @id = "hdnOrderId" })
                         @Html.TextBoxFor(model => model.cusProduct.ProductName, new { @class = "form-control", @id = "txtProductname" })
                         @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
 
@@ -183,3 +181,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    $(document).ready(function () {
+        $('#hdnOrderId').val($('#hdnorderId').val());
+    })
+</script>

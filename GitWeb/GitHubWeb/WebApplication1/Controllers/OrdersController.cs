@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            return View(_IOrder.GetAllOrders());
         }
         public ActionResult Add()
         {

@@ -3,6 +3,7 @@
      from = $("#txtOrderDate")
        .datepicker({
            minDate: new Date(2000, 1 - 1, 01),
+           dateFormat: 'dd/mm/yy',
            showOtherMonths: true,
            changeYear: true,
            selectOtherMonths: true,
@@ -21,6 +22,7 @@
        }),
      to = $("#txtDelivaryDate").datepicker({
          minDate: new Date(2000, 1 - 1, 01),
+         dateFormat: 'dd/mm/yy',
          showOtherMonths: true,
          changeYear: true,
          selectOtherMonths: true,
@@ -32,12 +34,13 @@
     //$('#btnAjaxSubmit').click(function () {
     //    $('#ajaxform input').val('');
     //})
-    $('#more').click(function () {
+    $(document).delegate('#more','click',function () {
+        debugger;
         if ($('button span').hasClass('glyphicon-chevron-down')) {
-            $('#more').html('<span class="glyphicon glyphicon-chevron-right"></span>Less Products');
+            $('#more').html('Less Products <span class="glyphicon glyphicon-chevron-right"></span>');
         }
         else {
-            $('#more').html('<span class="glyphicon glyphicon-chevron-down"></span>More Products');
+            $('#more').html('More Products <span class="glyphicon glyphicon-chevron-down"></span>');
         }
     });
     $('#btncustInfo').click(function () {
@@ -49,7 +52,7 @@
         }
     });
 
-    $('.btnedit').click(function () {
+    $(document).delegate('.btnedit', 'click',function () {
         debugger;
         var tr = $(this).closest('tr');
         var Id = $(this).attr('id');
@@ -62,7 +65,7 @@
         var desc = $(tr).find('td').eq(6).text().trim();
         $('#hdnProductId').val(Id);
         $('#txtProductname').val(productName);
-        $('#ddlType option:selected').text(Type);
+        $('#ddlType option:selected').val(1);
         $('#txtAppxw').val(Approxw);
         $('#txtActualw').val(actualw);
         $('#txtqty').val(qty);

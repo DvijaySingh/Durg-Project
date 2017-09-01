@@ -4,14 +4,10 @@
     ViewBag.Title = "Add Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")">
-</script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 <script src="~/Scripts/Pages/CreateOrder.js"></script>
 <center> <label> Add Order</label></center>
-<br />
-<br />
+
 
 
 @using (Html.BeginForm())
@@ -23,7 +19,7 @@
     @*<button type="button" id="btncustInfo" class="btn btn-info" data-toggle="collapse" data-target="#custInfo">
         <span class="glyphicon glyphicon-chevron-down"></span> Customer Info
     </button>*@
-    <div>
+    <div class="customer-information">
         <fieldset>
             <legend>Customer Information</legend>
             <div class="row">
@@ -61,32 +57,33 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Gold </label>
-                    <div class="checkbox">
+                   
                         @Html.TextBoxFor(model => model.GRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.GRate, "", new { @class = "text-danger" })
-                    </div>
+                   
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Silver </label>
-                    <div class="checkbox">
+                    
                         @Html.TextBoxFor(model => model.SRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.SRate, "", new { @class = "text-danger" })
-                    </div>
+                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-9"></div>
-                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default " /></div>
+                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
             </div>
         </fieldset>
     </div>
 
 
 }
+<br />
 <button type="button" id="more" class="btn btn-info" data-toggle="collapse" data-target="#divcusProducts">
     More Products <span class="glyphicon glyphicon-chevron-down"></span> 
 </button>
-<div id="divcusProducts">
+<div id="divcusProducts" class="customer-information collapse">
     <fieldset>
         <legend> Product Information</legend>
         @using (Ajax.BeginForm("AddProduct", "CustomerProducts",
@@ -151,7 +148,7 @@
 
                     </div>
                     <div class="col-md-3 form-group">
-                        <input type="submit" class="btn btn-default" id="btnAjaxSubmit" value="Submit" />
+                        <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
                     </div>
 
                 </div>

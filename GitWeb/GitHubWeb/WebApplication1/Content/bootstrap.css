@@ -331,7 +331,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
-    color: #333333;
+    color:#f5f0f0;
     background-color: #ffffff;
 }
 
@@ -1826,7 +1826,7 @@ legend {
 label {
     display: inline-block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 input[type="search"] {
@@ -2223,10 +2223,10 @@ textarea.input-lg {
     }
 
 .btn-default {
-       color: #fff;
+    color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
-    min-width:100px;
+    min-width: 100px;
 }
 
     .btn-default:hover,
@@ -4696,7 +4696,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     background-color: #144a39;
     border-color: rgba(0, 0, 0, 0);
     font-weight: bold;
-        height: 65px;
+    height: 65px;
 }
 
     .navbar-inverse .navbar-brand {
@@ -4752,7 +4752,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
     .navbar-inverse .navbar-collapse,
     .navbar-inverse .navbar-form {
-        border-color: #101010;
+        border-color: #6723b1;
     }
 
     .navbar-inverse .navbar-nav > .open > a,

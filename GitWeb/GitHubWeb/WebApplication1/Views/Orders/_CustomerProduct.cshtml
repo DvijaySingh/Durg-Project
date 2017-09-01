@@ -74,6 +74,7 @@
                     @Ajax.ActionLink("Delete", "DeleteCustomerProduct", "CustomerProducts", new { productId = item.ProductID, orderId = item.OrderID },
                     new AjaxOptions
                     {
+                        Confirm = "are you sure to perform the deletion.",
                         HttpMethod = "POST",
                         UpdateTargetId = "lstCusProducts",
                         OnSuccess = "RefreshDatatable",

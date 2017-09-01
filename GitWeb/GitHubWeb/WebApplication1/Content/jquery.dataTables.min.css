@@ -4,7 +4,7 @@ table.dataTable {
     clear: both;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid;
+    border: 1px solid rgba(255, 255, 255, 0.31);
 }
 
     table.dataTable thead th, table.dataTable tfoot th {
@@ -13,7 +13,7 @@ table.dataTable {
 
     table.dataTable thead th, table.dataTable thead td {
         padding: 10px 18px;
-        border-bottom: 1px solid #111;
+        border-bottom: 1px solid #6f6f6f;
     }
 
         table.dataTable thead th:active, table.dataTable thead td:active {
@@ -22,7 +22,7 @@ table.dataTable {
 
     table.dataTable tfoot th, table.dataTable tfoot td {
         padding: 10px 18px 6px 18px;
-        border-top: 1px solid #111;
+        border-top: 1px solid #6f6f6f;
     }
 
     table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
@@ -56,7 +56,7 @@ table.dataTable {
     }
 
     table.dataTable tbody tr {
-        background-color: #ffffff;
+        background-color: #abbcbd;
     }
 
         table.dataTable tbody tr.selected {
@@ -185,8 +185,8 @@ table.dataTable {
     }
 
     table.dataTable.no-footer {
-        border-bottom: 1px solid #111;
-            background-color: darkgray !important;
+        border-bottom: 1px solid #6f6f6f;
+            background-color: rgb(26, 197, 214) !important;
     }
 
     table.dataTable.nowrap th, table.dataTable.nowrap td {
@@ -410,7 +410,7 @@ table.dataTable {
                 }
 
     .dataTables_wrapper.no-footer .dataTables_scrollBody {
-        border-bottom: 1px solid #111;
+        border-bottom: 1px solid #6f6f6f;
     }
 
     .dataTables_wrapper.no-footer div.dataTables_scrollHead > table, .dataTables_wrapper.no-footer div.dataTables_scrollBody > table {

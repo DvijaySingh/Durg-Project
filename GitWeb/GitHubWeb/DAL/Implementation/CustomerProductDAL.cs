@@ -25,13 +25,17 @@ namespace DAL.Implementation
                     {
                         customerProduct = GetCustomerProduct(db, customerProductModel.ProductID);
                     }
+                    else
+                    {
+                        customerProduct = new CustomerProduct();
+                    }
                     customerProductModel.CopyProperties(customerProduct);
                     if (customerProductModel.ProductID == 0)
                     {
                         db.CustomerProducts.Add(customerProduct);
                     }
                     db.SaveChanges();
-                    var lstproducts = db.CustomerProducts.Where(m => m.OrderID == 0 && m.IsActive).ToList();
+                    var lstproducts = db.CustomerProducts.Where(m => m.OrderID == customerProductModel.OrderID && m.IsActive).ToList();
                     foreach (var cusprod in lstproducts)
                     {
                         CustomerProductModel objcsproduct = new CustomerProductModel();

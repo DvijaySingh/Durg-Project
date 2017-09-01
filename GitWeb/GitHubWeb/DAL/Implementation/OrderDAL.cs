@@ -9,6 +9,29 @@ namespace DAL.Implementation
 {
     public class OrderDAL : IOrder
     {
+        public List<OrderModel> GetAllOrders()
+        {
+            List<OrderModel> lstordes = new List<OrderModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    var allorders = db.Orders.OrderByDescending(m => m.OrderId).ToList();
+                    foreach (var cusprod in allorders)
+                    {
+                        OrderModel objcsproduct = new OrderModel();
+                        cusprod.CopyProperties(objcsproduct);
+                        lstordes.Add(objcsproduct);
+                    }
+
+                }
+                catch
+                {
+
+                }
+                return lstordes;
+            }
+        }
         public void AddOrder(OrderModel orderModel)
         {
             using (ShopDevEntities db = new ShopDevEntities())
@@ -20,7 +43,7 @@ namespace DAL.Implementation
                     //{
                     //    order = GetCustomerProduct(db, customerProductModel.ProductID);
                     //}
-                    
+
                     if (orderModel.OrderId == 0)
                     {
                         order = new Order();
@@ -99,7 +122,7 @@ namespace DAL.Implementation
                     ordermodel.lstcusProduct.AddRange(lstcsproducts);
 
                 }
-                catch(Exception ex ) { }
+                catch (Exception ex) { }
             }
             return ordermodel;
         }
