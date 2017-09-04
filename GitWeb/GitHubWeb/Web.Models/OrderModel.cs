@@ -18,6 +18,7 @@ namespace Web.Models
         public bool IsDelevered { get; set; }
         public decimal? GRate { get; set; }
         public decimal? SRate { get; set; }
+        public string OrderStatus { get; set; }
         public  CustomerProductModel cusProduct { get; set; }
         public List<CustomerProductModel> lstcusProduct { get; set; }
     }

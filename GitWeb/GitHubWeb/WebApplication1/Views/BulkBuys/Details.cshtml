@@ -1,0 +1,75 @@
+﻿@model DAL.BulkBuy
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BulkBuy</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TakenAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TakenAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GWeight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SWeight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BulkBuyID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

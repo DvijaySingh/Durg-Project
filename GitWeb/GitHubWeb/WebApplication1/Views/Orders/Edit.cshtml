@@ -79,7 +79,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9"></div>
+                    <div class="col-md-3 form-group">
+                        <label>Status </label>
+                        @Html.DropDownListFor(model => model.OrderStatus, new SelectList(
+                  new List<Object>{
+                         new { value = "New" , text = "New"  },new { value = "Pending" , text = "Pending"  },
+                       new { value = "Oustanding" , text = "Oustanding" },new { value = "Closed" , text = "Closed" }
+                    }, "value",
+                  "text"), new { @class = "form-control", @id = "ddlStatus" })
+                    </div>
+                    <div class="col-md-6"></div>
                     <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default " /></div>
                 </div>
         </div>

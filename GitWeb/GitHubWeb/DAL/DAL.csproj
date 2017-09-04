@@ -51,6 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BulkBuy.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BulkBuyProduct.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Category.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
@@ -93,6 +99,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ShopDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="VendorDetail.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

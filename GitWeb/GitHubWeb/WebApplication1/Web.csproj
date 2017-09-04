@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BulkBuysController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomerProductsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -278,6 +279,11 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Orders\_CustomerProduct.cshtml" />
+    <Content Include="Views\BulkBuys\Create.cshtml" />
+    <Content Include="Views\BulkBuys\Delete.cshtml" />
+    <Content Include="Views\BulkBuys\Details.cshtml" />
+    <Content Include="Views\BulkBuys\Edit.cshtml" />
+    <Content Include="Views\BulkBuys\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

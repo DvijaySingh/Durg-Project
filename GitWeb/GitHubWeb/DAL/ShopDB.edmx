@@ -5,6 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="db5ae8b958e1b947fbb352a7c400ba93b4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BulkBuy">
+          <Key>
+            <PropertyRef Name="BulkBuyID" />
+          </Key>
+          <Property Name="BulkBuyID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="128" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="TakenAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GWeight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SWeight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BulkBuyProducts">
+          <Key>
+            <PropertyRef Name="BulkBuyProductID" />
+          </Key>
+          <Property Name="BulkBuyProductID" Type="bigint" Nullable="false" />
+          <Property Name="BulkBuyID" Type="bigint" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -53,6 +76,7 @@
           <Property Name="IsDelevered" Type="bit" Nullable="false" />
           <Property Name="GRate" Type="decimal" Precision="18" Scale="0" />
           <Property Name="SRate" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -64,6 +88,19 @@
           <Property Name="ProdDesc" Type="nvarchar(max)" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VendorDetails">
+          <Key>
+            <PropertyRef Name="BuyVendorID" />
+          </Key>
+          <Property Name="BuyVendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BulkByID" Type="bigint" />
+          <Property Name="VendorName" Type="varchar" MaxLength="50" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="TakenAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ReturnAmount" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_Product_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -78,11 +115,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="db5ae8b958e1b947fbb352a7c400ba93b4ModelStoreContainer">
+          <EntitySet Name="BulkBuy" EntityType="Self.BulkBuy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BulkBuyProducts" EntityType="Self.BulkBuyProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerProduct" EntityType="Self.CustomerProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MType" EntityType="Self.MType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VendorDetails" EntityType="Self.VendorDetails" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
@@ -134,6 +174,7 @@
           <Property Name="GRate" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SRate" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="OutstandingAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OrderStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -169,6 +210,9 @@
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <EntitySet Name="MTypes" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.MType" />
+          <EntitySet Name="BulkBuys" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy" />
+          <EntitySet Name="BulkBuyProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct" />
+          <EntitySet Name="VendorDetails" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -176,6 +220,42 @@
           </Key>
           <Property Name="MtypeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BulkBuy">
+          <Key>
+            <PropertyRef Name="BulkBuyID" />
+          </Key>
+          <Property Name="BulkBuyID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TakenAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BulkBuyProduct">
+          <Key>
+            <PropertyRef Name="BulkBuyProductID" />
+          </Key>
+          <Property Name="BulkBuyProductID" Type="Int64" Nullable="false" />
+          <Property Name="BulkBuyID" Type="Int64" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="VendorDetail">
+          <Key>
+            <PropertyRef Name="BuyVendorID" />
+          </Key>
+          <Property Name="BuyVendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BulkByID" Type="Int64" />
+          <Property Name="VendorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="TakenAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ReturnAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -215,6 +295,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
                 <ScalarProperty Name="SRate" ColumnName="SRate" />
                 <ScalarProperty Name="GRate" ColumnName="GRate" />
@@ -245,6 +326,45 @@
               <MappingFragment StoreEntitySet="MType">
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="MtypeID" ColumnName="MtypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BulkBuys">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy">
+              <MappingFragment StoreEntitySet="BulkBuy">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SWeight" ColumnName="SWeight" />
+                <ScalarProperty Name="GWeight" ColumnName="GWeight" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="TakenAmount" ColumnName="TakenAmount" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BulkBuyProducts">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct">
+              <MappingFragment StoreEntitySet="BulkBuyProducts">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
+                <ScalarProperty Name="BulkBuyProductID" ColumnName="BulkBuyProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendorDetails">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail">
+              <MappingFragment StoreEntitySet="VendorDetails">
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ReturnAmount" ColumnName="ReturnAmount" />
+                <ScalarProperty Name="TakenAmount" ColumnName="TakenAmount" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="BulkByID" ColumnName="BulkByID" />
+                <ScalarProperty Name="BuyVendorID" ColumnName="BuyVendorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

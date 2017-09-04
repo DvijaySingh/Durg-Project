@@ -24,5 +24,6 @@ namespace DAL
         public Nullable<decimal> GRate { get; set; }
         public Nullable<decimal> SRate { get; set; }
         public Nullable<decimal> OutstandingAmount { get; set; }
+        public string OrderStatus { get; set; }
     }
 }

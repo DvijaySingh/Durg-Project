@@ -117,6 +117,7 @@ namespace DAL.Implementation
                     ordermodel.IsDelevered = order.IsDelevered;
                     ordermodel.GRate = order.GRate;
                     ordermodel.SRate = order.SRate;
+                    ordermodel.OrderStatus = order.OrderStatus;
                     ordermodel.OutstandingAmount = order.OutstandingAmount;
                     ordermodel.lstcusProduct = new List<CustomerProductModel>();
                     ordermodel.lstcusProduct.AddRange(lstcsproducts);

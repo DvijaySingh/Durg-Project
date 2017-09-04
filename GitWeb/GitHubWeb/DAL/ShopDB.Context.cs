@@ -30,5 +30,8 @@ namespace DAL
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<MType> MTypes { get; set; }
+        public virtual DbSet<BulkBuy> BulkBuys { get; set; }
+        public virtual DbSet<BulkBuyProduct> BulkBuyProducts { get; set; }
+        public virtual DbSet<VendorDetail> VendorDetails { get; set; }
     }
 }

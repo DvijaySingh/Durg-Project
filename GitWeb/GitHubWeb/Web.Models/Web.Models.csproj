@@ -46,10 +46,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppModelResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="BulkBuyModel.cs" />
+    <Compile Include="BulkBuyProductsModel.cs" />
     <Compile Include="CustomerProductModel.cs" />
     <Compile Include="OrderModel.cs" />
     <Compile Include="Products.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VendorModel.cs" />
+    <Compile Include="ViewModel\BulkBuyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppModelResources.resx">
