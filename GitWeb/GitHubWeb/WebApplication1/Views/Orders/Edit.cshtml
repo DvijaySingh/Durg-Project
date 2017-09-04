@@ -11,169 +11,178 @@
 <script src="~/Scripts/Pages/CreateOrder.js"></script>
 <center> <label> Update Order</label></center>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Customer Info</button>
+    <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
+    
+</div>
+
+<div id="custnfo" class="tabcontent">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @*<button type="button" id="btncustInfo" class="btn btn-info" data-toggle="collapse" data-target="#custInfo">
-            <span class="glyphicon glyphicon-chevron-down"></span> Customer Info
-        </button>*@
-    <div>
-        <fieldset>
-            <legend>Customer Information</legend>
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label>Customer Name </label>
-                    @Html.HiddenFor(model => model.OrderId, new { @id = "hdnorderId" })
-                    @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<button type="button" id="btncustInfo" class="btn btn-info" data-toggle="collapse" data-target="#custInfo">
+                <span class="glyphicon glyphicon-chevron-down"></span> Customer Info
+            </button>*@
+        <div class="customer-information">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Customer Name </label>
+                        @Html.HiddenFor(model => model.OrderId, new { @id = "hdnorderId" })
+                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Address </label>
+                        @Html.TextAreaFor(model => model.CustomerAddress, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Booking Amount </label>
+                        @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.BookingAmount, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Oustanding Amount </label>
+                        @Html.TextBoxFor(model => model.OutstandingAmount, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.OutstandingAmount, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-                <div class="col-md-3 form-group">
-                    <label>Address </label>
-                    @Html.TextAreaFor(model => model.CustomerAddress, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Booking Amount </label>
-                    @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.BookingAmount, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Oustanding Amount </label>
-                    @Html.TextBoxFor(model => model.OutstandingAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.OutstandingAmount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label>  Order Date </label>
-                    @Html.TextBoxFor(model => model.OrderDate, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "txtOrderDate" })
-                    @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Delivery Date </label>
-                    @Html.TextBoxFor(model => model.DeliveryDate, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "txtDelivaryDate" })
-                    @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Gold </label>
-                    
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>  Order Date </label>
+                        @Html.TextBoxFor(model => model.OrderDate, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "txtOrderDate" })
+                        @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Delivery Date </label>
+                        @Html.TextBoxFor(model => model.DeliveryDate, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "txtDelivaryDate" })
+                        @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Gold </label>
+
                         @Html.TextBoxFor(model => model.GRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.GRate, "", new { @class = "text-danger" })
-                    
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Silver </label>
-                  
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Silver </label>
+
                         @Html.TextBoxFor(model => model.SRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.SRate, "", new { @class = "text-danger" })
-                    
+
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-9"></div>
-                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default " /></div>
-            </div>
-        </fieldset>
-    </div>
+                <div class="row">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default " /></div>
+                </div>
+        </div>
 
 
-}
-<button type="button" id="more" class="btn btn-info" data-toggle="collapse" data-target="#divcusProducts">
-    More Products <span class="glyphicon glyphicon-chevron-down"></span>
-</button>
-<div id="divcusProducts" class="customer-information">
-    <fieldset>
-        <legend> Product Information</legend>
-        @using (Ajax.BeginForm("AddProduct", "CustomerProducts",
+    }
+</div>
+
+<div id="productInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+            @using (Ajax.BeginForm("AddProduct", "CustomerProducts",
                                                                                           new AjaxOptions
                                                                                           {
                                                                                               HttpMethod = "Post",
                                                                                               UpdateTargetId = "lstCusProducts",
                                                                                               OnSuccess = "RefreshDatatable"
                                                                                           }))
-        {
-            <div id="ajaxform">
-                <div class="row">
-                    <div class="col-md-3 form-group">
-                        <label> ProductName </label>
-                        @Html.HiddenFor(m => m.cusProduct.ProductID, new { @id = "hdnProductId" })
-                        @Html.HiddenFor(model => model.cusProduct.OrderID, new { @id = "hdnOrderId" })
-                        @Html.TextBoxFor(model => model.cusProduct.ProductName, new { @class = "form-control", @id = "txtProductname" })
-                        @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
+            {
+                <div id="ajaxform">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label> ProductName </label>
+                            @Html.HiddenFor(m => m.cusProduct.ProductID, new { @id = "hdnProductId" })
+                            @Html.HiddenFor(model => model.cusProduct.OrderID, new { @id = "hdnOrderId" })
+                            @Html.TextBoxFor(model => model.cusProduct.ProductName, new { @class = "form-control", @id = "txtProductname" })
+                            @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
 
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label> Type </label>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> Type </label>
 
-                        @Html.DropDownListFor(model => model.cusProduct.Type, new SelectList(
+                            @Html.DropDownListFor(model => model.cusProduct.Type, new SelectList(
                   new List<Object>{
                          new { value = 0 , text = "Please Select"  },new { value = 1 , text = "Silver"  },
                        new { value = 2 , text = "Gold" }
                     }, "value",
                   "text"), new { @class = "form-control", @id = "ddlType" })
-                        @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
 
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> AppxWeight(gm) </label>
+
+                            @Html.TextBoxFor(model => model.cusProduct.AppxWeight, new { @class = "form-control", @type = "number", @id = "txtAppxw" })
+                            @Html.ValidationMessageFor(model => model.cusProduct.AppxWeight, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> Actual Weight(gm) </label>
+                            @Html.TextBoxFor(model => model.cusProduct.ActualWeight, new { @class = "form-control", @type = "number", @id = "txtActualw" })
+                            @Html.ValidationMessageFor(model => model.cusProduct.ActualWeight, "", new { @class = "text-danger" })
+
+                        </div>
                     </div>
-                    <div class="col-md-3 form-group">
-                        <label> AppxWeight(gm) </label>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label> Quantity </label>
+                            @Html.TextBoxFor(model => model.cusProduct.Qty, new { @class = "form-control", @type = "number", @id = "txtqty" })
+                            @Html.ValidationMessageFor(model => model.cusProduct.Qty, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> Amount </label>
+                            @Html.TextBoxFor(model => model.cusProduct.Amount, new { @class = "form-control", @type = "number", @id = "txtamount" })
+                            @Html.ValidationMessageFor(model => model.cusProduct.Amount, "", new { @class = "text-danger" })
 
-                        @Html.TextBoxFor(model => model.cusProduct.AppxWeight, new { @class = "form-control", @type = "number", @id = "txtAppxw" })
-                        @Html.ValidationMessageFor(model => model.cusProduct.AppxWeight, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> Description </label>
+                            @Html.TextAreaFor(model => model.cusProduct.Description, new { @class = "form-control", @id = "txtdesc" })
+                            @Html.ValidationMessageFor(model => model.cusProduct.Description, "", new { @class = "text-danger" })
 
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label> Actual Weight(gm) </label>
-                        @Html.TextBoxFor(model => model.cusProduct.ActualWeight, new { @class = "form-control", @type = "number", @id = "txtActualw" })
-                        @Html.ValidationMessageFor(model => model.cusProduct.ActualWeight, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
+                        </div>
 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3 form-group">
-                        <label> Quantity </label>
-                        @Html.TextBoxFor(model => model.cusProduct.Qty, new { @class = "form-control", @type = "number", @id = "txtqty" })
-                        @Html.ValidationMessageFor(model => model.cusProduct.Qty, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label> Amount </label>
-                        @Html.TextBoxFor(model => model.cusProduct.Amount, new { @class = "form-control", @type = "number", @id = "txtamount" })
-                        @Html.ValidationMessageFor(model => model.cusProduct.Amount, "", new { @class = "text-danger" })
 
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label> Description </label>
-                        @Html.TextAreaFor(model => model.cusProduct.Description, new { @class = "form-control", @id = "txtdesc" })
-                        @Html.ValidationMessageFor(model => model.cusProduct.Description, "", new { @class = "text-danger" })
+            }
 
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
-                    </div>
-
-                </div>
+            <div id="lstCusProducts">
+                @Html.Partial("~/Views/Orders/_CustomerProduct.cshtml", Model)
             </div>
+            @*<div class="row">
+                    <div class="col-md-9">
 
-        }
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" id="btnAddCP" value="Add Produc" class="btn btn-default" />
+                        <input type="button" id="btnRemoveCP" value="Remove Produc" class="btn btn-default" />
+                    </div>
+                </div>*@
 
-        <div id="lstCusProducts">
-            @Html.Partial("~/Views/Orders/_CustomerProduct.cshtml", Model)
-        </div>
-        @*<div class="row">
-                <div class="col-md-9">
-
-                </div>
-                <div class="col-md-3">
-                    <input type="button" id="btnAddCP" value="Add Produc" class="btn btn-default" />
-                    <input type="button" id="btnRemoveCP" value="Remove Produc" class="btn btn-default" />
-                </div>
-            </div>*@
-
-    </fieldset>
-
+    </div>
 </div>
+
+
+
+@*<button type="button" id="more" class="btn btn-info" data-toggle="collapse" data-target="#divcusProducts">
+    More Products <span class="glyphicon glyphicon-chevron-down"></span>
+</button>*@
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

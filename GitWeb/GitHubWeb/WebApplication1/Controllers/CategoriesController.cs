@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DAL.Interface;
 
 namespace WebApplication1.Controllers
 {
@@ -14,6 +15,11 @@ namespace WebApplication1.Controllers
     {
         private ShopDevEntities db = new ShopDevEntities();
 
+        private ICategory _ICategory;
+        public CategoriesController(ICategory icategory)
+        {
+            this._ICategory = icategory;
+        }
         // GET: Categories
         public ActionResult Index()
         {

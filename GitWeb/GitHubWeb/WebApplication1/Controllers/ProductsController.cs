@@ -8,13 +8,18 @@ using System.Web;
 using System.Web.Mvc;
 using DAL;
 using System.IO;
+using DAL.Interface;
 
 namespace WebApplication1.Controllers
 {
     public class ProductsController : Controller
     {
         private ShopDevEntities db = new ShopDevEntities();
-
+        private IProduct _IProduct;
+        public ProductsController(IProduct iproduct)
+        {
+            this._IProduct = iproduct;
+        }
         // GET: Products
         public ActionResult Index()
         {

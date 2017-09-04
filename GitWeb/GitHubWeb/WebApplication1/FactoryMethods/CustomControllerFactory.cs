@@ -37,6 +37,16 @@ namespace WebApplication1.FactoryMethods
                         service = new DashBoardDAL();
                         break;
                     }
+                case "Categories":
+                    {
+                        service = new CategoryDAL();
+                        break;
+                    }
+                case "Products":
+                    {
+                        service = new ProductDAL();
+                        break;
+                    }
             }
             IController controller = Activator.CreateInstance(controllerType, new[] { service }) as Controller;
             return controller;

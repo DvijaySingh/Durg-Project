@@ -4,46 +4,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.4.0/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js"></script>
-<script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
-<script>
-    var editor;
-    $(document).ready(function () {
-        editor = new $.fn.dataTable.Editor({
-            table: "#tblOrders",
-            fields: [{
-                label: "CustomerName:",
-                name: "CustomerName"
-            }
-            ]
-        });
-        $('#tblCategory').on('click', 'tbody td:not(:first-child)', function (e) {
-            editor.inline(this);
-        });
-        $('#tblCategory').DataTable({
-            dom: "Bfrtip",
-            select: {
-                style: 'os',
-                selector: 'td:first-child'
-            },
-            buttons: [
-                //{ extend: "create", editor: editor },
-                { extend: "edit", editor: editor },
-                { extend: "remove", editor: editor }
-            ]
-        });
-    })
-</script>
 
-@*<div class="jumbotron" id="tblCategory">*@
+<div class="customer-information"  >
+ 
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
 
-    <table class="table table-striped" id="tblCategory">
+    <table class="table table-striped datatables " id="tblCategory">
         <thead>
             <tr>
                 <th>
@@ -75,7 +43,7 @@
         </tbody>
 
     </table>
-@*</div>*@
+</div>
 <script>
     $(document).ready(function () {
         $("#tblCategory").DataTable({

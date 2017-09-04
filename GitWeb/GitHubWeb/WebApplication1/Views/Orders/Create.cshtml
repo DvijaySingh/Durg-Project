@@ -1,4 +1,6 @@
-﻿@model Web.Models.OrderModel
+﻿
+@using MyResources= WebApplication1.Resources.AppResources
+@model Web.Models.OrderModel
 
 @{
     ViewBag.Title = "Add Order";
@@ -6,100 +8,100 @@
 }
 
 <script src="~/Scripts/Pages/CreateOrder.js"></script>
-<center> <label> Add Order</label></center>
+<center> <label> Add Order </label></center>
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Customer Info</button>
+    <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
+
+</div>
+<div id="custnfo" class="tabcontent">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
 
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<button type="button" id="btncustInfo" class="btn btn-info" data-toggle="collapse" data-target="#custInfo">
+                <span class="glyphicon glyphicon-chevron-down"></span> Customer Info
+            </button>*@
+        <div class="customer-information">
+             
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>@MyResources.CustomerName </label>
+                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>@MyResources.Address </label>
+                        @Html.TextAreaFor(model => model.CustomerAddress, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> @MyResources.BookingAmount </label>
+                        @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.BookingAmount, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> @MyResources.OustandingAmount </label>
+                        @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.OutstandingAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>  @MyResources.OrderDate</label>
+                        @Html.TextBoxFor(model => model.OrderDate, new { @class = "form-control", @id = "txtOrderDate" })
+                        @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Delivery Date </label>
+                        @Html.TextBoxFor(model => model.DeliveryDate, new { @class = "form-control", @id = "txtDelivaryDate" })
+                        @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> @MyResources.Gold </label>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @*<button type="button" id="btncustInfo" class="btn btn-info" data-toggle="collapse" data-target="#custInfo">
-        <span class="glyphicon glyphicon-chevron-down"></span> Customer Info
-    </button>*@
-    <div class="customer-information">
-        <fieldset>
-            <legend>Customer Information</legend>
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label>Customer Name </label>
-                    @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label>Address </label>
-                    @Html.TextAreaFor(model => model.CustomerAddress, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Booking Amount </label>
-                    @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.BookingAmount, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Oustanding Amount </label>
-                    @Html.TextBoxFor(model => model.BookingAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.OutstandingAmount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label>  Order Date </label>
-                    @Html.TextBoxFor(model => model.OrderDate, new { @class = "form-control", @id = "txtOrderDate" })
-                    @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Delivery Date </label>
-                    @Html.TextBoxFor(model => model.DeliveryDate, new { @class = "form-control", @id = "txtDelivaryDate" })
-                    @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Gold </label>
-                   
                         @Html.TextBoxFor(model => model.GRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.GRate, "", new { @class = "text-danger" })
-                   
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Silver </label>
-                    
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>@MyResources.Silver </label>
+
                         @Html.TextBoxFor(model => model.SRate, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(model => model.SRate, "", new { @class = "text-danger" })
-                    
+
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-9"></div>
-                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
-            </div>
-        </fieldset>
-    </div>
+                <div class="row">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
+                </div>
+            
+        </div>
 
 
-}
-<br />
-<button type="button" id="more" class="btn btn-info" data-toggle="collapse" data-target="#divcusProducts">
-    More Products <span class="glyphicon glyphicon-chevron-down"></span> 
-</button>
-<div id="divcusProducts" class="customer-information collapse">
-    <fieldset>
-        <legend> Product Information</legend>
+    }
+   </div>
+ 
+<div id="productInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
         @using (Ajax.BeginForm("AddProduct", "CustomerProducts",
-                                                                                      new AjaxOptions
-                                                                                      {
-                                                                                          HttpMethod = "Post",
-                                                                                          UpdateTargetId = "lstCusProducts",
-                                                                                          OnSuccess = "RefreshDatatable"
-                                                                                      }))
-    {
+                                                                                              new AjaxOptions
+                                                                                              {
+                                                                                                  HttpMethod = "Post",
+                                                                                                  UpdateTargetId = "lstCusProducts",
+                                                                                                  OnSuccess = "RefreshDatatable"
+                                                                                              }))
+        {
             <div id="ajaxform">
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label> ProductName </label>
-                        @Html.HiddenFor(m=>m.cusProduct.ProductID, new { @id = "hdnProductId" })
-                        @Html.TextBoxFor(model => model.cusProduct.ProductName, new { @class = "form-control", @id = "txtProductname" } )
+                        @Html.HiddenFor(m => m.cusProduct.ProductID, new { @id = "hdnProductId" })
+                        @Html.TextBoxFor(model => model.cusProduct.ProductName, new { @class = "form-control", @id = "txtProductname" })
                         @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
 
                     </div>
@@ -154,9 +156,9 @@
                 </div>
             </div>
 
-    }
+        }
 
-        <div id="lstCusProducts" >
+        <div id="lstCusProducts">
             @Html.Partial("~/Views/Orders/_CustomerProduct.cshtml", Model)
         </div>
         @*<div class="row">
@@ -169,13 +171,13 @@
                 </div>
             </div>*@
 
-    </fieldset>
-
+    </div>
 </div>
+
 <div>
+
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

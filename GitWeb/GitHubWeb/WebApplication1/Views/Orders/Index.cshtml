@@ -4,11 +4,11 @@
     ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
+<div class="customer-information">
     <p>
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
     </p>
-    <table class="table table-striped" id="tblOrders">
+    <table class="table table-striped datatables" id="tblOrders">
         <thead>
             <tr>
                 <th>
@@ -69,7 +69,8 @@
     $(document).ready(function () {
         $("#tblOrders").DataTable({
             paging: true,
-            aaSorting: [] 
+            aaSorting: [],
+            responsive: true
         });
         $('#tblOrders_length').remove();
         $('#tblOrders_filter input').addClass('form-control');
