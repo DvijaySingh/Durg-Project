@@ -14,6 +14,7 @@
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

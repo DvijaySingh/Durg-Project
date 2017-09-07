@@ -1,0 +1,46 @@
+﻿
+@model Web.Models.ViewModel.BulkBuyViewModel
+
+<table class="table table-striped" id="tblinstallment">
+    <thead>
+        <tr>
+
+            <th>
+               Amount
+            </th>
+            <th>
+              Date
+            </th>
+            
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.lstinstallments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstallmentDate)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
+                    <button id="@item.InstallmentID" class="btn btn-default btnInstallmetedit">Edit</button>
+                    @Ajax.ActionLink("Delete", "DeleteInstallMent", "BulkBuys", new { InstallmentID = item.InstallmentID,bulkBuyID=item.BulkBuyID },
+                    new AjaxOptions
+                    {
+                        Confirm = "are you sure to perform the deletion.",
+                        HttpMethod = "POST",
+                        UpdateTargetId = "lstinstallment",
+                        OnSuccess = "RefreshInstallmentDatatable",
+                    })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

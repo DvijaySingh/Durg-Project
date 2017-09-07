@@ -13,8 +13,9 @@ namespace Web.Models
         public string Address { get; set; }
         public  decimal? TakenAmount { get; set; }
         public decimal? Rate { get; set; }
-        public decimal? GWeight { get; set; }
-        public  decimal? SWeight { get; set; }
         public string Status { get; set; }
+        public  DateTime? StartDate { get; set; }
+        public  DateTime? CloseDate { get; set; }
+        public  decimal? ClosingAmount { get; set; }
     }
 }

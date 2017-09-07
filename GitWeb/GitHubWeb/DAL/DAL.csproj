@@ -54,6 +54,9 @@
     <Compile Include="BulkBuy.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="BulkBuyInstallment.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="BulkBuyProduct.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
@@ -64,11 +67,13 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EmailSender.cs" />
+    <Compile Include="Implementation\BulkBuyDAL.cs" />
     <Compile Include="Implementation\CategoryDAL.cs" />
     <Compile Include="Implementation\CustomerProductDAL.cs" />
     <Compile Include="Implementation\DashBoardDAL.cs" />
     <Compile Include="Implementation\OrderDAL.cs" />
     <Compile Include="Implementation\ProductDAL.cs" />
+    <Compile Include="Interface\IBulkProduct.cs" />
     <Compile Include="Interface\ICategory.cs" />
     <Compile Include="Interface\ICustomerProduct.cs" />
     <Compile Include="Interface\IDashBoard.cs" />

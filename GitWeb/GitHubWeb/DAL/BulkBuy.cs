@@ -22,5 +22,8 @@ namespace DAL
         public Nullable<decimal> GWeight { get; set; }
         public Nullable<decimal> SWeight { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> CloseDate { get; set; }
+        public Nullable<decimal> ClosingAmount { get; set; }
     }
 }

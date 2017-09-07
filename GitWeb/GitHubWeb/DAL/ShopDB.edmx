@@ -17,12 +17,24 @@
           <Property Name="GWeight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="SWeight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="CloseDate" Type="datetime" />
+          <Property Name="ClosingAmount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="BulkBuyInstallment">
+          <Key>
+            <PropertyRef Name="InstallmentID" />
+          </Key>
+          <Property Name="InstallmentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BulkBuyID" Type="bigint" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="InstallmentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="BulkBuyProducts">
           <Key>
             <PropertyRef Name="BulkBuyProductID" />
           </Key>
-          <Property Name="BulkBuyProductID" Type="bigint" Nullable="false" />
+          <Property Name="BulkBuyProductID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BulkBuyID" Type="bigint" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
@@ -116,6 +128,7 @@
         </Association>
         <EntityContainer Name="db5ae8b958e1b947fbb352a7c400ba93b4ModelStoreContainer">
           <EntitySet Name="BulkBuy" EntityType="Self.BulkBuy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BulkBuyInstallment" EntityType="Self.BulkBuyInstallment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BulkBuyProducts" EntityType="Self.BulkBuyProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerProduct" EntityType="Self.CustomerProduct" Schema="dbo" store:Type="Tables" />
@@ -213,6 +226,7 @@
           <EntitySet Name="BulkBuys" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy" />
           <EntitySet Name="BulkBuyProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct" />
           <EntitySet Name="VendorDetails" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" />
+          <EntitySet Name="BulkBuyInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -233,6 +247,9 @@
           <Property Name="GWeight" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="SWeight" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="CloseDate" Type="DateTime" Precision="3" />
+          <Property Name="ClosingAmount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="BulkBuyProduct">
           <Key>
@@ -256,6 +273,15 @@
           <Property Name="TakenAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ReturnAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="BulkBuyInstallment">
+          <Key>
+            <PropertyRef Name="InstallmentID" />
+          </Key>
+          <Property Name="InstallmentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BulkBuyID" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InstallmentDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -332,6 +358,9 @@
           <EntitySetMapping Name="BulkBuys">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy">
               <MappingFragment StoreEntitySet="BulkBuy">
+                <ScalarProperty Name="ClosingAmount" ColumnName="ClosingAmount" />
+                <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SWeight" ColumnName="SWeight" />
                 <ScalarProperty Name="GWeight" ColumnName="GWeight" />
@@ -365,6 +394,16 @@
                 <ScalarProperty Name="VendorName" ColumnName="VendorName" />
                 <ScalarProperty Name="BulkByID" ColumnName="BulkByID" />
                 <ScalarProperty Name="BuyVendorID" ColumnName="BuyVendorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BulkBuyInstallments">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment">
+              <MappingFragment StoreEntitySet="BulkBuyInstallment">
+                <ScalarProperty Name="InstallmentDate" ColumnName="InstallmentDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
+                <ScalarProperty Name="InstallmentID" ColumnName="InstallmentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

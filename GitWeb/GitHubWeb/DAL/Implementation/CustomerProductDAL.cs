@@ -44,7 +44,7 @@ namespace DAL.Implementation
                     }
                     return lstcsproducts;
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     return lstcsproducts;
                 }
@@ -71,7 +71,7 @@ namespace DAL.Implementation
                     }
 
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
 
                 }
@@ -86,7 +86,7 @@ namespace DAL.Implementation
             {
                 objCustomerProduct = db.CustomerProducts.Where(m => m.ProductID == Id).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }

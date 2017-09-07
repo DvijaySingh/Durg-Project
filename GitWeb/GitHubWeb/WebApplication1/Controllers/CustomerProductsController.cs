@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult AddProduct(OrderModel objOrderModel)
         {
-            CustomerProductModel objCustomer = objOrderModel.cusProduct;
+            //CustomerProductModel objCustomer = objOrderModel.cusProduct;
             List<CustomerProductModel> lstAddedProducts = _ICustomerProduct.AddCustomerProduct(objOrderModel.cusProduct);
             objOrderModel.cusProduct = new CustomerProductModel();
             objOrderModel.lstcusProduct = new List<CustomerProductModel>();

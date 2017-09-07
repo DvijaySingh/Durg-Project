@@ -47,6 +47,11 @@ namespace WebApplication1.FactoryMethods
                         service = new ProductDAL();
                         break;
                     }
+                case "BulkBuys":
+                    {
+                        service = new BulkBuyDAL();
+                        break;
+                    }
             }
             IController controller = Activator.CreateInstance(controllerType, new[] { service }) as Controller;
             return controller;

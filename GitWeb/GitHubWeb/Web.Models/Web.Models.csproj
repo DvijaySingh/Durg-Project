@@ -49,6 +49,7 @@
     <Compile Include="BulkBuyModel.cs" />
     <Compile Include="BulkBuyProductsModel.cs" />
     <Compile Include="CustomerProductModel.cs" />
+    <Compile Include="Installments.cs" />
     <Compile Include="OrderModel.cs" />
     <Compile Include="Products.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

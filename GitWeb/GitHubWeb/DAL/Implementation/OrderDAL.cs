@@ -123,7 +123,7 @@ namespace DAL.Implementation
                     ordermodel.lstcusProduct.AddRange(lstcsproducts);
 
                 }
-                catch (Exception ex) { }
+                catch (Exception  ) { }
             }
             return ordermodel;
         }
