@@ -34,5 +34,13 @@ namespace DAL
         public virtual DbSet<BulkBuyProduct> BulkBuyProducts { get; set; }
         public virtual DbSet<VendorDetail> VendorDetails { get; set; }
         public virtual DbSet<BulkBuyInstallment> BulkBuyInstallments { get; set; }
+        public virtual DbSet<Borrower> Borrowers { get; set; }
+        public virtual DbSet<BorrowerInstallment> BorrowerInstallments { get; set; }
+        public virtual DbSet<Buyer> Buyers { get; set; }
+        public virtual DbSet<BuyerInstallment> BuyerInstallments { get; set; }
+        public virtual DbSet<BuyerProduct> BuyerProducts { get; set; }
+        public virtual DbSet<Seller> Sellers { get; set; }
+        public virtual DbSet<SellerInstallment> SellerInstallments { get; set; }
+        public virtual DbSet<SellerProduct> SellerProducts { get; set; }
     }
 }

@@ -15,6 +15,14 @@
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" Width="1.5" PointX="7.375" PointY="3.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Borrower" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BorrowerInstallment" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Buyer" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerInstallment" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerProduct" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Seller" Width="1.5" PointX="9.75" PointY="6.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerInstallment" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct" Width="1.5" PointX="6.75" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

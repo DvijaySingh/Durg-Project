@@ -5,6 +5,27 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="db5ae8b958e1b947fbb352a7c400ba93b4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Borrower">
+          <Key>
+            <PropertyRef Name="BorrowID" />
+          </Key>
+          <Property Name="BorrowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Amont" Type="money" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="BorrowerInstallment">
+          <Key>
+            <PropertyRef Name="InstallmentID" />
+          </Key>
+          <Property Name="InstallmentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BorrowerID" Type="bigint" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="BulkBuy">
           <Key>
             <PropertyRef Name="BulkBuyID" />
@@ -39,6 +60,37 @@
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
           <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="BuyerID" />
+          </Key>
+          <Property Name="BuyerID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyerName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="DepositeAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OutstandingAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BuyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BuyerInstallment">
+          <Key>
+            <PropertyRef Name="BuyerInstallmentID" />
+          </Key>
+          <Property Name="BuyerInstallmentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyerID" Type="bigint" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="BuyerProducts">
+          <Key>
+            <PropertyRef Name="BuyerProductlD" />
+          </Key>
+          <Property Name="BuyerProductlD" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Units" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -101,6 +153,38 @@
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="DepositeAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OutstandingAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BuyDate" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SellerInstallments">
+          <Key>
+            <PropertyRef Name="SellerInstallmentID" />
+          </Key>
+          <Property Name="SellerInstallmentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerID" Type="bigint" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="SellerProduct">
+          <Key>
+            <PropertyRef Name="SellerProductID" />
+          </Key>
+          <Property Name="SellerProductID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Unit" Type="int" />
+          <Property Name="weight" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="VendorDetails">
           <Key>
             <PropertyRef Name="BuyVendorID" />
@@ -127,14 +211,22 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="db5ae8b958e1b947fbb352a7c400ba93b4ModelStoreContainer">
+          <EntitySet Name="Borrower" EntityType="Self.Borrower" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BorrowerInstallment" EntityType="Self.BorrowerInstallment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BulkBuy" EntityType="Self.BulkBuy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BulkBuyInstallment" EntityType="Self.BulkBuyInstallment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BulkBuyProducts" EntityType="Self.BulkBuyProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuyerInstallment" EntityType="Self.BuyerInstallment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuyerProducts" EntityType="Self.BuyerProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerProduct" EntityType="Self.CustomerProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MType" EntityType="Self.MType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellerInstallments" EntityType="Self.SellerInstallments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellerProduct" EntityType="Self.SellerProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorDetails" EntityType="Self.VendorDetails" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
             <End Role="Category" EntitySet="Category" />
@@ -227,6 +319,14 @@
           <EntitySet Name="BulkBuyProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct" />
           <EntitySet Name="VendorDetails" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" />
           <EntitySet Name="BulkBuyInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment" />
+          <EntitySet Name="Borrowers" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Borrower" />
+          <EntitySet Name="BorrowerInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BorrowerInstallment" />
+          <EntitySet Name="Buyers" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Buyer" />
+          <EntitySet Name="BuyerInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerInstallment" />
+          <EntitySet Name="BuyerProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerProduct" />
+          <EntitySet Name="Sellers" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Seller" />
+          <EntitySet Name="SellerInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerInstallment" />
+          <EntitySet Name="SellerProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -282,6 +382,90 @@
           <Property Name="BulkBuyID" Type="Int64" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="InstallmentDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Borrower">
+          <Key>
+            <PropertyRef Name="BorrowID" />
+          </Key>
+          <Property Name="BorrowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amont" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BorrowerInstallment">
+          <Key>
+            <PropertyRef Name="InstallmentID" />
+          </Key>
+          <Property Name="InstallmentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BorrowerID" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="BuyerID" />
+          </Key>
+          <Property Name="BuyerID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DepositeAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutstandingAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BuyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BuyerInstallment">
+          <Key>
+            <PropertyRef Name="BuyerInstallmentID" />
+          </Key>
+          <Property Name="BuyerInstallmentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyerID" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BuyerProduct">
+          <Key>
+            <PropertyRef Name="BuyerProductlD" />
+          </Key>
+          <Property Name="BuyerProductlD" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Units" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DepositeAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutstandingAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BuyDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SellerInstallment">
+          <Key>
+            <PropertyRef Name="SellerInstallmentID" />
+          </Key>
+          <Property Name="SellerInstallmentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerID" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="SellerProduct">
+          <Key>
+            <PropertyRef Name="SellerProductID" />
+          </Key>
+          <Property Name="SellerProductID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="Int32" />
+          <Property Name="weight" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -404,6 +588,98 @@
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
                 <ScalarProperty Name="InstallmentID" ColumnName="InstallmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Borrowers">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Borrower">
+              <MappingFragment StoreEntitySet="Borrower">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amont" ColumnName="Amont" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BorrowID" ColumnName="BorrowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BorrowerInstallments">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BorrowerInstallment">
+              <MappingFragment StoreEntitySet="BorrowerInstallment">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="BorrowerID" ColumnName="BorrowerID" />
+                <ScalarProperty Name="InstallmentID" ColumnName="InstallmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buyers">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Buyer">
+              <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
+                <ScalarProperty Name="DepositeAmount" ColumnName="DepositeAmount" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuyerInstallments">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerInstallment">
+              <MappingFragment StoreEntitySet="BuyerInstallment">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="BuyerInstallmentID" ColumnName="BuyerInstallmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuyerProducts">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerProduct">
+              <MappingFragment StoreEntitySet="BuyerProducts">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="BuyerProductlD" ColumnName="BuyerProductlD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Seller">
+              <MappingFragment StoreEntitySet="Seller">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
+                <ScalarProperty Name="DepositeAmount" ColumnName="DepositeAmount" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellerInstallments">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerInstallment">
+              <MappingFragment StoreEntitySet="SellerInstallments">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="SellerInstallmentID" ColumnName="SellerInstallmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellerProducts">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct">
+              <MappingFragment StoreEntitySet="SellerProduct">
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="SellerProductID" ColumnName="SellerProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
