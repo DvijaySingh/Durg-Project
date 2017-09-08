@@ -9,7 +9,7 @@ using System.Web.SessionState;
 
 namespace WebApplication1.FactoryMethods
 {
-    public class CustomControllerFactory: IControllerFactory
+    public class CustomControllerFactory : IControllerFactory
     {
         private readonly string _controllerNamespace;
         public CustomControllerFactory(string controllerNamespace)
@@ -50,6 +50,21 @@ namespace WebApplication1.FactoryMethods
                 case "BulkBuys":
                     {
                         service = new BulkBuyDAL();
+                        break;
+                    }
+                case "Buyers":
+                    {
+                        service = new BuyerDAL();
+                        break;
+                    }
+                case "Sellers":
+                    {
+                        service = new SellerDAL();
+                        break;
+                    }
+                case "Borrowers":
+                    {
+                        service = new BorrowerDAL();
                         break;
                     }
             }

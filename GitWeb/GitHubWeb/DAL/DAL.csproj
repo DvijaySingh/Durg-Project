@@ -82,18 +82,24 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EmailSender.cs" />
+    <Compile Include="Implementation\BorrowerDAL.cs" />
     <Compile Include="Implementation\BulkBuyDAL.cs" />
+    <Compile Include="Implementation\BuyerDAL.cs" />
     <Compile Include="Implementation\CategoryDAL.cs" />
     <Compile Include="Implementation\CustomerProductDAL.cs" />
     <Compile Include="Implementation\DashBoardDAL.cs" />
     <Compile Include="Implementation\OrderDAL.cs" />
     <Compile Include="Implementation\ProductDAL.cs" />
+    <Compile Include="Implementation\SellerDAL.cs" />
+    <Compile Include="Interface\IBorrower.cs" />
     <Compile Include="Interface\IBulkProduct.cs" />
+    <Compile Include="Interface\IBuyer.cs" />
     <Compile Include="Interface\ICategory.cs" />
     <Compile Include="Interface\ICustomerProduct.cs" />
     <Compile Include="Interface\IDashBoard.cs" />
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Interface\IProduct.cs" />
+    <Compile Include="Interface\ISeller.cs" />
     <Compile Include="MapProperties.cs" />
     <Compile Include="MType.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>

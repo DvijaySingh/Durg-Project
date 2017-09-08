@@ -169,13 +169,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BorrowersController.cs" />
     <Compile Include="Controllers\BulkBuysController.cs" />
+    <Compile Include="Controllers\BuyersController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomerProductsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SellersController.cs" />
     <Compile Include="FactoryMethods\CustomControllerFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -288,6 +291,21 @@
     <Content Include="Views\BulkBuys\_BulkProducts.cshtml" />
     <Content Include="Views\BulkBuys\_bulkVendors.cshtml" />
     <Content Include="Views\BulkBuys\_Installments.cshtml" />
+    <Content Include="Views\Buyers\Create.cshtml" />
+    <Content Include="Views\Buyers\Delete.cshtml" />
+    <Content Include="Views\Buyers\Details.cshtml" />
+    <Content Include="Views\Buyers\Edit.cshtml" />
+    <Content Include="Views\Buyers\Index.cshtml" />
+    <Content Include="Views\Sellers\Create.cshtml" />
+    <Content Include="Views\Sellers\Delete.cshtml" />
+    <Content Include="Views\Sellers\Details.cshtml" />
+    <Content Include="Views\Sellers\Edit.cshtml" />
+    <Content Include="Views\Sellers\Index.cshtml" />
+    <Content Include="Views\Borrowers\Create.cshtml" />
+    <Content Include="Views\Borrowers\Delete.cshtml" />
+    <Content Include="Views\Borrowers\Details.cshtml" />
+    <Content Include="Views\Borrowers\Edit.cshtml" />
+    <Content Include="Views\Borrowers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DAL.Buyer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepositeAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OutstandingAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuyerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepositeAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OutstandingAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuyDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BuyerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BuyerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BuyerID })
+        </td>
+    </tr>
+}
+
+</table>
