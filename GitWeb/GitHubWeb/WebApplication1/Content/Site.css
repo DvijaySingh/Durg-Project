@@ -3,8 +3,10 @@
 body {
     padding-top: 0px;
     padding-bottom: 20px;
-    background-color: rgba(0, 149, 156, 0.86);
+    background-color:rgba(10, 75, 78, 0.86);
+    /*background-color: rgba(0, 149, 156, 0.86);*/
     /*background-color: #2196F3;*/
+    font-family: "Times New Roman", Georgia, Serif;
     color: #FFF;
     font-size: 16px;
 }
@@ -313,3 +315,17 @@ a {
     color: rgb(240, 241, 240);
     text-decoration: none;
 }
+
+a:hover {
+            background-color: #ddd;
+        }
+h2{
+    margin-top:0px;
+}
+/*.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    cursor: default;
+    color: #f1e6e6 !important;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+}*/

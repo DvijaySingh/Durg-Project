@@ -5,12 +5,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Web.Models;
+using Web.Models.ViewModel;
 
 namespace DAL.Implementation
 {
     public class BulkBuyDAL : IBulkProduct
     {
 
+        public void AddBulkBuy(BulkBuyModel BulkInfo)
+        {
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    BulkBuy bulkbuy = null;
+                    if (BulkInfo.BulkBuyID == 0)
+                    {
+                        bulkbuy = new BulkBuy();
+                        BulkInfo.CopyProperties(bulkbuy);
+                        db.BulkBuys.Add(bulkbuy);
+                    }
+                    else
+                    {
+                        bulkbuy = db.BulkBuys.Where(m => m.BulkBuyID == BulkInfo.BulkBuyID).FirstOrDefault();
+                        BulkInfo.CopyProperties(bulkbuy);
+                    }
+                    db.SaveChanges();
+
+                    List<BulkBuyProduct> lstNewproducts = db.BulkBuyProducts.Where(m => m.BulkBuyID == 0).ToList();
+                    lstNewproducts.ForEach(m => m.BulkBuyID = bulkbuy.BulkBuyID);
+                    List<VendorDetail> lstvendors = db.VendorDetails.Where(m => m.BulkByID == 0).ToList();
+                    lstvendors.ForEach(m => m.BulkByID = bulkbuy.BulkBuyID);
+
+                    List<BulkBuyInstallment> lstinstallments = db.BulkBuyInstallments.Where(m => m.BulkBuyID == 0).ToList();
+                    lstinstallments.ForEach(m => m.BulkBuyID = bulkbuy.BulkBuyID);
+                    db.SaveChanges();
+                }
+                catch
+                {
+
+                }
+            }
+        }
 
         public List<BulkBuyProductsModel> AddProduct(BulkBuyProductsModel productModel)
         {
@@ -150,7 +186,7 @@ namespace DAL.Implementation
             }
             return objvendor;
         }
-        public List<VendorModel> DeleteVendor(long Id,long bulkBuyID)
+        public List<VendorModel> DeleteVendor(long Id, long bulkBuyID)
         {
             List<VendorModel> lstvendors = new List<VendorModel>();
             using (ShopDevEntities db = new ShopDevEntities())
@@ -179,11 +215,42 @@ namespace DAL.Implementation
         }
 
         // installments
-        public List<Installments> AddInstallment(Installments ProductModel)
+        public List<Installments> AddInstallment(Installments installment)
         {
-            throw new NotImplementedException();
+            List<Installments> lstAllinstallments = new List<Installments>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    installment.BulkBuyID = installment.BulkBuyID == null ? 0 : installment.BulkBuyID;
+                    BulkBuyInstallment bulkinstDetail = null;
+                    if (installment.InstallmentID > 0)
+                    {
+                        bulkinstDetail = db.BulkBuyInstallments.Where(m => m.InstallmentID == installment.InstallmentID).FirstOrDefault();
+                    }
+                    else
+                    {
+                        bulkinstDetail = new BulkBuyInstallment();
+                    }
+                    installment.CopyProperties(bulkinstDetail);
+                    if (installment.InstallmentID == 0)
+                    {
+                        db.BulkBuyInstallments.Add(bulkinstDetail);
+                    }
+                    db.SaveChanges();
+                    var lstinstallments = db.BulkBuyInstallments.Where(m => m.BulkBuyID == installment.BulkBuyID).ToList();
+                    foreach (var cusprod in lstinstallments)
+                    {
+                        Installments objcsproduct = new Installments();
+                        cusprod.CopyProperties(objcsproduct);
+                        lstAllinstallments.Add(objcsproduct);
+                    }
+                }
+                catch { }
+                return lstAllinstallments;
+            }
         }
-        public List<Installments> DeleteDeleteInstallment(long Id,long bulkBuyID)
+        public List<Installments> DeleteDeleteInstallment(long Id, long bulkBuyID)
         {
             List<Installments> lstinstallments = new List<Installments>();
             using (ShopDevEntities db = new ShopDevEntities())
@@ -200,7 +267,6 @@ namespace DAL.Implementation
                         cusprod.CopyProperties(objInstallments);
                         lstinstallments.Add(objInstallments);
                     }
-
                 }
                 catch (Exception)
                 {
@@ -223,5 +289,81 @@ namespace DAL.Implementation
             return objinstllment;
         }
 
+        public void DeleteInitilProducts()
+        {
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    var AllInitialVendors = db.VendorDetails.Where(m => m.BulkByID == 0).ToList();
+                    db.VendorDetails.RemoveRange(AllInitialVendors);
+                    var AllInitialproducts = db.BulkBuyProducts.Where(m => m.BulkBuyID == 0).ToList();
+                    db.BulkBuyProducts.RemoveRange(AllInitialproducts);
+                    var AllInitialInstallments = db.BulkBuyInstallments.Where(m => m.BulkBuyID == 0).ToList();
+                    db.BulkBuyInstallments.RemoveRange(AllInitialInstallments);
+                    db.SaveChanges();
+                }
+                catch { }
+            }
+        }
+
+        public BulkBuyViewModel GetBulk(long? bulkID)
+        {
+            BulkBuyViewModel bulkmodel = new BulkBuyViewModel();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    var bulkBuycustomerInfo = db.BulkBuys.Where(m => m.BulkBuyID == bulkID).FirstOrDefault();
+                    var lstproducts = db.BulkBuyProducts.Where(m => m.BulkBuyID == bulkID).ToList();
+                    var AllInstallments = db.BulkBuyInstallments.Where(m => m.BulkBuyID == bulkID).ToList();
+                    var Allvendors = db.VendorDetails.Where(m => m.BulkByID == bulkID).ToList();
+
+                    BulkBuyModel bbModel = new BulkBuyModel();
+                    bulkBuycustomerInfo.CopyProperties(bbModel);
+
+                    List<BulkBuyProductsModel> lstcsproducts = new List<BulkBuyProductsModel>();
+                    foreach (var cusprod in lstproducts)
+                    {
+                        BulkBuyProductsModel objcsproduct = new BulkBuyProductsModel();
+                        cusprod.CopyProperties(objcsproduct);
+                        lstcsproducts.Add(objcsproduct);
+                    }
+                    List<VendorModel> lstvendors = new List<VendorModel>();
+                    foreach (var cusprod in Allvendors)
+                    {
+                        VendorModel objcsproduct = new VendorModel();
+                        cusprod.CopyProperties(objcsproduct);
+                        lstvendors.Add(objcsproduct);
+                    }
+
+                    List<Installments> lstInstallments = new List<Installments>();
+                    foreach (var cusprod in AllInstallments)
+                    {
+                        Installments objcsproduct = new Installments();
+                        cusprod.CopyProperties(objcsproduct);
+                        lstInstallments.Add(objcsproduct);
+                    }
+
+                    bulkmodel.bulkBuyModel = bbModel;
+                    bulkmodel.Products = new BulkBuyProductsModel();
+                    bulkmodel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
+                    bulkmodel.lstbulkBuyProducts.AddRange(lstcsproducts);
+
+                    bulkmodel.Vendors = new VendorModel();
+                    bulkmodel.lstVendors = new List<VendorModel>();
+                    bulkmodel.lstVendors.AddRange(lstvendors);
+
+                    bulkmodel.installments = new Installments();
+                    bulkmodel.lstinstallments = new List<Installments>();
+                    bulkmodel.lstinstallments.AddRange(lstInstallments);
+
+                   
+
+                }
+                catch (Exception) { }
+            }
+            return bulkmodel;
+        }
     }
 }

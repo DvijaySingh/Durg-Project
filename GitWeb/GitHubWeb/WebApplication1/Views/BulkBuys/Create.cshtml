@@ -2,7 +2,7 @@
 @model Web.Models.ViewModel.BulkBuyViewModel
 
 @{
-    ViewBag.Title = "Add Order";
+    ViewBag.Title = "Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -52,12 +52,12 @@
             <div class="row">
                 <div class="col-md-3 form-group">
                     <label>  Start Date</label>
-                    @Html.TextBoxFor(model => model.bulkBuyModel.StartDate, new { @class = "form-control", @id = "txtOrderDate" })
+                    @Html.TextBoxFor(model => model.bulkBuyModel.StartDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtOrderDate" })
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.StartDate, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Close Date </label>
-                    @Html.TextBoxFor(model => model.bulkBuyModel.CloseDate, new { @class = "form-control", @id = "txtDelivaryDate" })
+                    @Html.TextBoxFor(model => model.bulkBuyModel.CloseDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtDelivaryDate" })
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.CloseDate, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
@@ -95,7 +95,7 @@
                                                                                                       {
                                                                                                           HttpMethod = "Post",
                                                                                                           UpdateTargetId = "lstCusProducts",
-                                                                                                          OnSuccess = "RefreshDatatable"
+                                                                                                          OnSuccess = "RefreshProductDataTable"
                                                                                                       }))
         {
             <div id="ajaxform">
@@ -120,9 +120,9 @@
 
                     </div>
                     <div class="col-md-3 form-group">
-                        <label> AppxWeight(gm) </label>
+                        <label> Weight(gm) </label>
 
-                        @Html.TextBoxFor(model => model.Products.Weight, new { @class = "form-control", @type = "number", @id = "txtAppxw" })
+                        @Html.TextBoxFor(model => model.Products.Weight, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
                         @Html.ValidationMessageFor(model => model.Products.Weight, "", new { @class = "text-danger" })
 
                     </div>
@@ -152,7 +152,7 @@
 </div>
 <div id="vendorInfo" class="tabcontent">
     <div id="divcusProducts" class="customer-information">
-        @using (Ajax.BeginForm("AddVendorInfo", "BulkBuys",
+        @using (Ajax.BeginForm("AddVendor", "BulkBuys",
                                                                                                                                   new AjaxOptions
                                                                                                                                   {
                                                                                                                                       HttpMethod = "Post",
@@ -165,26 +165,26 @@
                     <div class="col-md-3 form-group">
                         <label> Name </label>
                         @Html.HiddenFor(m => m.Vendors.BuyVendorID, new { @id = "hdnvendorId" })
-                        @Html.TextBoxFor(model => model.Vendors.VendorName, new { @class = "form-control", @id = "txtProductname" })
+                        @Html.TextBoxFor(model => model.Vendors.VendorName, new { @class = "form-control", @id = "txtVendorName" })
                         @Html.ValidationMessageFor(model => model.Vendors.VendorName, "", new { @class = "text-danger" })
 
                     </div>
                     <div class="col-md-3 form-group">
                         <label> Taken Amount </label>
-                        @Html.TextBoxFor(model => model.Vendors.TakenAmount, new { @class = "form-control", @type = "number", @id = "txtamount" })
+                        @Html.TextBoxFor(model => model.Vendors.TakenAmount, new { @class = "form-control", @type = "number", @id = "txtamountTaken" })
                         @Html.ValidationMessageFor(model => model.Vendors.TakenAmount, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-3 form-group">
                         <label> Start Date </label>
 
-                        @Html.TextBoxFor(model => model.Vendors.StartDate, new { @class = "form-control", @id = "txtstartDate" })
+                        @Html.TextBoxFor(model => model.Vendors.StartDate, "{0:dd/MM/yyyy}",new { @class = "form-control", @id = "txtstartDate" })
                         @Html.ValidationMessageFor(model => model.Vendors.StartDate, "", new { @class = "text-danger" })
 
                     </div>
                     <div class="col-md-3 form-group">
                         <label> End Date </label>
 
-                        @Html.TextBoxFor(model => model.Vendors.EndDate, new { @class = "form-control", @id = "txtendDate" })
+                        @Html.TextBoxFor(model => model.Vendors.EndDate, "{0:dd/MM/yyyy}",new { @class = "form-control", @id = "txtendDate" })
                         @Html.ValidationMessageFor(model => model.Vendors.EndDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -207,7 +207,7 @@
 
                     </div>
                     <div class="col-md-3 form-group">
-
+                        <input type="submit" class="btn btn-default frm-button" id="btnVendorSubmit" value="Submit" />
                     </div>
                 </div>
             </div>
@@ -234,14 +234,14 @@
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label> Amount </label>
-                        @Html.HiddenFor(m => m.installments.InstallmentID, new { @id = "hdnProductId" })
+                        @Html.HiddenFor(m => m.installments.InstallmentID, new { @id = "hdnInstallment" })
                         @Html.TextBoxFor(model => model.installments.Amount, new { @class = "form-control", @type = "number", @id = "txtinsAmount" })
                         @Html.ValidationMessageFor(model => model.installments.Amount, "", new { @class = "text-danger" })
 
                     </div>
                     <div class="col-md-3 form-group">
                         <label> Date </label>
-                        @Html.TextBoxFor(model => model.installments.InstallmentDate, new { @class = "form-control", @type = "number", @id = "txtinsdate" })
+                        @Html.TextBoxFor(model => model.installments.InstallmentDate, "{0:dd/MM/yyyy}",new { @class = "form-control" , @id = "txtinsdate" })
                         @Html.ValidationMessageFor(model => model.installments.InstallmentDate, "", new { @class = "text-danger" })
 
 
@@ -250,7 +250,7 @@
 
                     </div>
                     <div class="col-md-3 form-group">
-
+                        <input type="submit" class="btn btn-default frm-button" id="btninstallmentSubmit" value="Submit" />
                     </div>
                 </div>
 
@@ -259,7 +259,7 @@
         }
 
         <div id="lstinstallment">
-            @Html.Partial("~/Views/BulkBuys/_Installment.cshtml", Model)
+            @Html.Partial("~/Views/BulkBuys/_Installments.cshtml", Model)
         </div>
         @*<div class="row">
                 <div class="col-md-9">

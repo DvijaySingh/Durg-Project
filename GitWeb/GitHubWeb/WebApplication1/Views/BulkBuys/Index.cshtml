@@ -4,67 +4,83 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<center><h2>All bulks</h2></center>
 
-<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TakenAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GWeight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SWeight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TakenAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GWeight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SWeight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BulkBuyID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BulkBuyID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BulkBuyID })
-        </td>
-    </tr>
-}
-
+<table class="table datatables" id="tblbulkIndex">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TakenAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TakenAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GWeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SWeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BulkBuyID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BulkBuyID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BulkBuyID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        $("#tblbulkIndex").DataTable({
+            paging: true,
+            aaSorting: [],
+            responsive: true
+        });
+        $('#tblbulkIndex_length').remove();
+        $('#tblbulkIndex_filter input').addClass('form-control');
+        //$('div .dt-button').find('a .dt-button').each(function () { this.addClass('btn btn-default') })
+    })
+
+</script>

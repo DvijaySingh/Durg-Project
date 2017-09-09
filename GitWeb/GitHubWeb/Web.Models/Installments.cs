@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
@@ -7,6 +8,7 @@ namespace Web.Models
         public long InstallmentID { get; set; }
         public long? BulkBuyID { get; set; }
         public decimal? Amount { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? InstallmentDate { get; set; }
     }
 }

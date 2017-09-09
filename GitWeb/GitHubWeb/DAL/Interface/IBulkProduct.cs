@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Web.Models;
+using Web.Models.ViewModel;
 
 namespace DAL.Interface
 {
    public interface IBulkProduct
     {
         // customer Product
+        void DeleteInitilProducts();
+        BulkBuyViewModel GetBulk(long? bulkID);
+        void AddBulkBuy(BulkBuyModel ProductModel);
         List<BulkBuyProductsModel> AddProduct(BulkBuyProductsModel  ProductModel);
         List<BulkBuyProductsModel> DeleteProduct(long Id, long bulkBuyID);
         BulkBuyProduct GetProduct(ShopDevEntities db, long Id);

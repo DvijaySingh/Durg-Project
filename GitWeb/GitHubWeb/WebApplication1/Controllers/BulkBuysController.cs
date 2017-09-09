@@ -45,12 +45,8 @@ namespace WebApplication1.Controllers
         // GET: BulkBuys/Create
         public ActionResult Create()
         {
-            BulkBuyViewModel objbulkBuy = new BulkBuyViewModel();
-            objbulkBuy.Vendors = new VendorModel();
-            objbulkBuy.Products = new BulkBuyProductsModel();
-            objbulkBuy.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
-            objbulkBuy.lstVendors = new List<VendorModel>();
-
+            _IBulkProduct.DeleteInitilProducts();
+            var objbulkBuy = InitilCreateBulk();
             return View(objbulkBuy);
         }
 
@@ -59,13 +55,14 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BulkBuyID,CustomerName,Address,TakenAmount,Rate,GWeight,SWeight,Status")] BulkBuy bulkBuy)
+        public ActionResult Create(BulkBuyViewModel bulkBuy)
         {
             if (ModelState.IsValid)
             {
-                db.BulkBuys.Add(bulkBuy);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                _IBulkProduct.AddBulkBuy(bulkBuy.bulkBuyModel);
+                var objbulkBuy = InitilCreateBulk();
+                return View(objbulkBuy);
+                //return RedirectToAction("Index");
             }
 
             return View(bulkBuy);
@@ -113,7 +110,7 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.Vendors = new VendorModel();
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
-            return PartialView("~/Views/BulkBuys/_BulkProducts.cshtml", objBulkBuyViewModel);
+            return PartialView("~/Views/BulkBuys/_bulkVendors.cshtml", objBulkBuyViewModel);
         }
         public ActionResult DeleteVendor(long VendorID,long bulkBuyID)
         {
@@ -172,7 +169,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BulkBuy bulkBuy = db.BulkBuys.Find(id);
+            BulkBuyViewModel bulkBuy = _IBulkProduct.GetBulk(id);
             if (bulkBuy == null)
             {
                 return HttpNotFound();
@@ -220,6 +217,17 @@ namespace WebApplication1.Controllers
             db.BulkBuys.Remove(bulkBuy);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        private BulkBuyViewModel InitilCreateBulk()
+        {
+            BulkBuyViewModel objbulkBuy = new BulkBuyViewModel();
+            objbulkBuy.Vendors = new VendorModel();
+            objbulkBuy.Products = new BulkBuyProductsModel();
+            objbulkBuy.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
+            objbulkBuy.lstVendors = new List<VendorModel>();
+            objbulkBuy.installments = new Installments();
+            objbulkBuy.lstinstallments = new List<Installments>();
+            return objbulkBuy;
         }
 
         protected override void Dispose(bool disposing)

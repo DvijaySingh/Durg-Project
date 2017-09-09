@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
@@ -10,7 +11,9 @@ namespace Web.Models
         public  decimal? TakenAmount { get; set; }
         public decimal? Rate { get; set; }
         public string Status { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public  DateTime? StartDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public  DateTime? CloseDate { get; set; }
         public  decimal? ClosingAmount { get; set; }
     }

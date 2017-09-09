@@ -30,54 +30,146 @@
      .on("change", function () {
          from.datepicker("option", "maxDate", getDate(this));
      });
+    StartDate = $("#txtstartDate")
+       .datepicker({
+           minDate: new Date(2000, 1 - 1, 01),
+           dateFormat: 'dd/mm/yy',
+           showOtherMonths: true,
+           changeYear: true,
+           selectOtherMonths: true,
+           beforeShow: function (textbox, instance) {
+               $('#ui-datepicker-div').css({
+                   position: 'absolute',
+                   top: -20,
+                   left: 5
+               });
+               $('#testingContainer').append($('#ui-datepicker-div'));
+               $('#ui-datepicker-div').hide();
+           }
+       })
+       .on("change", function () {
+           enddate.datepicker("option", "minDate", getDate(this) == null ? new Date(2000, 1 - 1, 01) : getDate(this));
+       }),
+     enddate = $("#txtendDate").datepicker({
+         minDate: new Date(2000, 1 - 1, 01),
+         dateFormat: 'dd/mm/yy',
+         showOtherMonths: true,
+         changeYear: true,
+         selectOtherMonths: true,
+     })
+     .on("change", function () {
+         StartDate.datepicker("option", "maxDate", getDate(this));
+     });
+    $("#txtinsdate").datepicker({
+        minDate: new Date(2000, 1 - 1, 01),
+        dateFormat: 'dd/mm/yy',
+        showOtherMonths: true,
+        changeYear: true,
+        selectOtherMonths: true,
+    })
 
-    
+
+    var bulkID = $('#BulkBuyID').val();
+    $('#hdnproductBulkBuyID').val(bulkID);
+    $('#hdnvendorBulkBuyID').val(bulkID);
+    $('#hdnInstallBulkBuyID').val(bulkID);
 
     $(document).delegate('.btnedit', 'click', function () {
-        debugger;
+      
         var tr = $(this).closest('tr');
         var Id = $(this).attr('id');
         var productName = $(tr).find('td').eq(0).text().trim();
         var Type = $(tr).find('td').eq(1).text().trim();
         var Approxw = $(tr).find('td').eq(2).text().trim();
-        var actualw = $(tr).find('td').eq(3).text().trim();
-        var qty = $(tr).find('td').eq(4).text().trim();
-        var amount = $(tr).find('td').eq(5).text().trim();
-        var desc = $(tr).find('td').eq(6).text().trim();
         $('#hdnProductId').val(Id);
         $('#txtProductname').val(productName);
         $('#ddlType option:selected').val(1);
-        $('#txtAppxw').val(Approxw);
-        $('#txtActualw').val(actualw);
-        $('#txtqty').val(qty);
-        $('#txtamount').val(amount);
-        $('#txtdesc').val(desc);
+        $('#txtprodWeight').val(Approxw);
+       
     });
-    RefreshDatatable();
+    $(document).delegate('.btnvendoredit', 'click', function () {
+        var tr = $(this).closest('tr');
+        var Id = $(this).attr('id');
+        var  Name = $(tr).find('td').eq(0).text().trim();
+        var amountTaken = $(tr).find('td').eq(1).text().trim();
+        var rate = $(tr).find('td').eq(2).text().trim();
+        var startDate = $(tr).find('td').eq(3).text().trim();
+        var ClosingDate = $(tr).find('td').eq(4).text().trim();
+       
+        var RetAmount = $(tr).find('td').eq(5).text().trim();
+        $('#hdnvendorId').val(Id);
+        $('#txtVendorName').val(Name);
+        $('#txtamountTaken').val(amountTaken);
+        $('#txtstartDate').val(startDate);
+        $('#txtendDate').val(ClosingDate);
+        $('#txtrate').val(rate);
+        $('#txtReturnAmount').val(RetAmount);
+    });
+    $(document).delegate('.btnInstallmetedit', 'click', function () {
+        var tr = $(this).closest('tr');
+        var Id = $(this).attr('id');
+        var Amount = $(tr).find('td').eq(0).text().trim();
+        var date = $(tr).find('td').eq(1).text().trim();
+        $('#hdnInstallment').val(Id);
+        $('#txtinsAmount').val(Amount);
+        $('#txtinsdate').val(date);
+    });
+    RefreshProductDataTable();
+    RefreshVendorDatatable();
+    RefreshInstallmentDatatable();
     document.getElementById("defaultOpen").click();
 
 });
-function RefreshDatatable() {
-    $("#tblCProducts").DataTable({
+function RefreshProductDataTable() {
+    $("#tblbulkProducts").DataTable({
         paging: true,
         aaSorting: [],
         responsive: true
 
     });
-    $('#tblCProducts_length').remove();
+    $('#tblbulkProducts_length').remove();
     //$('#tblProducts_filter label').remove();
-    $('#tblCProducts_filter input').addClass('form-control');
+    $('#tblbulkProducts_filter input').addClass('form-control');
 
     $('#hdnProductId').val('');
     $('#txtProductname').val('');
     $('#ddlType option:selected').val(0);
-    $('#txtAppxw').val('');
-    $('#txtActualw').val('');
-    $('#txtqty').val('');
-    $('#txtamount').val('');
-    $('#txtdesc').val('');
+    $('#txtprodWeight').val('');
 }
 
+function RefreshVendorDatatable() {
+    $("#tblVendors").DataTable({
+        paging: true,
+        aaSorting: [],
+        responsive: true
+
+    });
+    $('#tblVendors_length').remove();
+    //$('#tblProducts_filter label').remove();
+    $('#tblVendors_filter input').addClass('form-control');
+
+    $('#hdnvendorId').val('');
+    $('#txtVendorName').val('');
+    $('#txtamountTaken').val('');
+    $('#txtstartDate').val('');
+    $('#txtendDate').val('');
+    $('#txtrate').val('');
+    $('#txtReturnAmount').val('');
+}
+function RefreshInstallmentDatatable() {
+    $("#tblinstallment").DataTable({
+        paging: true,
+        aaSorting: [],
+        responsive: true
+
+    });
+    $('#tblinstallment_length').remove();
+    //$('#tblProducts_filter label').remove();
+    $('#tblinstallment_filter input').addClass('form-control');
+    $('#hdnInstallment').val('');
+    $('#txtinsAmount').val('');
+    $('#txtinsdate').val('');
+}
 function getDate(element) {
     var date;
     try {

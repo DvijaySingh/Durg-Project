@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
@@ -8,6 +9,7 @@ namespace Web.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public  decimal? Amont { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public   DateTime? Date { get; set; }
         public string Status { get; set; }
     }
