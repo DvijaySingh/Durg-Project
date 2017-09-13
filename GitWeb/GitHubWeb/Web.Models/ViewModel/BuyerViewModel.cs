@@ -4,7 +4,7 @@ namespace Web.Models.ViewModel
 {
     public class BuyerViewModel
     {
-        public BulkBuyModel buyer { get; set; }
+        public BuyerModel buyer { get; set; }
         public BuyerProductModel productInfo { get; set; }
         public List<BuyerProductModel> LstProducts { get; set; }
         public BuyerInstallmentModel Installments { get; set; }

@@ -1,0 +1,55 @@
+﻿
+@model Web.Models.ViewModel.BuyerViewModel
+
+<table class="table table-striped" id="tblbulkProducts">
+    <thead>
+        <tr>
+
+            <th>
+                Product Name
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Weight
+            </th>
+            <th>
+                Units
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LstProducts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Units)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
+                    <button id="@item.BuyerProductlD" class="btn btn-default btnedit">Edit</button>
+                    @Ajax.ActionLink("Delete", "DeleteProduct", "BulkBuys", new { productID = item.BuyerProductlD, buyerID = item.BuyerID },
+                    new AjaxOptions
+                    {
+                        Confirm = "are you sure to perform the deletion.",
+                        HttpMethod = "POST",
+                        UpdateTargetId = "lstCusProducts",
+                        OnSuccess = "RefreshDatatable",
+                    })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

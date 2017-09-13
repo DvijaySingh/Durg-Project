@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Interface;
+using Web.Models.ViewModel;
+using Web.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -43,7 +45,9 @@ namespace WebApplication1.Controllers
         // GET: Buyers/Create
         public ActionResult Create()
         {
-            return View();
+            _IBuyer.DeleteInitilProducts();
+            var objbuyer = InitilCreateBulk();
+            return View(objbuyer);
         }
 
         // POST: Buyers/Create
@@ -51,18 +55,73 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BuyerID,BuyerName,Address,DepositeAmount,OutstandingAmount,BuyDate")] Buyer buyer)
+        public ActionResult Create( BuyerViewModel buyer)
         {
             if (ModelState.IsValid)
             {
-                db.Buyers.Add(buyer);
-                db.SaveChanges();
+                _IBuyer.AddBuyer(buyer.buyer);
                 return RedirectToAction("Index");
             }
-
             return View(buyer);
         }
 
+        public ActionResult AddBuyerProduct(BuyerViewModel objbuyer)
+        {
+
+            List<BuyerProductModel> lstAddedProducts = _IBuyer.AddBuyerProduct(objbuyer.productInfo);
+            objbuyer.buyer = new BuyerModel();
+            objbuyer.productInfo = new BuyerProductModel();
+            objbuyer.LstProducts = new List<BuyerProductModel>();
+            objbuyer.LstProducts.AddRange(lstAddedProducts);
+           
+            objbuyer.Installments = new BuyerInstallmentModel();
+            objbuyer.LstInstallments = new List<BuyerInstallmentModel>();
+            return PartialView("~/Views/Buyers/_BuyerProducts.cshtml", objbuyer);
+        }
+
+
+        public ActionResult DeleteProduct(long productID, long buyerID)
+        {
+            BuyerViewModel objBuyer = new BuyerViewModel();
+            List<BuyerProductModel> lstproducts = _IBuyer.DeleteBuyerProduct(productID, buyerID);
+            // products
+            objBuyer.buyer = new BuyerModel();
+            objBuyer.productInfo = new BuyerProductModel();
+            objBuyer.LstProducts = new List<BuyerProductModel>();
+            objBuyer.LstProducts.AddRange(lstproducts);
+            
+
+            // Installments
+            objBuyer.Installments = new BuyerInstallmentModel();
+            objBuyer.LstInstallments = new List<BuyerInstallmentModel>();
+            return PartialView("~/Views/Buyers/_BuyerProducts.cshtml", objBuyer);
+        }
+        public ActionResult AddBuyerInstallment(BuyerViewModel buyerviewModel)
+        {
+            List<BuyerInstallmentModel> lstinstallment = _IBuyer.AddBuyerInstallment(buyerviewModel.Installments);
+            buyerviewModel.buyer = new BuyerModel();
+            buyerviewModel.LstProducts = new List<BuyerProductModel>();
+           
+            buyerviewModel.Installments = new BuyerInstallmentModel();
+            buyerviewModel.LstInstallments = new List<BuyerInstallmentModel>();
+            buyerviewModel.LstInstallments.AddRange(lstinstallment);
+            return PartialView("~/Views/Buyers/_BuyerInstallments.cshtml", buyerviewModel);
+        }
+        public ActionResult DeleteInstallment(long InstallmentID, long buyerID)
+        {
+            BuyerViewModel buyerViewModel = new BuyerViewModel();
+            List<BuyerInstallmentModel> lstinstallments = _IBuyer.DeleteBuyerInstallment(InstallmentID, buyerID);
+            // products
+            buyerViewModel.buyer = new BuyerModel();
+            buyerViewModel.productInfo = new BuyerProductModel();
+            buyerViewModel.LstProducts = new List<BuyerProductModel>();
+
+            // Installments
+            buyerViewModel.Installments = new BuyerInstallmentModel();
+            buyerViewModel.LstInstallments = new List<BuyerInstallmentModel>();
+            buyerViewModel.LstInstallments.AddRange(lstinstallments);
+            return PartialView("~/Views/Buyers/_BuyerInstallments.cshtml.cshtml", buyerViewModel);
+        }
         // GET: Buyers/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -70,7 +129,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Buyer buyer = db.Buyers.Find(id);
+            BuyerViewModel buyer = _IBuyer.GetBuyerInfo(id);
             if (buyer == null)
             {
                 return HttpNotFound();
@@ -83,12 +142,11 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BuyerID,BuyerName,Address,DepositeAmount,OutstandingAmount,BuyDate")] Buyer buyer)
+        public ActionResult Edit( BuyerViewModel buyer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(buyer).State = EntityState.Modified;
-                db.SaveChanges();
+                _IBuyer.AddBuyer(buyer.buyer);
                 return RedirectToAction("Index");
             }
             return View(buyer);
@@ -119,7 +177,16 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        private BuyerViewModel InitilCreateBulk()
+        {
+            BuyerViewModel objbuyer = new BuyerViewModel();
+            //objbuyer.buyer = new BuyerModel();
+            objbuyer.productInfo = new BuyerProductModel();
+            objbuyer.LstProducts = new List<BuyerProductModel>();
+            objbuyer.Installments = new BuyerInstallmentModel();
+            objbuyer.LstInstallments    = new List<BuyerInstallmentModel>();
+            return objbuyer;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

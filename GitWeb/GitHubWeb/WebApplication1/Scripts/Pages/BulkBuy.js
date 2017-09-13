@@ -3,7 +3,7 @@
      from = $("#txtOrderDate")
        .datepicker({
            minDate: new Date(2000, 1 - 1, 01),
-           dateFormat: 'dd/mm/yy',
+           //dateFormat: 'dd/mm/yy',
            showOtherMonths: true,
            changeYear: true,
            selectOtherMonths: true,
@@ -22,7 +22,7 @@
        }),
      to = $("#txtDelivaryDate").datepicker({
          minDate: new Date(2000, 1 - 1, 01),
-         dateFormat: 'dd/mm/yy',
+         //dateFormat: 'dd/mm/yy',
          showOtherMonths: true,
          changeYear: true,
          selectOtherMonths: true,
@@ -33,7 +33,7 @@
     StartDate = $("#txtstartDate")
        .datepicker({
            minDate: new Date(2000, 1 - 1, 01),
-           dateFormat: 'dd/mm/yy',
+           //dateFormat: 'dd/mm/yy',
            showOtherMonths: true,
            changeYear: true,
            selectOtherMonths: true,
@@ -52,7 +52,7 @@
        }),
      enddate = $("#txtendDate").datepicker({
          minDate: new Date(2000, 1 - 1, 01),
-         dateFormat: 'dd/mm/yy',
+         //dateFormat: 'dd/mm/yy',
          showOtherMonths: true,
          changeYear: true,
          selectOtherMonths: true,
@@ -62,7 +62,7 @@
      });
     $("#txtinsdate").datepicker({
         minDate: new Date(2000, 1 - 1, 01),
-        dateFormat: 'dd/mm/yy',
+        //dateFormat: 'dd/mm/yy',
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,

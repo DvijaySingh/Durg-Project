@@ -306,6 +306,8 @@
     <Content Include="Views\Borrowers\Details.cshtml" />
     <Content Include="Views\Borrowers\Edit.cshtml" />
     <Content Include="Views\Borrowers\Index.cshtml" />
+    <Content Include="Views\Buyers\_BuyerProducts.cshtml" />
+    <Content Include="Views\Buyers\_BuyerInstallments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
