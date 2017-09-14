@@ -72,7 +72,7 @@ namespace DAL.Implementation
                         db.BuyerProducts.Add(buyerproduct);
                     }
                     db.SaveChanges();
-                    var lstproducts = db.BulkBuyProducts.Where(m => m.BulkBuyID == productModel.BuyerID).ToList();
+                    var lstproducts = db.BuyerProducts.Where(m => m.BuyerID == productModel.BuyerID).ToList();
                     foreach (var cusprod in lstproducts)
                     {
                         BuyerProductModel objcsproduct = new BuyerProductModel();

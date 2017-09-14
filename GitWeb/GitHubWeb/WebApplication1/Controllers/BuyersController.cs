@@ -55,14 +55,14 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( BuyerViewModel buyer)
+        public ActionResult Create( BuyerViewModel buyerobj)
         {
             if (ModelState.IsValid)
             {
-                _IBuyer.AddBuyer(buyer.buyer);
+                _IBuyer.AddBuyer(buyerobj.buyer);
                 return RedirectToAction("Index");
             }
-            return View(buyer);
+            return View(buyerobj);
         }
 
         public ActionResult AddBuyerProduct(BuyerViewModel objbuyer)

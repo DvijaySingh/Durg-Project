@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/Scripts/Pages/BulkBuy.js"></script>
+@*<script src="~/Scripts/Pages/BulkBuy.js"></script>*@
 <center> <label> Buyer </label></center>
 
 <div class="tab">
@@ -42,7 +42,7 @@
                     @Html.ValidationMessageFor(model => model.buyer.DepositeAmount, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
-                    <label> Rate</label>
+                    <label> Outstanding Amount</label>
                     @Html.TextBoxFor(model => model.buyer.OutstandingAmount, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessageFor(model => model.buyer.OutstandingAmount, "", new { @class = "text-danger" })
                 </div>

@@ -181,6 +181,7 @@
             <PropertyRef Name="SellerProductID" />
           </Key>
           <Property Name="SellerProductID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerID" Type="bigint" />
           <Property Name="ProductName" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Unit" Type="int" />
@@ -468,6 +469,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Unit" Type="Int32" />
           <Property Name="weight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SellerID" Type="Int64" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -678,6 +680,7 @@
           <EntitySetMapping Name="SellerProducts">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct">
               <MappingFragment StoreEntitySet="SellerProduct">
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
