@@ -49,8 +49,8 @@
             </div>
             <div class="row">
                 <div class="col-md-3 form-group">
-                    <label>  Start Date</label>
-                    @Html.TextBoxFor(model => model.buyer.BuyDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtOrderDate" })
+                    <label>  Buy Date</label>
+                    @Html.TextBoxFor(model => model.buyer.BuyDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtbuyDate" })
                     @Html.ValidationMessageFor(model => model.buyer.BuyDate, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Units</label>
-                        @Html.TextBoxFor(model => model.productInfo.Units, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
+                        @Html.TextBoxFor(model => model.productInfo.Units, new { @class = "form-control", @type = "number", @id = "txtunit" })
                         @Html.ValidationMessageFor(model => model.productInfo.Units, "", new { @class = "text-danger" })
 
                     </div>

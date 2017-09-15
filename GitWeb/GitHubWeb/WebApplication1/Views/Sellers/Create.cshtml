@@ -10,7 +10,7 @@
 <center> <label> Buyer </label></center>
 
 <div class="tab">
-    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Customer Info</button>
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Seller Info</button>
     <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
     <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
 </div>
@@ -26,32 +26,32 @@
 
             <div class="row">
                 <div class="col-md-3 form-group">
-                    <label> Buyer Name </label>
+                    <label> Seller Name </label>
                     @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
-                    @Html.TextBoxFor(model => model.buyer.BuyerName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.buyer.BuyerName, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.sellerInfor.SellerName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.SellerName, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Address </label>
-                    @Html.TextAreaFor(model => model.buyer.Address, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.buyer.Address, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(model => model.sellerInfor.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.Address, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Amount </label>
-                    @Html.TextBoxFor(model => model.buyer.DepositeAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.buyer.DepositeAmount, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.sellerInfor.DepositeAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.DepositeAmount, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Outstanding Amount</label>
-                    @Html.TextBoxFor(model => model.buyer.OutstandingAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.buyer.OutstandingAmount, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.sellerInfor.OutstandingAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.OutstandingAmount, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3 form-group">
-                    <label>  Start Date</label>
-                    @Html.TextBoxFor(model => model.buyer.BuyDate, new { @class = "form-control", @id = "txtOrderDate" })
-                    @Html.ValidationMessageFor(model => model.buyer.BuyDate, "", new { @class = "text-danger" })
+                    <label>   Date</label>
+                    @Html.TextBoxFor(model => model.sellerInfor.BuyDate, new { @class = "form-control", @id = "txtSelldate" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.BuyDate, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-6 form-group">
 
@@ -68,7 +68,7 @@
 
 <div id="productInfo" class="tabcontent">
     <div id="divcusProducts" class="customer-information">
-        @using (Ajax.BeginForm("AddBuyerProduct", "Buyers",
+        @using (Ajax.BeginForm("AddSellerProduct", "Sellers",
                                                                                                                           new AjaxOptions
                                                                                                                           {
                                                                                                                               HttpMethod = "Post",
@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label> ProductName </label>
-                        @Html.HiddenFor(m => m.productInfo.BuyerProductlD, new { @id = "hdnProductId" })
+                        @Html.HiddenFor(m => m.productInfo.SellerProductID, new { @id = "hdnProductId" })
                         @Html.TextBoxFor(model => model.productInfo.ProductName, new { @class = "form-control", @id = "txtProductname" })
                         @Html.ValidationMessageFor(model => model.productInfo.ProductName, "", new { @class = "text-danger" })
 
@@ -99,14 +99,14 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <label> Weight(gm) </label>
-                        @Html.TextBoxFor(model => model.productInfo.Weight, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
-                        @Html.ValidationMessageFor(model => model.productInfo.Weight, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.productInfo.weight, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
+                        @Html.ValidationMessageFor(model => model.productInfo.weight, "", new { @class = "text-danger" })
 
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Units</label>
-                        @Html.TextBoxFor(model => model.productInfo.Units, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
-                        @Html.ValidationMessageFor(model => model.productInfo.Units, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.productInfo.Unit, new { @class = "form-control", @type = "number", @id = "txtUnits" })
+                        @Html.ValidationMessageFor(model => model.productInfo.Unit, "", new { @class = "text-danger" })
 
                     </div>
 
@@ -123,7 +123,7 @@
         }
 
         <div id="lstCusProducts">
-            @Html.Partial("~/Views/Buyers/_BuyerProducts.cshtml", Model)
+            @Html.Partial("~/Views/Sellers/_SellerProducts.cshtml", Model)
         </div>
 
     </div>
@@ -131,7 +131,7 @@
 
 <div id="insInfo" class="tabcontent">
     <div id="divcusProducts" class="customer-information">
-        @using (Ajax.BeginForm("AddBuyerInstallment", "Buyers",
+        @using (Ajax.BeginForm("AddSellerInstallment", "Sellers",
                                                                                                                                   new AjaxOptions
                                                                                                                                   {
                                                                                                                                       HttpMethod = "Post",
@@ -143,7 +143,7 @@
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label> Amount </label>
-                        @Html.HiddenFor(m => m.Installments.BuyerInstallmentID, new { @id = "hdnInstallment" })
+                        @Html.HiddenFor(m => m.Installments.SellerInstallmentID, new { @id = "hdnInstallment" })
                         @Html.TextBoxFor(model => model.Installments.Amount, new { @class = "form-control", @type = "number", @id = "txtinsAmount" })
                         @Html.ValidationMessageFor(model => model.Installments.Amount, "", new { @class = "text-danger" })
 
@@ -168,7 +168,7 @@
         }
 
         <div id="lstinstallment">
-            @Html.Partial("~/Views/Buyers/_BuyerInstallments.cshtml", Model)
+            @Html.Partial("~/Views/Sellers/_SellerInstallments.cshtml", Model)
         </div>
 
     </div>

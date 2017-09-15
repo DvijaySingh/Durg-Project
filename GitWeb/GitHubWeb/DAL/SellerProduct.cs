@@ -20,5 +20,6 @@ namespace DAL
         public Nullable<int> Unit { get; set; }
         public Nullable<decimal> weight { get; set; }
         public Nullable<long> SellerID { get; set; }
+        public string Type { get; set; }
     }
 }

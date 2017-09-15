@@ -10,49 +10,65 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BuyerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepositeAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OutstandingAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BuyDate)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BuyerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepositeAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OutstandingAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BuyDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BuyerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BuyerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BuyerID })
-        </td>
-    </tr>
-}
-
+<table class="table" id="tblbuyers">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositeAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutstandingAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepositeAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutstandingAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BuyerID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BuyerID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BuyerID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        $("#tblbuyers").DataTable({
+            paging: true,
+            aaSorting: [],
+            responsive: true
+        });
+        $('#tblbuyers_length').remove();
+        $('#tblbuyers_filter input').addClass('form-control');
+        //$('div .dt-button').find('a .dt-button').each(function () { this.addClass('btn btn-default') })
+    })
+
+</script>

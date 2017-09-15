@@ -10,55 +10,71 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SellerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepositeAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OutstandingAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BuyDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SellerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepositeAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OutstandingAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BuyDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SellerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SellerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SellerID })
-        </td>
-    </tr>
-}
-
+<table class="table" id="tblSellers">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SellerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositeAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutstandingAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepositeAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutstandingAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SellerID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.SellerID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SellerID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        $("#tblSellers").DataTable({
+            paging: true,
+            aaSorting: [],
+            responsive: true
+        });
+        $('#tblSellers_length').remove();
+        $('#tblSellers_filter input').addClass('form-control');
+        //$('div .dt-button').find('a .dt-button').each(function () { this.addClass('btn btn-default') })
+    })
+
+</script>

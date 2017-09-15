@@ -89,18 +89,79 @@ namespace DAL.Implementation
         }
         public List<BorrowerInstallmentModel> AddBorrowerInstallment(BorrowerInstallmentModel installment)
         {
-            throw new NotImplementedException();
+            List<BorrowerInstallmentModel> lstAllinstallments = new List<BorrowerInstallmentModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    installment.BorrowerID = installment.BorrowerID == null ? 0 : installment.BorrowerID;
+                    BorrowerInstallment borrowerinstDetail = null;
+                    if (installment.InstallmentID > 0)
+                    {
+                        borrowerinstDetail = db.BorrowerInstallments.Where(m => m.InstallmentID == installment.InstallmentID).FirstOrDefault();
+                    }
+                    else
+                    {
+                        borrowerinstDetail = new BorrowerInstallment();
+                    }
+                    installment.CopyProperties(borrowerinstDetail);
+                    if (borrowerinstDetail.InstallmentID == 0)
+                    {
+                        db.BorrowerInstallments.Add(borrowerinstDetail);
+                    }
+                    db.SaveChanges();
+                    var lstinstallments = db.BorrowerInstallments.Where(m => m.BorrowerID == borrowerinstDetail.BorrowerID).ToList();
+                    foreach (var cusprod in lstinstallments)
+                    {
+                        BorrowerInstallmentModel objcsproduct = new BorrowerInstallmentModel();
+                        cusprod.CopyProperties(objcsproduct);
+                        lstAllinstallments.Add(objcsproduct);
+                    }
+                }
+                catch { }
+                return lstAllinstallments;
+            }
         }
 
         public List<BorrowerInstallmentModel> DeleteBorrowerInstallment(long Id, long buyerID)
         {
-            throw new NotImplementedException();
+            List<BorrowerInstallmentModel> lstinstallments = new List<BorrowerInstallmentModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    BorrowerInstallment installment = GetBorrowerInstallment(db, Id);
+                    db.BorrowerInstallments.Remove(installment);
+                    db.SaveChanges();
+                    var lstproducts = db.BorrowerInstallments.Where(m => m.BorrowerID == buyerID).ToList();
+                    foreach (var cusprod in lstproducts)
+                    {
+                        BorrowerInstallmentModel objInstallments = new BorrowerInstallmentModel();
+                        cusprod.CopyProperties(objInstallments);
+                        lstinstallments.Add(objInstallments);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+                return lstinstallments;
+            }
         }
 
        
         public BorrowerInstallment GetBorrowerInstallment(ShopDevEntities db, long Id)
         {
-            throw new NotImplementedException();
+            BorrowerInstallment objinstllment = null;
+            try
+            {
+                objinstllment = db.BorrowerInstallments.Where(m => m.BorrowerID == Id).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+
+            }
+            return objinstllment;
         }
 
        

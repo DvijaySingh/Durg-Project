@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Interface;
+using Web.Models.ViewModel;
+using Web.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -43,7 +45,9 @@ namespace WebApplication1.Controllers
         // GET: Sellers/Create
         public ActionResult Create()
         {
-            return View();
+            _ISeller.DeleteInitilProducts();
+            var objbuyer = InitilCreateBulk();
+            return View(objbuyer);
         }
 
         // POST: Sellers/Create
@@ -51,18 +55,73 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SellerID,SellerName,Address,DepositeAmount,OutstandingAmount,BuyDate,Status")] Seller seller)
+        public ActionResult Create(SellerViewModel seller)
         {
             if (ModelState.IsValid)
             {
-                db.Sellers.Add(seller);
-                db.SaveChanges();
+                _ISeller.AddSeller(seller.sellerInfor);
                 return RedirectToAction("Index");
             }
-
             return View(seller);
         }
 
+        public ActionResult AddSellerProduct(SellerViewModel objSeller)
+        {
+
+            List<SellerProductModel> lstAddedProducts = _ISeller.AddSellerProduct(objSeller.productInfo);
+            objSeller.sellerInfor = new SellerModel();
+            objSeller.productInfo = new SellerProductModel();
+            objSeller.Lstproducts = new List<SellerProductModel>();
+            objSeller.Lstproducts.AddRange(lstAddedProducts);
+            
+            objSeller.Installments = new SellerInstallmentModel();
+            objSeller.LstInstallments = new List<SellerInstallmentModel>();
+            return PartialView("~/Views/Sellers/_SellerProducts.cshtml", objSeller);
+        }
+
+
+        public ActionResult DeleteProduct(long productID, long buyerID)
+        {
+            SellerViewModel objSeller = new SellerViewModel();
+            List<SellerProductModel> lstproducts = _ISeller.DeleteSellerProduct(productID, buyerID);
+            // products
+            objSeller.sellerInfor = new SellerModel();
+            objSeller.productInfo = new SellerProductModel();
+            objSeller.Lstproducts = new List<SellerProductModel>();
+            objSeller.Lstproducts.AddRange(lstproducts);
+
+
+            // Installments
+            objSeller.Installments = new SellerInstallmentModel();
+            objSeller.LstInstallments = new List<SellerInstallmentModel>();
+            return PartialView("~/Views/Sellers/_SellerProducts.cshtml", objSeller);
+        }
+        public ActionResult AddSellerInstallment(SellerViewModel sellerviewModel)
+        {
+            List<SellerInstallmentModel> lstinstallment = _ISeller.AddSellerInstallment(sellerviewModel.Installments);
+            sellerviewModel.sellerInfor = new SellerModel();
+            sellerviewModel.Lstproducts = new List<SellerProductModel>();
+             
+            sellerviewModel.Installments = new SellerInstallmentModel();
+            sellerviewModel.LstInstallments = new List<SellerInstallmentModel>();
+            sellerviewModel.LstInstallments.AddRange(lstinstallment);
+            return PartialView("~/Views/Seller/_SellerInstallments.cshtml", sellerviewModel);
+        }
+        public ActionResult DeleteInstallment(long InstallmentID, long buyerID)
+        {
+            SellerViewModel sellerviewModel = new SellerViewModel();
+            List<SellerInstallmentModel> lstinstallments = _ISeller.DeleteSellerInstallment(InstallmentID, buyerID);
+            // products
+            sellerviewModel.sellerInfor = new SellerModel();
+            sellerviewModel.productInfo = new SellerProductModel();
+            sellerviewModel.Lstproducts = new List<SellerProductModel>();
+
+            // Installments
+            sellerviewModel.Installments = new SellerInstallmentModel();
+            sellerviewModel.LstInstallments = new List<SellerInstallmentModel>();
+            sellerviewModel.LstInstallments.AddRange(lstinstallments);
+            return PartialView("~/Views/Seller/_SellerInstallments.cshtml", sellerviewModel);
+        }
         // GET: Sellers/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -70,7 +129,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seller seller = db.Sellers.Find(id);
+            SellerViewModel seller = _ISeller.GetSellerInfo(id);
             if (seller == null)
             {
                 return HttpNotFound();
@@ -83,13 +142,13 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SellerID,SellerName,Address,DepositeAmount,OutstandingAmount,BuyDate,Status")] Seller seller)
+        public ActionResult Edit(SellerViewModel seller)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(seller).State = EntityState.Modified;
-                db.SaveChanges();
+                _ISeller.AddSeller(seller.sellerInfor);
                 return RedirectToAction("Index");
+                 
             }
             return View(seller);
         }
@@ -119,7 +178,16 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        private SellerViewModel InitilCreateBulk()
+        {
+            SellerViewModel objSeller = new SellerViewModel();
+            //objbuyer.buyer = new BuyerModel();
+            objSeller.productInfo = new SellerProductModel();
+            objSeller.Lstproducts = new List<SellerProductModel>();
+            objSeller.Installments = new SellerInstallmentModel();
+            objSeller.LstInstallments = new List<SellerInstallmentModel>();
+            return objSeller;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

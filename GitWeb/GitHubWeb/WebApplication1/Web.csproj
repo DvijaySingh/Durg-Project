@@ -223,8 +223,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Pages\Borrower.js" />
     <Content Include="Scripts\Pages\BulkBuy.js" />
+    <Content Include="Scripts\Pages\Buyer.js" />
     <Content Include="Scripts\Pages\CreateOrder.js" />
+    <Content Include="Scripts\Pages\Seller.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -310,6 +313,7 @@
     <Content Include="Views\Buyers\_BuyerInstallments.cshtml" />
     <Content Include="Views\Sellers\_SellerProducts.cshtml" />
     <Content Include="Views\Sellers\_SellerInstallments.cshtml" />
+    <Content Include="Views\Borrowers\_BorrowerInstallment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

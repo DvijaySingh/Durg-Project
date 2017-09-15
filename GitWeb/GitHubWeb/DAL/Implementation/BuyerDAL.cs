@@ -148,12 +148,12 @@ namespace DAL.Implementation
                         buyerinstDetail = new BuyerInstallment();
                     }
                     installment.CopyProperties(buyerinstDetail);
-                    if (installment.BuyerInstallmentID > 0)
+                    if (buyerinstDetail.BuyerInstallmentID == 0)
                     {
                         db.BuyerInstallments.Add(buyerinstDetail);
                     }
                     db.SaveChanges();
-                    var lstinstallments = db.BuyerInstallments.Where(m => m.BuyerID == installment.BuyerID).ToList();
+                    var lstinstallments = db.BuyerInstallments.Where(m => m.BuyerID == buyerinstDetail.BuyerID).ToList();
                     foreach (var cusprod in lstinstallments)
                     {
                         BuyerInstallmentModel objcsproduct = new BuyerInstallmentModel();

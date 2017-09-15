@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.LstProducts)
+        @foreach (var item in Model.Lstproducts)
         {
             <tr>
                 <td>
@@ -31,16 +31,16 @@
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Weight)
+                    @Html.DisplayFor(modelItem => item.weight)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Units)
+                    @Html.DisplayFor(modelItem => item.Unit)
                 </td>
 
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
-                    <button id="@item.BuyerProductlD" class="btn btn-default btnedit">Edit</button>
-                    @Ajax.ActionLink("Delete", "DeleteProduct", "BulkBuys", new { productID = item.BuyerProductlD, buyerID = item.BuyerID },
+                    <button id="@item.SellerProductID" class="btn btn-default btnedit">Edit</button>
+                    @Ajax.ActionLink("Delete", "DeleteProduct", "Sellers", new { productID = item.SellerProductID, buyerID = item.SellerID },
                     new AjaxOptions
                     {
                         Confirm = "are you sure to perform the deletion.",

@@ -204,7 +204,7 @@ namespace DAL.Implementation
                         sellerinstDetail = new SellerInstallment();
                     }
                     installment.CopyProperties(sellerinstDetail);
-                    if (installment.SellerInstallmentID > 0)
+                    if (sellerinstDetail.SellerInstallmentID == 0)
                     {
                         db.SellerInstallments.Add(sellerinstDetail);
                     }

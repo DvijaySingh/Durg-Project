@@ -1,75 +1,119 @@
-﻿@model DAL.Borrower
+﻿
+@model Web.Models.ViewModel.BorrowerViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<script src="~/Scripts/Pages/BulkBuy.js"></script>
+<center> <label> Buyer </label></center>
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Borrower</button>
+    <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
+</div>
+<div id="custnfo" class="tabcontent">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Borrower</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.BorrowID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        <div class="customer-information">
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Name </label>
+                    @Html.HiddenFor(model => model.Borrower.BorrowID, new { @class = "form-control",@id="hdnBorrowerID" })
+                    @Html.TextBoxFor(model => model.Borrower.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Address </label>
+                    @Html.TextAreaFor(model => model.Borrower.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Amount </label>
+                    @Html.TextBoxFor(model => model.Borrower.Amont, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Amont, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Date</label>
+                    @Html.TextBoxFor(model => model.Borrower.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtdate" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Date, "", new { @class = "text-danger" })
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+
+                </div>
+                <div class="col-md-6 form-group">
+
+                </div>
+                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
+            </div>
+
+
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Amont, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Amont, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amont, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
 
+
+<div id="insInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+        @using (Ajax.BeginForm("AddSellerInstallment", "Seller",
+                                                                                                                                          new AjaxOptions
+                                                                                                                                          {
+                                                                                                                                              HttpMethod = "Post",
+                                                                                                                                              UpdateTargetId = "lstinstallment",
+                                                                                                                                              OnSuccess = "RefreshInstallmentDatatable"
+                                                                                                                                          }))
+        {
+            <div id="ajaxform">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label> Amount </label>
+                        @Html.HiddenFor(m => m.Installments.InstallmentID, new { @id = "hdnInstallment" })
+                        @Html.HiddenFor(m => m.Installments.BorrowerID, new { @id = "hdnInsBorrowID" })
+                        @Html.TextBoxFor(model => model.Installments.Amount, new { @class = "form-control", @type = "number", @id = "txtinsAmount" })
+                        @Html.ValidationMessageFor(model => model.Installments.Amount, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Date </label>
+                        @Html.TextBoxFor(model => model.Installments.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtinsdate" })
+                        @Html.ValidationMessageFor(model => model.Installments.Date, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="col-md-3 form-group">
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input type="submit" class="btn btn-default frm-button" id="btninstallmentSubmit" value="Submit" />
+                    </div>
+                </div>
+
+            </div>
+
+        }
+
+        <div id="lstinstallment">
+            @Html.Partial("~/Views/Borrowers/_BorrowerInstallment.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+<div>
+
+    @Html.ActionLink("Back to List", "Index")
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

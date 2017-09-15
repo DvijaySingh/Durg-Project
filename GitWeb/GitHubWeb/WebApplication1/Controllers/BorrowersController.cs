@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Interface;
+using Web.Models;
+using Web.Models.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -43,7 +45,9 @@ namespace WebApplication1.Controllers
         // GET: Borrowers/Create
         public ActionResult Create()
         {
-            return View();
+            _IBorrower.DeleteInitilProducts();
+            var objbuyer = InitilCreateBulk();
+            return View(objbuyer);
         }
 
         // POST: Borrowers/Create
@@ -51,18 +55,37 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BorrowID,Name,Address,Amont,Date,Status")] Borrower borrower)
+        public ActionResult Create(BorrowerViewModel borrower)
         {
             if (ModelState.IsValid)
             {
-                db.Borrowers.Add(borrower);
-                db.SaveChanges();
+                _IBorrower.AddBorrower(borrower.Borrower);
                 return RedirectToAction("Index");
             }
-
             return View(borrower);
         }
+        public ActionResult AddInstallment(BorrowerViewModel borrowerviewModel)
+        {
+            List<BorrowerInstallmentModel> lstinstallment = _IBorrower.AddBorrowerInstallment(borrowerviewModel.Installments);
+            borrowerviewModel.Borrower = new BorrowerModel();
+            borrowerviewModel.Installments = new BorrowerInstallmentModel();
+            borrowerviewModel.Lstinstallments = new List<BorrowerInstallmentModel>();
+            borrowerviewModel.Lstinstallments.AddRange(lstinstallment);
+            return PartialView("~/Views/Borrowers/_BorrowerInstallment.cshtml", borrowerviewModel);
+        }
+        public ActionResult DeleteInstallment(long InstallmentID, long buyerID)
+        {
+            BorrowerViewModel borrowerviewModel = new BorrowerViewModel();
+            List<BorrowerInstallmentModel> lstinstallments = _IBorrower.DeleteBorrowerInstallment(InstallmentID, buyerID);
+            // products
+            borrowerviewModel.Borrower = new BorrowerModel();
 
+            // Installments
+            borrowerviewModel.Installments = new BorrowerInstallmentModel();
+            borrowerviewModel.Lstinstallments = new List<BorrowerInstallmentModel>();
+            borrowerviewModel.Lstinstallments.AddRange(lstinstallments);
+            return PartialView("~/Views/Borrowers/_BorrowerInstallment.cshtml", borrowerviewModel);
+        }
         // GET: Borrowers/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -70,7 +93,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Borrower borrower = db.Borrowers.Find(id);
+            BorrowerViewModel borrower = _IBorrower.GetBorrowerInfo(id);
             if (borrower == null)
             {
                 return HttpNotFound();
@@ -83,12 +106,11 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BorrowID,Name,Address,Amont,Date,Status")] Borrower borrower)
+        public ActionResult Edit(  BorrowerViewModel borrower)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(borrower).State = EntityState.Modified;
-                db.SaveChanges();
+                _IBorrower.AddBorrower(borrower.Borrower);
                 return RedirectToAction("Index");
             }
             return View(borrower);
@@ -119,7 +141,15 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        private BorrowerViewModel InitilCreateBulk()
+        {
+            BorrowerViewModel objborrower = new BorrowerViewModel();
+            //objbuyer.buyer = new BuyerModel();
+            objborrower.Borrower = new BorrowerModel();
+            objborrower.Installments = new BorrowerInstallmentModel();
+            objborrower.Lstinstallments = new List<BorrowerInstallmentModel>();
+            return objborrower;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

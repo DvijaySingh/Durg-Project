@@ -1,5 +1,5 @@
 ﻿
-@model Web.Models.ViewModel.SellerViewModel
+@model Web.Models.ViewModel.BorrowerViewModel
 
 <table class="table table-striped" id="tblinstallment">
     <thead>
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.LstInstallments)
+        @foreach (var item in Model.Lstinstallments)
         {
             <tr>
                 <td>
@@ -28,8 +28,8 @@
 
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
-                    <button id="@item.SellerInstallmentID" class="btn btn-default btnInstallmetedit">Edit</button>
-                    @Ajax.ActionLink("Delete", "DeleteInstallment", "Sellers", new { InstallmentID = item.SellerInstallmentID, buyerID = item.SellerID },
+                    <button id="@item.InstallmentID" class="btn btn-default btnInstallmetedit">Edit</button>
+                    @Ajax.ActionLink("Delete", "DeleteInstallMent", "Borrowers", new { InstallmentID = item.InstallmentID, BorrowerID = item.BorrowerID },
                     new AjaxOptions
                     {
                         Confirm = "are you sure to perform the deletion.",
@@ -42,4 +42,5 @@
         }
     </tbody>
 </table>
+
 
