@@ -29,7 +29,7 @@
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
                     <button id="@item.InstallmentID" class="btn btn-default btnInstallmetedit">Edit</button>
-                    @Ajax.ActionLink("Delete", "DeleteInstallMent", "Borrowers", new { InstallmentID = item.InstallmentID, BorrowerID = item.BorrowerID },
+                    @Ajax.ActionLink("Delete", "DeleteInstallMent", "Borrowers", new { InstallmentID = item.InstallmentID, BorrowerID = item.BorrowerID ,@class="btn btn-default"},
                     new AjaxOptions
                     {
                         Confirm = "are you sure to perform the deletion.",

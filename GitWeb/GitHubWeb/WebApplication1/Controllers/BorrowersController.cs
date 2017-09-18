@@ -55,14 +55,14 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BorrowerViewModel borrower)
+        public ActionResult Create(BorrowerViewModel borrowerviwmodel)
         {
             if (ModelState.IsValid)
             {
-                _IBorrower.AddBorrower(borrower.Borrower);
+                _IBorrower.AddBorrower(borrowerviwmodel.Borrower);
                 return RedirectToAction("Index");
             }
-            return View(borrower);
+            return View(borrowerviwmodel);
         }
         public ActionResult AddInstallment(BorrowerViewModel borrowerviewModel)
         {

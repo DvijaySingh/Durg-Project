@@ -46,7 +46,7 @@ namespace DAL.Implementation
                     }
                     db.SaveChanges();
 
-                    List<BorrowerInstallment> lstinstallments = db.BorrowerInstallments.Where(m => m.BorrowerID == 0).ToList();
+                    List<BorrowerInstallment> lstinstallments = db.BorrowerInstallments.Where(m => m.BorrowerID == borrowerdb.BorrowID).ToList();
                     lstinstallments.ForEach(m => m.BorrowerID = borrowerdb.BorrowID);
                     db.SaveChanges();
                 }

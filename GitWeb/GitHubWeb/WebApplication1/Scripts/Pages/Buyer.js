@@ -2,14 +2,14 @@
    
     $("#txtbuyDate").datepicker({
         minDate: new Date(2000, 1 - 1, 01),
-        //dateFormat: 'dd/mm/yy',
+        dateFormat: 'dd/mm/yy',
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,
     })
     $("#txtinsdate").datepicker({
         minDate: new Date(2000, 1 - 1, 01),
-        //dateFormat: 'dd/mm/yy',
+        dateFormat: 'dd/mm/yy',
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,
@@ -20,16 +20,29 @@
     $('#hdnInstallmentBuyerID').val(bulkID);
 
     $(document).delegate('.btnedit', 'click', function () {
-
+        debugger;
         var tr = $(this).closest('tr');
         var Id = $(this).attr('id');
         var productName = $(tr).find('td').eq(0).text().trim();
         var Type = $(tr).find('td').eq(1).text().trim();
         var Approxw = $(tr).find('td').eq(2).text().trim();
         var unit = $(tr).find('td').eq(3).text().trim();
+        var typeid = 0;
+        switch(Type)
+        {
+            case "Gold":
+                typeid = 2;
+                break;
+            case "Silver":
+                typeid = 1;
+                break;
+            default:
+                typeid = 0;
+                break;
+        }
         $('#hdnProductId').val(Id);
         $('#txtProductname').val(productName);
-        $('#ddlType option:selected').val(1);
+        $('#ddlType').val(typeid);
         $('#txtprodWeight').val(Approxw);
         $('#txtunit').val(unit);
 
@@ -61,7 +74,7 @@ function RefreshProductDataTable() {
 
     $('#hdnProductId').val('');
     $('#txtProductname').val('');
-    $('#ddlType option:selected').val(0);
+    $('#ddlType').val(0);
     $('#txtprodWeight').val('');
     $('#txtunit').val('');
 }

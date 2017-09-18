@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/Scripts/Pages/BulkBuy.js"></script>
+<script src="~/Scripts/Pages/Seller.js"></script>
 <center> <label> Seller </label></center>
 
 <div class="tab">
@@ -152,7 +152,7 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <label> Date </label>
-                        @Html.TextBoxFor(model => model.Installments.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtinsdate" })
+                        @Html.TextBoxFor(model => model.Installments.Date, new { @class = "form-control", @id = "txtinsdate" })
                         @Html.ValidationMessageFor(model => model.Installments.Date, "", new { @class = "text-danger" })
 
 

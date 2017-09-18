@@ -2,14 +2,14 @@
 
     $("#txtSelldate").datepicker({
         minDate: new Date(2000, 1 - 1, 01),
-        //dateFormat: 'dd/mm/yy',
+        dateFormat: 'dd/mm/yy',
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,
     })
     $("#txtinsdate").datepicker({
         minDate: new Date(2000, 1 - 1, 01),
-        //dateFormat: 'dd/mm/yy',
+        dateFormat: 'dd/mm/yy',
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,
@@ -27,9 +27,21 @@
         var Type = $(tr).find('td').eq(1).text().trim();
         var Approxw = $(tr).find('td').eq(2).text().trim();
         var unit = $(tr).find('td').eq(3).text().trim();
+        var typeid = 0;
+        switch (Type) {
+            case "Gold":
+                typeid = 2;
+                break;
+            case "Silver":
+                typeid = 1;
+                break;
+            default:
+                typeid = 0;
+                break;
+        }
         $('#hdnProductId').val(Id);
         $('#txtProductname').val(productName);
-        $('#ddlType option:selected').val(1);
+        $('#ddlType').val(typeid);
         $('#txtprodWeight').val(Approxw);
         $('#txtUnits').val(unit);
 

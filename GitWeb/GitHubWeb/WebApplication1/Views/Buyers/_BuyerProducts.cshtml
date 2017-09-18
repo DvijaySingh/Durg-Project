@@ -28,7 +28,19 @@
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Type)
+                    @if(item.Type=="1")
+                    {
+                        <label>Silver</label>
+                    }
+                    else if (item.Type == "2")
+                    {
+                        <label>Gold</label>
+                    }
+                    else
+                    {
+                        <label></label>
+                    }
+                    @*@Html.DisplayFor(modelItem => item.Type)*@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Weight)

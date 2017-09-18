@@ -105,7 +105,7 @@ namespace WebApplication1.Controllers
             sellerviewModel.Installments = new SellerInstallmentModel();
             sellerviewModel.LstInstallments = new List<SellerInstallmentModel>();
             sellerviewModel.LstInstallments.AddRange(lstinstallment);
-            return PartialView("~/Views/Seller/_SellerInstallments.cshtml", sellerviewModel);
+            return PartialView("~/Views/Sellers/_SellerInstallments.cshtml", sellerviewModel);
         }
         public ActionResult DeleteInstallment(long InstallmentID, long buyerID)
         {
