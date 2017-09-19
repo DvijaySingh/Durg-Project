@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seller seller = db.Sellers.Find(id);
+            SellerViewModel seller = _ISeller.GetSellerInfo(id);
             if (seller == null)
             {
                 return HttpNotFound();
@@ -47,6 +47,8 @@ namespace WebApplication1.Controllers
         {
             _ISeller.DeleteInitilProducts();
             var objbuyer = InitilCreateBulk();
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(objbuyer);
         }
 
@@ -62,6 +64,8 @@ namespace WebApplication1.Controllers
                 _ISeller.AddSeller(seller.sellerInfor);
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(seller);
         }
 
@@ -134,6 +138,8 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(seller);
         }
 
@@ -150,6 +156,8 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
                  
             }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(seller);
         }
 

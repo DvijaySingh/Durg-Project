@@ -34,7 +34,14 @@ namespace DAL.Implementation
 
                     List<BuyerProduct> lstNewproducts = db.BuyerProducts.Where(m => m.BuyerID == 0).ToList();
                     lstNewproducts.ForEach(m => m.BuyerID = buyerdb.BuyerID);
-
+                    foreach (var product in lstNewproducts)
+                    {
+                        var oldproduct = db.Products.Where(m => m.ProductName == product.ProductName && m.Type == product.Type && m.CategoryID == product.CategoryID).FirstOrDefault();
+                        if (oldproduct != null)
+                        {
+                            oldproduct.Unit -= product.Units;
+                        }
+                    }
 
                     List<BuyerInstallment> lstinstallments = db.BuyerInstallments.Where(m => m.BuyerID == 0).ToList();
                     lstinstallments.ForEach(m => m.BuyerID = buyerdb.BuyerID);
@@ -58,18 +65,38 @@ namespace DAL.Implementation
                 {
                     productModel.BuyerID = productModel.BuyerID == null ? 0 : productModel.BuyerID;
                     BuyerProduct buyerproduct = null;
+                    int? oldUnits = 0;
                     if (productModel.BuyerProductlD > 0)
                     {
                         buyerproduct = db.BuyerProducts.Where(m => m.BuyerProductlD == productModel.BuyerProductlD).FirstOrDefault();
+                        oldUnits = buyerproduct.Units == null ? 0 : buyerproduct.Units;
+                        var diffUnit = oldUnits - productModel.Units;
+                        var product = db.Products.Where(m => m.CategoryID == productModel.CategoryID && m.ProductName == productModel.ProductName && m.CategoryID == productModel.CategoryID).FirstOrDefault();
+                        if(product!=null)
+                        {
+                            product.Unit += diffUnit;
+                        }
                     }
                     else
                     {
                         buyerproduct = new BuyerProduct();
                     }
+                 
+
                     productModel.CopyProperties(buyerproduct);
                     if (productModel.BuyerProductlD == 0)
                     {
                         db.BuyerProducts.Add(buyerproduct);
+
+                        if (productModel.BuyerID > 0)
+                        {
+                            var oldproduct = db.Products.Where(m => m.ProductName == productModel.ProductName && m.Type == productModel.Type && m.CategoryID == productModel.CategoryID).FirstOrDefault();
+                            if (oldproduct != null)
+                            {
+                                oldproduct.Unit -= productModel.Units;
+                            }
+
+                        }
                     }
                     db.SaveChanges();
                     var lstproducts = db.BuyerProducts.Where(m => m.BuyerID == productModel.BuyerID).ToList();

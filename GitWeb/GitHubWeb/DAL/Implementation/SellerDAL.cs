@@ -33,7 +33,26 @@ namespace DAL.Implementation
 
                     List<SellerProduct> lstNewproducts = db.SellerProducts.Where(m => m.SellerID == 0).ToList();
                     lstNewproducts.ForEach(m => m.SellerID = sellerdb.SellerID);
-
+                    foreach(var product in lstNewproducts)
+                    {
+                        
+                        var oldproduct = db.Products.Where(m => m.ProductName == product.ProductName && m.Type == product.Type && m.CategoryID == product.CategoryID).FirstOrDefault();
+                        if(oldproduct!=null)
+                        {
+                            oldproduct.Unit += product.Unit;
+                        }
+                        else
+                        {
+                            Product prod = new Product();
+                            prod.ProductName = product.ProductName;
+                            prod.ProdDesc = product.Description;
+                            prod.Type = product.Type;
+                            prod.CategoryID = product.CategoryID;
+                            prod.Unit = product.Unit;
+                            prod.IsActive = true;
+                            db.Products.Add(prod);
+                        }
+                    }
 
                     List<SellerInstallment> lstinstallments = db.SellerInstallments.Where(m => m.SellerID == 0).ToList();
                     lstinstallments.ForEach(m => m.SellerID = sellerdb.SellerID);
@@ -113,9 +132,17 @@ namespace DAL.Implementation
                 {
                     productModel.SellerID = productModel.SellerID == null ? 0 : productModel.SellerID;
                     SellerProduct buyerproduct = null;
+                    int? oldunit = 0;
                     if (productModel.SellerProductID > 0)
                     {
                         buyerproduct = db.SellerProducts.Where(m => m.SellerProductID == productModel.SellerProductID).FirstOrDefault();
+                        oldunit = buyerproduct.Unit==null?0: buyerproduct.Unit;
+                        var diffUnit = oldunit - productModel.Unit;
+                        var product = db.Products.Where(m => m.CategoryID == productModel.CategoryID && m.ProductName == productModel.ProductName && m.CategoryID == productModel.CategoryID).FirstOrDefault();
+                        if (product != null)
+                        {
+                            product.Unit += diffUnit;
+                        }
                     }
                     else
                     {
@@ -125,6 +152,27 @@ namespace DAL.Implementation
                     if (productModel.SellerProductID == 0)
                     {
                         db.SellerProducts.Add(buyerproduct);
+
+
+                        if (productModel.SellerID > 0)
+                        {
+                            var oldproduct = db.Products.Where(m => m.ProductName == productModel.ProductName && m.Type == productModel.Type && m.CategoryID == productModel.CategoryID).FirstOrDefault();
+                            if (oldproduct != null)
+                            {
+                                oldproduct.Unit += productModel.Unit;
+                            }
+                            else
+                            {
+                                Product prod = new Product();
+                                prod.ProductName = productModel.ProductName;
+                                prod.ProdDesc = productModel.Description;
+                                prod.Type = productModel.Type;
+                                prod.CategoryID = productModel.CategoryID;
+                                prod.Unit = productModel.Unit;
+                                prod.IsActive = true;
+                                db.Products.Add(prod);
+                            }
+                        }
                     }
                     db.SaveChanges();
                     var lstproducts = db.SellerProducts.Where(m => m.SellerID == productModel.SellerID).ToList();

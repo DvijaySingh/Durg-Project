@@ -21,5 +21,6 @@ namespace DAL
         public Nullable<decimal> weight { get; set; }
         public Nullable<long> SellerID { get; set; }
         public string Type { get; set; }
+        public Nullable<long> CategoryID { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Borrower borrower = db.Borrowers.Find(id);
+            BorrowerViewModel borrower = _IBorrower.GetBorrowerInfo(id);
             if (borrower == null)
             {
                 return HttpNotFound();

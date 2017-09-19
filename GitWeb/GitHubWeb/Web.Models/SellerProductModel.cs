@@ -9,5 +9,6 @@
         public string Description { get; set; }
         public int? Unit { get; set; }
         public decimal? weight { get; set; }
+        public  long? CategoryID { get; set; }
     }
 }

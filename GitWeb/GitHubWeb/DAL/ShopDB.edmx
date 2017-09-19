@@ -92,6 +92,7 @@
           <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Units" Type="int" />
           <Property Name="Type" Type="varchar" MaxLength="20" />
+          <Property Name="CategoryID" Type="bigint" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -153,6 +154,15 @@
           <Property Name="ProdDesc" Type="nvarchar(max)" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Unit" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ProductTypeID" />
+          </Key>
+          <Property Name="ProductTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -187,6 +197,7 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Unit" Type="int" />
           <Property Name="weight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CategoryID" Type="bigint" />
         </EntityType>
         <EntityType Name="VendorDetails">
           <Key>
@@ -227,6 +238,7 @@
           <EntitySet Name="MType" EntityType="Self.MType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellerInstallments" EntityType="Self.SellerInstallments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellerProduct" EntityType="Self.SellerProduct" Schema="dbo" store:Type="Tables" />
@@ -295,6 +307,8 @@
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <Property Name="Unit" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Product_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -330,6 +344,7 @@
           <EntitySet Name="Sellers" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Seller" />
           <EntitySet Name="SellerInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerInstallment" />
           <EntitySet Name="SellerProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct" />
+          <EntitySet Name="ProductTypes" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.ProductType" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -438,6 +453,7 @@
           <Property Name="Units" Type="Int32" />
           <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="BuyerID" Type="Int64" />
+          <Property Name="CategoryID" Type="Int64" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -472,6 +488,14 @@
           <Property Name="weight" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="SellerID" Type="Int64" />
           <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ProductTypeID" />
+          </Key>
+          <Property Name="ProductTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -528,6 +552,8 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
@@ -646,6 +672,7 @@
           <EntitySetMapping Name="BuyerProducts">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerProduct">
               <MappingFragment StoreEntitySet="BuyerProducts">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Units" ColumnName="Units" />
@@ -682,6 +709,7 @@
           <EntitySetMapping Name="SellerProducts">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct">
               <MappingFragment StoreEntitySet="SellerProduct">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="SellerID" ColumnName="SellerID" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
@@ -689,6 +717,14 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="SellerProductID" ColumnName="SellerProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

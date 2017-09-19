@@ -12,14 +12,9 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class BuyerProduct
+    public partial class ProductType
     {
-        public long BuyerProductlD { get; set; }
-        public string ProductName { get; set; }
-        public Nullable<decimal> Weight { get; set; }
-        public Nullable<int> Units { get; set; }
-        public string Type { get; set; }
-        public Nullable<long> BuyerID { get; set; }
-        public Nullable<long> CategoryID { get; set; }
+        public int ProductTypeID { get; set; }
+        public string TypeName { get; set; }
     }
 }

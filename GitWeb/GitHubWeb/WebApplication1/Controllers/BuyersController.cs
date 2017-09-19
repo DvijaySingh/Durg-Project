@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Buyer buyer = db.Buyers.Find(id);
+            BuyerViewModel buyer = _IBuyer.GetBuyerInfo(id);
             if (buyer == null)
             {
                 return HttpNotFound();
@@ -47,6 +47,8 @@ namespace WebApplication1.Controllers
         {
             _IBuyer.DeleteInitilProducts();
             var objbuyer = InitilCreateBulk();
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(objbuyer);
         }
 
@@ -62,6 +64,8 @@ namespace WebApplication1.Controllers
                 _IBuyer.AddBuyer(buyerobj.buyer);
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(buyerobj);
         }
 
@@ -134,6 +138,8 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(buyer);
         }
 
@@ -149,6 +155,8 @@ namespace WebApplication1.Controllers
                 _IBuyer.AddBuyer(buyer.buyer);
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(buyer);
         }
 
@@ -186,6 +194,13 @@ namespace WebApplication1.Controllers
             objbuyer.Installments = new BuyerInstallmentModel();
             objbuyer.LstInstallments    = new List<BuyerInstallmentModel>();
             return objbuyer;
+        }
+        public JsonResult GetAllProducts()
+        {
+            var products = (from prod in db.Products
+                            join category in db.Categories on prod.CategoryID equals category.CategoryID
+                         select prod.ProductName  + "("+category.CategoryName+ "#" + prod.Type + ")").Distinct().ToList();
+            return Json(products, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)
         {

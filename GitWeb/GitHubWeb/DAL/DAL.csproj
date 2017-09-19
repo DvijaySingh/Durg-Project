@@ -90,6 +90,7 @@
     <Compile Include="Implementation\DashBoardDAL.cs" />
     <Compile Include="Implementation\OrderDAL.cs" />
     <Compile Include="Implementation\ProductDAL.cs" />
+    <Compile Include="Implementation\ProductTypeDAL.cs" />
     <Compile Include="Implementation\SellerDAL.cs" />
     <Compile Include="Interface\IBorrower.cs" />
     <Compile Include="Interface\IBulkProduct.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Interface\IDashBoard.cs" />
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Interface\IProduct.cs" />
+    <Compile Include="Interface\IProductType.cs" />
     <Compile Include="Interface\ISeller.cs" />
     <Compile Include="MapProperties.cs" />
     <Compile Include="MType.cs">
@@ -108,6 +110,9 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductType.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

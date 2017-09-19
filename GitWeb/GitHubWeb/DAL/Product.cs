@@ -20,6 +20,8 @@ namespace DAL
         public string ProdDesc { get; set; }
         public byte[] Image { get; set; }
         public bool IsActive { get; set; }
+        public Nullable<int> Unit { get; set; }
+        public string Type { get; set; }
     
         public virtual Category Category { get; set; }
     }

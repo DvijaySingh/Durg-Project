@@ -18,7 +18,7 @@
     var bulkID = $('#buyerID').val();
     $('#hdnProductBuyerId').val(bulkID);
     $('#hdnInstallmentBuyerID').val(bulkID);
-
+    ProductAutoFill();
     $(document).delegate('.btnedit', 'click', function () {
         debugger;
         var tr = $(this).closest('tr');
@@ -128,5 +128,56 @@ function openCity(evt, cityName) {
 }
 function CallProductInfo() {
     document.getElementById("productInfo").click();
+}
+
+function ProductAutoFill() {
+    $.ajax({
+        url: "GetAllProducts",
+        cache: false,
+        type: "GET",
+        data: {  },
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            var lstdata = data;
+            $("#txtProductname").autocomplete({
+                minLength: 0,
+                open: function () {
+                    $('.ui-menu')
+                        .width($('#txtProductname').width() + 22);
+                },
+                source: lstdata,
+                innerHeight: "200",
+                select: function (event, ui) {
+                    event.preventDefault();
+                    var labelValue = ui.item.label;
+                    if (labelValue.indexOf('(') > 0) {
+                        var codeAndText = labelValue.split('(');
+                        $('#txtProductname').val(codeAndText[0]);
+                        var categoryAndType = (codeAndText[1].slice(0, -1)).split('#');
+                        $('#ddlCategory').val(categoryAndType[0]);
+                        $("#ddlType").val(categoryAndType[1]).focus();
+                    }
+                    else {
+                        $("#txtalsonotify").val(labelValue);
+                    }
+                },
+                click: function (event, ui) {
+                    try {
+                        event.preventDefault();
+                        $("#txtalsonotify").val(ui.item.label);
+                    }
+                    catch (e) { }
+                },
+            }).focus(function () {
+                try {
+                    $(this).autocomplete("search", "");
+                }
+                catch (e) { }
+            });
+        },
+        error: function () {
+        }
+    });
+
 }
 

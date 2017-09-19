@@ -67,6 +67,11 @@ namespace WebApplication1.FactoryMethods
                         service = new BorrowerDAL();
                         break;
                     }
+                case "ProductTypes":
+                    {
+                        service = new ProductTypeDAL();
+                        break;
+                    }
             }
             IController controller = Activator.CreateInstance(controllerType, new[] { service }) as Controller;
             return controller;

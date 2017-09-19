@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductTypesController.cs" />
     <Compile Include="Controllers\SellersController.cs" />
     <Compile Include="FactoryMethods\CustomControllerFactory.cs" />
     <Compile Include="Global.asax.cs">
@@ -314,6 +315,11 @@
     <Content Include="Views\Sellers\_SellerProducts.cshtml" />
     <Content Include="Views\Sellers\_SellerInstallments.cshtml" />
     <Content Include="Views\Borrowers\_BorrowerInstallment.cshtml" />
+    <Content Include="Views\ProductTypes\Create.cshtml" />
+    <Content Include="Views\ProductTypes\Delete.cshtml" />
+    <Content Include="Views\ProductTypes\Details.cshtml" />
+    <Content Include="Views\ProductTypes\Edit.cshtml" />
+    <Content Include="Views\ProductTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

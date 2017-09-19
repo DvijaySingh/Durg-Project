@@ -2,7 +2,7 @@
 @model Web.Models.ViewModel.BuyerViewModel
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Update Buyer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -101,12 +101,7 @@
                     <div class="col-md-3 form-group">
                         <label> Type </label>
 
-                        @Html.DropDownListFor(model => model.productInfo.Type, new SelectList(
-                  new List<Object>{
-                         new { value = 0 , text = "Please Select"  },new { value = 1 , text = "Silver"  },
-                       new { value = 2 , text = "Gold" }
-                    }, "value",
-                  "text"), new { @class = "form-control", @id = "ddlType" })
+                        @Html.DropDownListFor(model => model.productInfo.Type, ViewBag.ProductTypeID as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "ddlType" })
                         @Html.ValidationMessageFor(model => model.productInfo.Type, "", new { @class = "text-danger" })
 
                     </div>
@@ -125,7 +120,12 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-9 form-group">
+                    <div class="col-md-3 form-group">
+                        <label>Category</label>
+                        @Html.DropDownListFor(model => model.productInfo.CategoryID, ViewBag.CategoryID as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.productInfo.CategoryID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6 form-group">
                     </div>
                     <div class="col-md-3 form-group">
                         <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
