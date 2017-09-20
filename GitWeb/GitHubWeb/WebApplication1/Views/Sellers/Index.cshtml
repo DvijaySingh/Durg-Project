@@ -1,70 +1,60 @@
-﻿@model IEnumerable<DAL.Seller>
+﻿@model Web.Models.ViewModel.SellerSearchViewModel
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script src="~/Scripts/Pages/Seller.js"></script>
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table" id="tblSellers">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SellerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepositeAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OutstandingAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BuyDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SellerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepositeAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OutstandingAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BuyDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.SellerID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.SellerID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.SellerID })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@using (Ajax.BeginForm("Search", "Sellers",
+                                                                                                                                                      new AjaxOptions
+                                                                                                                                                      {
+                                                                                                                                                          HttpMethod = "Post",
+                                                                                                                                                          UpdateTargetId = "lstCusProducts",
+                                                                                                                                                          OnSuccess = "RefreshGrid"
+                                                                                                                                                      }))
+{
+    <div id="ajaxform">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Seller Name </label>
+
+
+                @Html.TextBoxFor(model => model.seller.SellerName, new { @class = "form-control", @id = "txtProductname" })
+
+
+            </div>
+            <div class="col-md-3 form-group">
+
+            </div>
+            <div class="col-md-3 form-group">
+
+
+            </div>
+            <div class="col-md-3 form-group">
+                <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
+
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 form-group">
+            </div>
+            <div class="col-md-3 form-group">
+
+            </div>
+        </div>
+    </div>
+
+}
+<div id="lstCusProducts">
+    @Html.Partial("~/Views/Sellers/_SellerSearch.cshtml", Model)
+</div>
 <script>
     $(document).ready(function () {
         $("#tblSellers").DataTable({

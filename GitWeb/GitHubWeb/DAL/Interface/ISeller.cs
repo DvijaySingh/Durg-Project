@@ -21,5 +21,7 @@ namespace DAL.Interface
         List<SellerInstallmentModel> AddSellerInstallment(SellerInstallmentModel installment);
         List<SellerInstallmentModel> DeleteSellerInstallment(long Id, long buyerID);
         SellerInstallment GetSellerInstallment(ShopDevEntities db, long Id);
+
+        SellerSearchViewModel SearchSeller(string name);
     }
 }

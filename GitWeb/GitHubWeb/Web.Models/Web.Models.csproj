@@ -65,6 +65,7 @@
     <Compile Include="ViewModel\BorrowerViewModel.cs" />
     <Compile Include="ViewModel\BulkBuyViewModel.cs" />
     <Compile Include="ViewModel\BuyerViewModel.cs" />
+    <Compile Include="ViewModel\SellerSearchViewModel.cs" />
     <Compile Include="ViewModel\SellerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

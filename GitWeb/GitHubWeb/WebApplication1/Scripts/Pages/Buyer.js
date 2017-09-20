@@ -1,19 +1,11 @@
 ﻿$(document).ready(function () {
    
-    $("#txtbuyDate").datepicker({
-        minDate: new Date(2000, 1 - 1, 01),
-        dateFormat: 'dd/mm/yy',
+    $("#txtbuyDate,#txtinsdate").datepicker({
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,
-    })
-    $("#txtinsdate").datepicker({
-        minDate: new Date(2000, 1 - 1, 01),
-        dateFormat: 'dd/mm/yy',
-        showOtherMonths: true,
-        changeYear: true,
-        selectOtherMonths: true,
-    })
+    });
+     
 
     var bulkID = $('#buyerID').val();
     $('#hdnProductBuyerId').val(bulkID);

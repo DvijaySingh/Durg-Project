@@ -24,7 +24,15 @@ namespace WebApplication1.Controllers
         // GET: Sellers
         public ActionResult Index()
         {
-            return View(db.Sellers.ToList());
+            SellerSearchViewModel objseller = new SellerSearchViewModel();
+            objseller.seller = new SellerModel();
+            objseller.lstseller = new List<SellerModel>();
+            return View(objseller);
+        }
+        public ActionResult Search(SellerSearchViewModel objModel)
+        {
+            SellerSearchViewModel objRes = _ISeller.SearchSeller(objModel.seller.SellerName );
+            return PartialView("~/Views/Sellers/_SellerSearch.cshtml", objRes);
         }
 
         // GET: Sellers/Details/5
@@ -77,7 +85,7 @@ namespace WebApplication1.Controllers
             objSeller.productInfo = new SellerProductModel();
             objSeller.Lstproducts = new List<SellerProductModel>();
             objSeller.Lstproducts.AddRange(lstAddedProducts);
-            
+
             objSeller.Installments = new SellerInstallmentModel();
             objSeller.LstInstallments = new List<SellerInstallmentModel>();
             return PartialView("~/Views/Sellers/_SellerProducts.cshtml", objSeller);
@@ -105,7 +113,7 @@ namespace WebApplication1.Controllers
             List<SellerInstallmentModel> lstinstallment = _ISeller.AddSellerInstallment(sellerviewModel.Installments);
             sellerviewModel.sellerInfor = new SellerModel();
             sellerviewModel.Lstproducts = new List<SellerProductModel>();
-             
+
             sellerviewModel.Installments = new SellerInstallmentModel();
             sellerviewModel.LstInstallments = new List<SellerInstallmentModel>();
             sellerviewModel.LstInstallments.AddRange(lstinstallment);
@@ -154,7 +162,7 @@ namespace WebApplication1.Controllers
             {
                 _ISeller.AddSeller(seller.sellerInfor);
                 return RedirectToAction("Index");
-                 
+
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
             ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");

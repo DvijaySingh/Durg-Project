@@ -1,19 +1,11 @@
 ﻿$(document).ready(function () {
 
-    $("#txtSelldate").datepicker({
-        minDate: new Date(2000, 1 - 1, 01),
-       // dateFormat: 'dd/mm/yy',
+    $("#txtSelldate,#txtinsdate,#txtdate").datepicker({
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,
     })
-    $("#txtinsdate").datepicker({
-        minDate: new Date(2000, 1 - 1, 01),
-        dateFormat: 'dd/mm/yy',
-        showOtherMonths: true,
-        changeYear: true,
-        selectOtherMonths: true,
-    })
+     
 
     var bulkID = $('#hdnSellerID').val();
     $('#hdnProdSellerId').val(bulkID);
@@ -127,5 +119,15 @@ function openCity(evt, cityName) {
 }
 function CallProductInfo() {
     document.getElementById("productInfo").click();
+}
+function RefreshGrid()
+{
+    $("#tblSellers").DataTable({
+        paging: true,
+        aaSorting: [],
+        responsive: true
+    });
+    $('#tblSellers_length').remove();
+    $('#tblSellers_filter input').addClass('form-control');
 }
 

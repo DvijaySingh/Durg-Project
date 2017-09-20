@@ -1,0 +1,58 @@
+﻿
+@model Web.Models.ViewModel.SellerSearchViewModel
+
+<table class="table" id="tblSellers">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.seller.SellerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.seller.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.seller.DepositeAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.seller.OutstandingAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.seller.BuyDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.seller.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.lstseller)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepositeAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutstandingAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SellerID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.SellerID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SellerID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

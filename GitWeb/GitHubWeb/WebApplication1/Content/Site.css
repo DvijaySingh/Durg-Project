@@ -66,15 +66,15 @@ img {
 }
 
 .btn-default {
-    color: #fff;
-    background-color: #066560;
+        color: #0c0a0a;
+    background-color: #b2b9b9;
 }
 
-    .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    /*.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
         color: #ffffff;
         background-color: rgba(6, 101, 96, 0.44);
         border-color: #adadad;
-    }
+    }*/
 
 .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
     color: #ffffff;

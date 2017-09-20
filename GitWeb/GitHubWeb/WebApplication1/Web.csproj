@@ -304,7 +304,6 @@
     <Content Include="Views\Sellers\Delete.cshtml" />
     <Content Include="Views\Sellers\Details.cshtml" />
     <Content Include="Views\Sellers\Edit.cshtml" />
-    <Content Include="Views\Sellers\Index.cshtml" />
     <Content Include="Views\Borrowers\Create.cshtml" />
     <Content Include="Views\Borrowers\Delete.cshtml" />
     <Content Include="Views\Borrowers\Details.cshtml" />
@@ -320,6 +319,8 @@
     <Content Include="Views\ProductTypes\Details.cshtml" />
     <Content Include="Views\ProductTypes\Edit.cshtml" />
     <Content Include="Views\ProductTypes\Index.cshtml" />
+    <Content Include="Views\Sellers\_SellerSearch.cshtml" />
+    <Content Include="Views\Sellers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

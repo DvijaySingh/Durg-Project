@@ -2,8 +2,6 @@
     var dateFormat = "dd/mm/yyyy",
      from = $("#txtOrderDate")
        .datepicker({
-           minDate: new Date(2000, 1 - 1, 01),
-           dateFormat: 'dd/mm/yy',
            showOtherMonths: true,
            changeYear: true,
            selectOtherMonths: true,
@@ -21,8 +19,6 @@
            to.datepicker("option", "minDate", getDate(this) == null ? new Date(2000, 1 - 1, 01) : getDate(this));
        }),
      to = $("#txtDelivaryDate").datepicker({
-         minDate: new Date(2000, 1 - 1, 01),
-         dateFormat: 'dd/mm/yy',
          showOtherMonths: true,
          changeYear: true,
          selectOtherMonths: true,

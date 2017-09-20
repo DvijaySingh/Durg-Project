@@ -308,6 +308,37 @@ namespace DAL.Implementation
             return objinstllment;
         }
 
+        public SellerSearchViewModel SearchSeller(string name)
+        {
+            SellerSearchViewModel searchRes = new SellerSearchViewModel();
+            List<SellerModel> lstsellers = new List<SellerModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+
+                    var res = from seller in db.Sellers
+                              where seller.SellerName.Contains(name) || string.IsNullOrEmpty(name)
+                              orderby seller.BuyDate descending
+                              select seller ;
+                    foreach(var seller in res)
+                    {
+                        SellerModel sellerModel = new SellerModel();
+                        seller.CopyProperties(sellerModel);
+                        lstsellers.Add(sellerModel);
+                    }
+                     
+                }
+                catch (Exception ex)
+                {
+
+                }
+                searchRes.lstseller = lstsellers;
+                searchRes.seller = new SellerModel();
+                return searchRes;
+            }
+        }
+
         #endregion
 
 
