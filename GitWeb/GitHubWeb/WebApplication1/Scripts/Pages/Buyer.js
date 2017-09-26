@@ -1,12 +1,48 @@
 ﻿$(document).ready(function () {
-   
-    $("#txtbuyDate,#txtinsdate").datepicker({
+
+    $("#txtbuyDate,#txtinsdate,#txtbillDate").datepicker({
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,
     });
-     
+    $("#fileupload").change(function () {
+        $("#dvPreview").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            $("#dvPreview").show();
+            $("#dvPreview").append("<img />");
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#dvPreview img").attr("src", e.target.result);
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+    $("#frmcreatebuyer").validate({
 
+        // Specify the validation rules
+        rules: {
+            BuyerName: "required",
+            Address: "required",
+            DepositeAmount: "required",
+            BuyDate: "required",
+        },
+
+        // Specify the validation error messages
+        messages: {
+            BuyerName: "Please enter service name",
+            Address: "Please enter Address.",
+            DepositeAmount:  "Please provide amount.",
+            BuyDate: "Please enter buy date.",
+             
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
     var bulkID = $('#buyerID').val();
     $('#hdnProductBuyerId').val(bulkID);
     $('#hdnInstallmentBuyerID').val(bulkID);
@@ -20,8 +56,7 @@
         var Approxw = $(tr).find('td').eq(2).text().trim();
         var unit = $(tr).find('td').eq(3).text().trim();
         var typeid = 0;
-        switch(Type)
-        {
+        switch (Type) {
             case "Gold":
                 typeid = 2;
                 break;
@@ -71,7 +106,7 @@ function RefreshProductDataTable() {
     $('#txtunit').val('');
 }
 
- 
+
 function RefreshInstallmentDatatable() {
     $("#tblinstallment").DataTable({
         paging: true,
@@ -127,7 +162,7 @@ function ProductAutoFill() {
         url: "GetAllProducts",
         cache: false,
         type: "GET",
-        data: {  },
+        data: {},
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             var lstdata = data;

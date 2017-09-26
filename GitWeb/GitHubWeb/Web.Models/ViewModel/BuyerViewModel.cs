@@ -9,5 +9,8 @@ namespace Web.Models.ViewModel
         public List<BuyerProductModel> LstProducts { get; set; }
         public BuyerInstallmentModel Installments { get; set; }
         public List<BuyerInstallmentModel> LstInstallments { get; set; }
+        //public BuyerBillModel buyerbill { get; set; }
+        //public List<BuyerBillModel> Allbills { get; set; }
+
     }
 }

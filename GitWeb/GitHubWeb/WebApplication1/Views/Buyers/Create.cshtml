@@ -5,7 +5,22 @@
     ViewBag.Title = "Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style type="text/css">
+    #dvPreview {
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+        max-height: 160px;
+        max-width: 285px;
+        min-height: 160px;
+        min-width: 285px;
+        display: block;
+        border: 1px;
+    }
 
+        #dvPreview img {
+            max-height: 200px;
+            max-width: 285px;
+        }
+</style>
 <script src="~/Scripts/Pages/Buyer.js"></script>
 <center> <label> Buyer </label></center>
 
@@ -13,9 +28,12 @@
     <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Customer Info</button>
     <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
     <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
+    <button class="tablinks" onclick="openCity(event, 'billInfo')">Bills</button>
+
+
 </div>
 <div id="custnfo" class="tabcontent">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Create", "Buyers", FormMethod.Post, new { id = "frmcreatebuyer", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -23,41 +41,64 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="customer-information">
-
             <div class="row">
-                <div class="col-md-3 form-group">
-                    <label> Buyer Name </label>
-                    @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
-                    @Html.TextBoxFor(model => model.buyer.BuyerName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.buyer.BuyerName, "", new { @class = "text-danger" })
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label> Buyer Name </label>
+                            @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
+                            @Html.TextBoxFor(model => model.buyer.BuyerName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.buyer.BuyerName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label> Address </label>
+                            @Html.TextAreaFor(model => model.buyer.Address, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.buyer.Address, "", new { @class = "text-danger" })
+                        </div>
+                      
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label> Amount </label>
+                            @Html.TextBoxFor(model => model.buyer.DepositeAmount, new { @class = "form-control", @type = "number" })
+                            @Html.ValidationMessageFor(model => model.buyer.DepositeAmount, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label> Outstanding Amount</label>
+                            @Html.TextBoxFor(model => model.buyer.OutstandingAmount, new { @class = "form-control", @type = "number" })
+                            @Html.ValidationMessageFor(model => model.buyer.OutstandingAmount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class=" row">
+                        <div class="col-md-6 form-group">
+                            <label>  Buy Date</label>
+                            @Html.TextBoxFor(model => model.buyer.BuyDate, new { @class = "form-control", @id = "txtbuyDate" })
+                            @Html.ValidationMessageFor(model => model.buyer.BuyDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3 form-group">
-                    <label> Address </label>
-                    @Html.TextAreaFor(model => model.buyer.Address, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.buyer.Address, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Amount </label>
-                    @Html.TextBoxFor(model => model.buyer.DepositeAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.buyer.DepositeAmount, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-3 form-group">
-                    <label> Outstanding Amount</label>
-                    @Html.TextBoxFor(model => model.buyer.OutstandingAmount, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.buyer.OutstandingAmount, "", new { @class = "text-danger" })
+                <div class="col-md-4">
+                    <div class="row">
+
+
+                        <div class="col-md-12 form-group">
+                            <label> Bill </label>
+                            <input type="file" name="file" id="fileupload" />
+                            <div id="dvPreview">
+                            </div>
+                        </div>
+                        
+
+                       
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label>  Buy Date</label>
-                    @Html.TextBoxFor(model => model.buyer.BuyDate, new { @class = "form-control", @id = "txtbuyDate" })
-                    @Html.ValidationMessageFor(model => model.buyer.BuyDate, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-6 form-group">
-
-                </div>
-                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
-            </div>
+         <div class="row">
+             <div class="col-md-9"></div>
+             <div class=" col-md-3"><input type="submit" value="Save" class="btn btn-default  " />
+             </div>
+         </div>
+          
 
 
         </div>
@@ -69,12 +110,12 @@
 <div id="productInfo" class="tabcontent">
     <div id="divcusProducts" class="customer-information">
         @using (Ajax.BeginForm("AddBuyerProduct", "Buyers",
-                                                                                                                      new AjaxOptions
-                                                                                                                      {
-                                                                                                                          HttpMethod = "Post",
-                                                                                                                          UpdateTargetId = "lstCusProducts",
-                                                                                                                          OnSuccess = "RefreshProductDataTable"
-                                                                                                                      }))
+                                                                                                                          new AjaxOptions
+                                                                                                                          {
+                                                                                                                              HttpMethod = "Post",
+                                                                                                                              UpdateTargetId = "lstCusProducts",
+                                                                                                                              OnSuccess = "RefreshProductDataTable"
+                                                                                                                          }))
         {
             <div id="ajaxform">
                 <div class="row">
@@ -109,7 +150,7 @@
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label>Category</label>
-                        @Html.DropDownListFor(model => model.productInfo.CategoryID, ViewBag.CategoryID as IEnumerable<SelectListItem>, new { @class = "form-control" ,@id="ddlCategory" })
+                        @Html.DropDownListFor(model => model.productInfo.CategoryID, ViewBag.CategoryID as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "ddlCategory" })
                         @Html.ValidationMessageFor(model => model.productInfo.CategoryID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6 form-group">
@@ -132,12 +173,12 @@
 <div id="insInfo" class="tabcontent">
     <div id="divcusProducts" class="customer-information">
         @using (Ajax.BeginForm("AddBuyerInstallment", "Buyers",
-                                                                                                                              new AjaxOptions
-                                                                                                                              {
-                                                                                                                                  HttpMethod = "Post",
-                                                                                                                                  UpdateTargetId = "lstinstallment",
-                                                                                                                                  OnSuccess = "RefreshInstallmentDatatable"
-                                                                                                                              }))
+                                                                                                                                  new AjaxOptions
+                                                                                                                                  {
+                                                                                                                                      HttpMethod = "Post",
+                                                                                                                                      UpdateTargetId = "lstinstallment",
+                                                                                                                                      OnSuccess = "RefreshInstallmentDatatable"
+                                                                                                                                  }))
         {
             <div id="ajaxform">
                 <div class="row">
@@ -174,6 +215,52 @@
     </div>
 </div>
 
+@*<div id="billInfo" class="tabcontent">
+        <div id="divcusProducts" class="customer-information">
+            @using (Html.BeginForm("AddBuyerBill", "Buyers", FormMethod.Post,
+                                                                                                                                      //new AjaxOptions
+                                                                                                                                      //{
+                                                                                                                                      //    HttpMethod = "Post",
+                                                                                                                                      //    UpdateTargetId = "lstBills",
+                                                                                                                                      //    OnSuccess = "RefreshInstallmentDatatable"
+                                                                                                                                      //},
+                                                                                                                                      new { enctype = "multipart/form-data" }))
+            {
+                <div id="ajaxform">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label> Bill Name </label>
+                            @Html.HiddenFor(m => m.buyerbill.BillID, new { @id = "hdnbillID" })
+                            @Html.TextBoxFor(model => model.buyerbill.BillName, new { @class = "form-control",  @id = "txtbillName" })
+                            @Html.ValidationMessageFor(model => model.buyerbill.BillName, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> Date </label>
+                            @Html.TextBoxFor(model => model.buyerbill.BillDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtbillDate" })
+                            @Html.ValidationMessageFor(model => model.buyerbill.BillDate, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> Bill </label>
+                           <input type="file" name="file" id="btnUpload" />
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <input type="submit" class="btn btn-default frm-button" id="btnbillSubmit" value="Save Bill" />
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+            <div id="lstBills">
+                @Html.Partial("~/Views/Buyers/_BuyerBills.cshtml", Model)
+            </div>
+
+        </div>
+    </div>*@
 <div>
 
     @Html.ActionLink("Back to List", "Index")

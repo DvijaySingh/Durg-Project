@@ -63,6 +63,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
+                        @Html.HiddenFor(m=>m.Image)
                         <input id="fileupload" type="file" name="file" />
                         <div id="dvPreview">
                             <img src="@imgSrc" />

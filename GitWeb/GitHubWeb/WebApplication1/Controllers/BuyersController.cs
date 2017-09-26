@@ -10,6 +10,7 @@ using DAL;
 using DAL.Interface;
 using Web.Models.ViewModel;
 using Web.Models;
+using System.IO;
 
 namespace WebApplication1.Controllers
 {
@@ -57,12 +58,25 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( BuyerViewModel buyerobj)
+        public ActionResult Create( BuyerViewModel buyerobj,HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if(file!=null)
+                {
+                    using (MemoryStream target = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(target);
+                        buyerobj.buyer.Bill = target.ToArray();
+                    }
+                     
+                }
                 _IBuyer.AddBuyer(buyerobj.buyer);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                buyerobj= InitilCreateBulk();
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
             ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
@@ -126,6 +140,8 @@ namespace WebApplication1.Controllers
             buyerViewModel.LstInstallments.AddRange(lstinstallments);
             return PartialView("~/Views/Buyers/_BuyerInstallments.cshtml.cshtml", buyerViewModel);
         }
+
+       
         // GET: Buyers/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -148,16 +164,25 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( BuyerViewModel buyer)
+        public ActionResult Edit( BuyerViewModel buyerviewmodel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                _IBuyer.AddBuyer(buyer.buyer);
+                if (file != null)
+                {
+                    using (MemoryStream target = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(target);
+                        buyerviewmodel.buyer.Bill = target.ToArray();
+                    }
+
+                }
+                _IBuyer.AddBuyer(buyerviewmodel.buyer);
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
             ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
-            return View(buyer);
+            return View(buyerviewmodel);
         }
 
         // GET: Buyers/Delete/5

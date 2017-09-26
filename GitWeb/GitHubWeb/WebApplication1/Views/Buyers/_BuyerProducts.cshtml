@@ -48,7 +48,7 @@
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
                     <button id="@item.BuyerProductlD" class="btn btn-default btnedit">Edit</button>
-                    @Ajax.ActionLink("Delete", "DeleteProduct", "BulkBuys", new { productID = item.BuyerProductlD, buyerID = item.BuyerID },
+                    @Ajax.ActionLink("Delete", "DeleteProduct", "Buyers", new { productID = item.BuyerProductlD, buyerID = item.BuyerID },
                     new AjaxOptions
                     {
                         Confirm = "are you sure to perform the deletion.",

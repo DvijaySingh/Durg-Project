@@ -20,5 +20,6 @@ namespace DAL
         public Nullable<decimal> DepositeAmount { get; set; }
         public Nullable<decimal> OutstandingAmount { get; set; }
         public Nullable<System.DateTime> BuyDate { get; set; }
+        public byte[] Bill { get; set; }
     }
 }

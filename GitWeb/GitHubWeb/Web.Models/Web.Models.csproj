@@ -50,6 +50,7 @@
     <Compile Include="BorrowerModel.cs" />
     <Compile Include="BulkBuyModel.cs" />
     <Compile Include="BulkBuyProductsModel.cs" />
+    <Compile Include="BuyerBillModel.cs" />
     <Compile Include="BuyerInstallmentModel.cs" />
     <Compile Include="BuyerModel.cs" />
     <Compile Include="BuyerProductModel.cs" />

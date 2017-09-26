@@ -71,6 +71,7 @@
           <Property Name="DepositeAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="OutstandingAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="BuyDate" Type="datetime" />
+          <Property Name="Bill" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="BuyerInstallment">
           <Key>
@@ -93,6 +94,16 @@
           <Property Name="Units" Type="int" />
           <Property Name="Type" Type="varchar" MaxLength="20" />
           <Property Name="CategoryID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="BuyersBills">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyerID" Type="bigint" />
+          <Property Name="BillName" Type="varchar" MaxLength="50" />
+          <Property Name="BillDate" Type="datetime" />
+          <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -233,6 +244,7 @@
           <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuyerInstallment" EntityType="Self.BuyerInstallment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuyerProducts" EntityType="Self.BuyerProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuyersBills" EntityType="Self.BuyersBills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerProduct" EntityType="Self.CustomerProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MType" EntityType="Self.MType" Schema="dbo" store:Type="Tables" />
@@ -345,6 +357,7 @@
           <EntitySet Name="SellerInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerInstallment" />
           <EntitySet Name="SellerProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct" />
           <EntitySet Name="ProductTypes" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.ProductType" />
+          <EntitySet Name="BuyersBills" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyersBill" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -432,6 +445,7 @@
           <Property Name="DepositeAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OutstandingAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BuyDate" Type="DateTime" Precision="3" />
+          <Property Name="Bill" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="BuyerInstallment">
           <Key>
@@ -496,6 +510,16 @@
           </Key>
           <Property Name="ProductTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BuyersBill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyerID" Type="Int64" />
+          <Property Name="BillName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillDate" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -649,6 +673,7 @@
           <EntitySetMapping Name="Buyers">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Buyer">
               <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
                 <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
                 <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
                 <ScalarProperty Name="DepositeAmount" ColumnName="DepositeAmount" />
@@ -725,6 +750,17 @@
               <MappingFragment StoreEntitySet="ProductType">
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuyersBills">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyersBill">
+              <MappingFragment StoreEntitySet="BuyersBills">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="BillName" ColumnName="BillName" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
