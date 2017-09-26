@@ -43,6 +43,6 @@ namespace DAL
         public virtual DbSet<SellerInstallment> SellerInstallments { get; set; }
         public virtual DbSet<SellerProduct> SellerProducts { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
-        public virtual DbSet<BuyersBill> BuyersBills { get; set; }
+       
     }
 }

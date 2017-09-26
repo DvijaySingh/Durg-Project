@@ -75,9 +75,6 @@
     <Compile Include="BuyerProduct.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="BuyersBill.cs">
-      <DependentUpon>ShopDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Category.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
