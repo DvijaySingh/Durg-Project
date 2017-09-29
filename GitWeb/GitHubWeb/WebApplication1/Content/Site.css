@@ -4,12 +4,12 @@ body {
     padding-top: 0px;
     padding-bottom: 20px;
     /*background-color: rgba(10, 75, 78, 0.86);*/
-    background-color:rgba(10, 90, 57, 0.86);
+    background-color: rgba(7, 134, 82, 0.86);
     /*background-color: rgba(0, 149, 156, 0.86);*/
     /*background-color: #2196F3;*/
     font-family: "Times New Roman", Georgia, Serif;
     color: #FFF;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -67,11 +67,11 @@ img {
 }
 
 .btn-default {
-        color: #0c0a0a;
+    color: #0c0a0a;
     background-color: #b2b9b9;
 }
 
-    /*.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+/*.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
         color: #ffffff;
         background-color: rgba(6, 101, 96, 0.44);
         border-color: #adadad;
@@ -218,11 +218,13 @@ html, body {
     }
 
 #sidebar {
-    background-color: #1d435f;
+    background-color: #2e597d;
     padding-left: 0;
     padding-right: 0px;
     float: left;
     min-height: 100%;
+    font-size: 20px;
+    font-weight: bold;
 }
 
     #sidebar .collapse.in {
@@ -256,78 +258,104 @@ html, body {
     float: right;
     bottom: 0;
 }
+
 .notice {
-    
 }
-.notice .glyphicon {
-    font-size: 25px;
+
+    .notice .glyphicon {
+        font-size: 25px;
         color: #00f1ff;
-}
-.noti-head{
-    position: relative;    
+    }
+
+.noti-head {
+    position: relative;
     background: #017bfd;
     padding: 7px 10px 6px;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .count {
-    font-size: 16px;    
-       font-weight: bold;
+    font-size: 16px;
+    font-weight: bold;
 }
-.notice-list {    
-    visibility:hidden;     
-    background:#FFF;    
-    box-shadow:0 0 5px #000;      
-    overflow:hidden;    
+
+.notice-list {
+    visibility: hidden;
+    background: #FFF;
+    box-shadow: 0 0 5px #000;
+    overflow: hidden;
 }
-.notice-list.open {    
-    visibility:visible;
-    -moz-transition: height 3s ease;
-    -webkit-transition: height 3s ease;
-    -o-transition: height 3s ease;
-    transition: height 3s ease;
-}
-.notice-list ul{
-    padding:0px;   
-    height:0px;
-    overflow-y:scroll;
-    -moz-transition: height 3s ease;
-    -webkit-transition: height 3s ease;
-    -o-transition: height 3s ease;
-    transition: height 3s ease;
-}
-.notice-list.open ul {
-    max-height:200px;
-    /*this height need to be dynaimic*/
-    height:200px;
-    min-height: 34px;     
-    -moz-transition: height 3s ease;
-    -webkit-transition: height 3s ease;
-    -o-transition: height 3s ease;
-    transition: height 3s ease;
-}
-.notice-list ul li{
-    display:block;
-    padding: 5px;    
-    margin: 0 0 1px;
-    background: rgba(238, 238, 238, 0.64);
-}
-.notice-list ul li a{
-    color:#444;
-    display:block;
-    background:none;
-    text-decoration:none;
-}
-.notice-list ul li a:hover{
-    background:none;
-}
-.notice-list ul li:hover{   
-    background: rgba(238, 238, 238, 0.3);
-}
+
+    .notice-list.open {
+        visibility: visible;
+        -moz-transition: height 3s ease;
+        -webkit-transition: height 3s ease;
+        -o-transition: height 3s ease;
+        transition: height 3s ease;
+    }
+
+    .notice-list ul {
+        padding: 0px;
+        height: 0px;
+        overflow-y: scroll;
+        -moz-transition: height 3s ease;
+        -webkit-transition: height 3s ease;
+        -o-transition: height 3s ease;
+        transition: height 3s ease;
+    }
+
+    .notice-list.open ul {
+        max-height: 200px;
+        /*this height need to be dynaimic*/
+        height: 200px;
+        min-height: 34px;
+        -moz-transition: height 3s ease;
+        -webkit-transition: height 3s ease;
+        -o-transition: height 3s ease;
+        transition: height 3s ease;
+    }
+
+    .notice-list ul li {
+        display: block;
+        padding: 5px;
+        margin: 0 0 1px;
+        background: rgba(238, 238, 238, 0.64);
+    }
+
+        .notice-list ul li a {
+            color: #444;
+            display: block;
+            background: none;
+            text-decoration: none;
+        }
+
+            .notice-list ul li a:hover {
+                background: none;
+            }
+
+        .notice-list ul li:hover {
+            background: rgba(238, 238, 238, 0.3);
+        }
+
 
 /*End notification*/
 
+td a {
+    color: black;
+    display: inline-block;
+}
 
+thead th {
+    font-size: 19px;
+}
 
+.btn {
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    background-color: rgba(10, 60, 136, 0.69);
+        font-family: times;
+}
 /*
  * off canvas sidebar
  * --------------------------------------------------
@@ -421,4 +449,3 @@ footer {
     padding: 10px 0;
     text-align: center;
 }
-

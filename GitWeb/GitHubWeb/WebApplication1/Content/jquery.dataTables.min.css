@@ -186,7 +186,7 @@ table.dataTable {
 
     table.dataTable.no-footer {
         border-bottom: 1px solid #6f6f6f;
-            background-color: rgb(26, 197, 214) !important;
+        background-color: rgb(15, 115, 125) !important;
     }
 
     table.dataTable.nowrap th, table.dataTable.nowrap td {
