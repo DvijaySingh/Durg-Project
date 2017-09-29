@@ -17,6 +17,9 @@ namespace DAL
         public long ProductID { get; set; }
         public string ProductName { get; set; }
         public Nullable<long> OrderID { get; set; }
+        public string Type { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public Nullable<int> Qty { get; set; }
         public Nullable<decimal> AppxWeight { get; set; }
         public Nullable<decimal> ActualWeight { get; set; }
         public string Description { get; set; }
@@ -25,8 +28,5 @@ namespace DAL
         public Nullable<long> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<long> Updatedby { get; set; }
-        public Nullable<long> Type { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-        public Nullable<int> Qty { get; set; }
     }
 }

@@ -116,13 +116,7 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <label> Type </label>
-
-                        @Html.DropDownListFor(model => model.cusProduct.Type, new SelectList(
-                  new List<Object>{
-                         new { value = 0 , text = "Please Select"  },new { value = 1 , text = "Silver"  },
-                       new { value = 2 , text = "Gold" }
-                    }, "value",
-                  "text"), new { @class = "form-control", @id = "ddlType" })
+                        @Html.DropDownListFor(model => model.cusProduct.Type, ViewBag.ProductTypeID as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "ddlType" })
                         @Html.ValidationMessageFor(model => model.cusProduct.ProductName, "", new { @class = "text-danger" })
 
                     </div>

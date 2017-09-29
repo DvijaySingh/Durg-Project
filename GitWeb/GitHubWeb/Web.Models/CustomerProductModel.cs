@@ -5,7 +5,7 @@ namespace Web.Models
     public class CustomerProductModel
     {
         public long ProductID { get; set; }
-        public long Type { get; set; }
+        public string Type { get; set; }
         //public string Type { get {
         //        return TypeID == 1 ? "Silver" : "Gold";
         //    } }

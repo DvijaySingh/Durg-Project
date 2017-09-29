@@ -26,7 +26,6 @@ namespace DAL
         }
     
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<CustomerProduct> CustomerProducts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<MType> MTypes { get; set; }
@@ -43,6 +42,7 @@ namespace DAL
         public virtual DbSet<SellerInstallment> SellerInstallments { get; set; }
         public virtual DbSet<SellerProduct> SellerProducts { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
-       
+        public virtual DbSet<BuyersBill> BuyersBills { get; set; }
+        public virtual DbSet<CustomerProduct> CustomerProducts { get; set; }
     }
 }

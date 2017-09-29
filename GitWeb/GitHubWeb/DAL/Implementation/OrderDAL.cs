@@ -58,6 +58,15 @@ namespace DAL.Implementation
                     db.SaveChanges();
                     List<CustomerProduct> lstNewproducts = db.CustomerProducts.Where(m => m.OrderID == 0).ToList();
                     lstNewproducts.ForEach(m => m.OrderID = order.OrderId);
+
+                    //foreach (var product in lstNewproducts)
+                    //{
+                    //    var oldproduct = db.Products.Where(m => m.ProductName == product.ProductName && m.Type == product.Type && m.CategoryID == product.CategoryID).FirstOrDefault();
+                    //    if (oldproduct != null)
+                    //    {
+                    //        oldproduct.Unit -= 1;
+                    //    }
+                    //}
                     db.SaveChanges();
                 }
                 catch

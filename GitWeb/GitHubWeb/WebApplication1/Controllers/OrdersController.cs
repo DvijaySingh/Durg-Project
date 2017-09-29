@@ -55,6 +55,7 @@ namespace WebApplication1.Controllers
             OrderModel objOrderModel = new OrderModel();
             objOrderModel.cusProduct = new CustomerProductModel();
             objOrderModel.lstcusProduct = _IOrder.GetCurrentOrderProducts();
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             //var data = new CustomerProductModel { ActualWeight = 10, AppxWeight = 20, ProductName = "Test", IsActive = true, Description = "Test" };
             //objOrderModel.lstcusProduct.Add(data);
             return View(objOrderModel);
@@ -72,7 +73,7 @@ namespace WebApplication1.Controllers
                 _IOrder.AddOrder(order);
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(order);
         }
 

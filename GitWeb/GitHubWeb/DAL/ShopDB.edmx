@@ -120,7 +120,7 @@
           <Property Name="ProductID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="OrderID" Type="bigint" />
-          <Property Name="Type" Type="bigint" />
+          <Property Name="Type" Type="varchar" MaxLength="20" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Qty" Type="int" />
           <Property Name="AppxWeight" Type="decimal" Precision="18" Scale="0" />
@@ -273,25 +273,6 @@
           <Property Name="Desc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
-        <EntityType Name="CustomerProduct">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OrderID" Type="Int64" />
-          <Property Name="AppxWeight" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ActualWeight" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int64" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Updatedby" Type="Int64" />
-          <Property Name="Type" Type="Int64" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Qty" Type="Int32" />
-        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -336,7 +317,6 @@
         </Association>
         <EntityContainer Name="ShopDevEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="CustomerProducts" EntityType="Self.CustomerProduct" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
@@ -358,6 +338,7 @@
           <EntitySet Name="SellerProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.SellerProduct" />
           <EntitySet Name="ProductTypes" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.ProductType" />
           <EntitySet Name="BuyersBills" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyersBill" />
+          <EntitySet Name="CustomerProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.CustomerProduct" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -521,6 +502,25 @@
           <Property Name="BillDate" Type="DateTime" Precision="3" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="CustomerProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="Int64" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Int32" />
+          <Property Name="AppxWeight" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ActualWeight" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Updatedby" Type="Int64" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -533,26 +533,6 @@
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="Desc" ColumnName="Desc" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerProducts">
-            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.CustomerProduct">
-              <MappingFragment StoreEntitySet="CustomerProduct">
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="AppxWeight" ColumnName="AppxWeight" />
-                <ScalarProperty Name="ActualWeight" ColumnName="ActualWeight" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -761,6 +741,26 @@
                 <ScalarProperty Name="BillName" ColumnName="BillName" />
                 <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
                 <ScalarProperty Name="BillID" ColumnName="BillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerProducts">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.CustomerProduct">
+              <MappingFragment StoreEntitySet="CustomerProduct">
+                <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ActualWeight" ColumnName="ActualWeight" />
+                <ScalarProperty Name="AppxWeight" ColumnName="AppxWeight" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
