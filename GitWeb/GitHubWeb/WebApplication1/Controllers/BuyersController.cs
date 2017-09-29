@@ -224,6 +224,7 @@ namespace WebApplication1.Controllers
         {
             var products = (from prod in db.Products
                             join category in db.Categories on prod.CategoryID equals category.CategoryID
+                            where prod.Unit>0
                          select prod.ProductName  + "("+category.CategoryName+ "#" + prod.Type + ")").Distinct().ToList();
             return Json(products, JsonRequestBehavior.AllowGet);
         }
