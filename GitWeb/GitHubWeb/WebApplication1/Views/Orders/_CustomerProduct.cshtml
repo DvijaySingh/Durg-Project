@@ -37,20 +37,7 @@
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
-                    @switch (item.Type)
-                    {
-                        case 2:
-                           <span>Gold</span>
-                            break;
-                        case 1:
-                            <span>Silver</span>
-                            break;
-                        default:
-                            <span></span>
-                            break;
-
-                    }
-                   
+                    @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AppxWeight)
