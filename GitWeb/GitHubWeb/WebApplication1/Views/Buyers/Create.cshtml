@@ -149,9 +149,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Category</label>
-                        @Html.DropDownListFor(model => model.productInfo.CategoryID, ViewBag.CategoryID as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "ddlCategory" })
-                        @Html.ValidationMessageFor(model => model.productInfo.CategoryID, "", new { @class = "text-danger" })
+                       
                     </div>
                     <div class="col-md-6 form-group">
                     </div>
