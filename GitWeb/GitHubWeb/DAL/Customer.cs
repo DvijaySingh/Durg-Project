@@ -12,15 +12,10 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Buyer
+    public partial class Customer
     {
-        public long BuyerID { get; set; }
-        public string BuyerName { get; set; }
+        public long CustCode { get; set; }
+        public string CustmerName { get; set; }
         public string Address { get; set; }
-        public Nullable<decimal> DepositeAmount { get; set; }
-        public Nullable<decimal> OutstandingAmount { get; set; }
-        public Nullable<System.DateTime> BuyDate { get; set; }
-        public byte[] Bill { get; set; }
-        public Nullable<long> CustomerCode { get; set; }
     }
 }

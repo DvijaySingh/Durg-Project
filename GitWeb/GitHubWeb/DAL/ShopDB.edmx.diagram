@@ -25,6 +25,7 @@
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.ProductType" Width="1.5" PointX="9.375" PointY="10.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyersBill" Width="1.5" PointX="11.375" PointY="10.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.CustomerProduct" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Customer" Width="1.5" PointX="12.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

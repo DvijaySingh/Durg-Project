@@ -66,6 +66,7 @@
             <PropertyRef Name="BuyerID" />
           </Key>
           <Property Name="BuyerID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerCode" Type="bigint" />
           <Property Name="BuyerName" Type="varchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="DepositeAmount" Type="decimal" Precision="18" Scale="2" />
@@ -112,6 +113,14 @@
           <Property Name="CategoryID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
           <Property Name="Desc" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustCode" />
+          </Key>
+          <Property Name="CustCode" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustmerName" Type="varchar" MaxLength="128" />
+          <Property Name="Address" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CustomerProduct">
           <Key>
@@ -246,6 +255,7 @@
           <EntitySet Name="BuyerProducts" EntityType="Self.BuyerProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuyersBills" EntityType="Self.BuyersBills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerProduct" EntityType="Self.CustomerProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MType" EntityType="Self.MType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -339,6 +349,7 @@
           <EntitySet Name="ProductTypes" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.ProductType" />
           <EntitySet Name="BuyersBills" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyersBill" />
           <EntitySet Name="CustomerProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.CustomerProduct" />
+          <EntitySet Name="Customers" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Customer" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -427,6 +438,7 @@
           <Property Name="OutstandingAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BuyDate" Type="DateTime" Precision="3" />
           <Property Name="Bill" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CustomerCode" Type="Int64" />
         </EntityType>
         <EntityType Name="BuyerInstallment">
           <Key>
@@ -520,6 +532,14 @@
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="Updatedby" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustCode" />
+          </Key>
+          <Property Name="CustCode" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustmerName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -653,6 +673,7 @@
           <EntitySetMapping Name="Buyers">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Buyer">
               <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
                 <ScalarProperty Name="Bill" ColumnName="Bill" />
                 <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
                 <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
@@ -761,6 +782,15 @@
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CustmerName" ColumnName="CustmerName" />
+                <ScalarProperty Name="CustCode" ColumnName="CustCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

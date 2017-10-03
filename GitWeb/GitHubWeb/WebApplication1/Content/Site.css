@@ -343,6 +343,7 @@ html, body {
 td a {
     color: black;
     display: inline-block;
+    text-decoration: underline;
 }
 
 thead th {

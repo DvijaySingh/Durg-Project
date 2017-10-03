@@ -12,7 +12,7 @@ namespace DAL.Interface
     {
         void DeleteInitilProducts();
         BuyerViewModel GetBuyerInfo(long? bulkID);
-        void AddBuyer(BuyerModel buyer);
+        long AddBuyer(BuyerModel buyer);
         List<BuyerProductModel> AddBuyerProduct(BuyerProductModel ProductModel);
         List<BuyerProductModel> DeleteBuyerProduct(long Id, long buyerID);
         BuyerProduct  GetProduct(ShopDevEntities db, long Id);

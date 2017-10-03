@@ -47,6 +47,7 @@
     $('#hdnProductBuyerId').val(bulkID);
     $('#hdnInstallmentBuyerID').val(bulkID);
     ProductAutoFill();
+    CustomerAutoFill();
     $(document).delegate('.btnedit', 'click', function () {
         debugger;
         var tr = $(this).closest('tr');
@@ -185,13 +186,64 @@ function ProductAutoFill() {
                         $("#ddlType").val(categoryAndType[1]).focus();
                     }
                     else {
-                        $("#txtalsonotify").val(labelValue);
+                        $("#txtProductname").val(labelValue);
                     }
                 },
                 click: function (event, ui) {
                     try {
                         event.preventDefault();
-                        $("#txtalsonotify").val(ui.item.label);
+                        $("#txtProductname").val(ui.item.label);
+                    }
+                    catch (e) { }
+                },
+            }).focus(function () {
+                try {
+                    $(this).autocomplete("search", "");
+                }
+                catch (e) { }
+            });
+        },
+        error: function () {
+        }
+    });
+
+}
+
+function CustomerAutoFill() {
+    $.ajax({
+        url: "GetAllCustomers",
+        cache: false,
+        type: "GET",
+        data: {},
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            var lstdata = data;
+            $("#txtbuyerName").autocomplete({
+                minLength: 1,
+                open: function () {
+                    $('.ui-menu')
+                        .width($('#txtbuyerName').width() + 22);
+                },
+                source: lstdata,
+                innerHeight: "200",
+                select: function (event, ui) {
+                    event.preventDefault();
+                    var labelValue = ui.item.label;
+                    if (labelValue.indexOf('(') > 0) {
+                        var codeAndText = labelValue.split('(');
+                        $('#txtbuyerName').val(codeAndText[0]);
+                        var categoryAndType = (codeAndText[1].slice(0, -1)).split('#');;
+                        $('#txtbuyerAdd').val(categoryAndType[1]);
+                        $('#txtcustCode').val(categoryAndType[0]);
+                    }
+                    else {
+                        $("#txtbuyerName").val(labelValue);
+                    }
+                },
+                click: function (event, ui) {
+                    try {
+                        event.preventDefault();
+                        $("#txtbuyerName").val(ui.item.label);
                     }
                     catch (e) { }
                 },

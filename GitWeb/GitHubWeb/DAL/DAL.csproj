@@ -81,6 +81,9 @@
     <Compile Include="Category.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="CustomerProduct.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
@@ -89,6 +92,7 @@
     <Compile Include="Implementation\BulkBuyDAL.cs" />
     <Compile Include="Implementation\BuyerDAL.cs" />
     <Compile Include="Implementation\CategoryDAL.cs" />
+    <Compile Include="Implementation\CustomerDAL.cs" />
     <Compile Include="Implementation\CustomerProductDAL.cs" />
     <Compile Include="Implementation\DashBoardDAL.cs" />
     <Compile Include="Implementation\OrderDAL.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="Interface\IBulkProduct.cs" />
     <Compile Include="Interface\IBuyer.cs" />
     <Compile Include="Interface\ICategory.cs" />
+    <Compile Include="Interface\ICustomer.cs" />
     <Compile Include="Interface\ICustomerProduct.cs" />
     <Compile Include="Interface\IDashBoard.cs" />
     <Compile Include="Interface\IOrder.cs" />

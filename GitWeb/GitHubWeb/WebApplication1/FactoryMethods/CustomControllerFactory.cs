@@ -72,6 +72,11 @@ namespace WebApplication1.FactoryMethods
                         service = new ProductTypeDAL();
                         break;
                     }
+                case "Customers":
+                    {
+                        service = new CustomerDAL();
+                        break;
+                    }
             }
             IController controller = Activator.CreateInstance(controllerType, new[] { service }) as Controller;
             return controller;

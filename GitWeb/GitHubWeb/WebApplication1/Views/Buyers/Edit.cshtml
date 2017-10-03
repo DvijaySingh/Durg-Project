@@ -59,15 +59,20 @@
             <div class=" row">
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label> Customer Name </label>
                             @Html.HiddenFor(model => model.buyer.BuyerID, new { @id = "buyerID" })
-                            @Html.TextBoxFor(model => model.buyer.BuyerName, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.buyer.BuyerName, new { @class = "form-control", @id = "txtbuyerName" })
                             @Html.ValidationMessageFor(model => model.buyer.BuyerName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2 form-group"> 
+                            <label>  Code </label>
+                            @Html.TextBoxFor(model => model.buyer.CustomerCode, new { @class = "form-control", @id = "txtcustCode" })
+                            @Html.ValidationMessageFor(model => model.buyer.CustomerCode, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-6 form-group">
                             <label> Address </label>
-                            @Html.TextAreaFor(model => model.buyer.Address, new { @class = "form-control" })
+                            @Html.TextAreaFor(model => model.buyer.Address, new { @class = "form-control", @id = "txtbuyerAdd" })
                             @Html.ValidationMessageFor(model => model.buyer.Address, "", new { @class = "text-danger" })
                         </div>
                     </div>

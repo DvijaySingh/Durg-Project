@@ -12,13 +12,24 @@ namespace DAL.Implementation
     public class BuyerDAL : IBuyer
     {
 
-        public void AddBuyer(BuyerModel buyer)
+        public long AddBuyer(BuyerModel buyer)
         {
+            Buyer buyerdb = null;
             using (ShopDevEntities db = new ShopDevEntities())
             {
                 try
                 {
-                    Buyer buyerdb = null;
+                    if (buyer.CustomerCode == null)
+                    {
+                        Customer customer = new Customer
+                        {
+                            CustmerName = buyer.BuyerName,
+                            Address = buyer.Address
+                        };
+                        db.Customers.Add(customer);
+                        db.SaveChanges();
+                        buyer.CustomerCode = customer.CustCode;
+                    }
                     if (buyer.BuyerID == 0)
                     {
                         buyerdb = new Buyer();
@@ -30,6 +41,7 @@ namespace DAL.Implementation
                         buyerdb = db.Buyers.Where(m => m.BuyerID == buyer.BuyerID).FirstOrDefault();
                         buyer.CopyProperties(buyerdb);
                     }
+                   
                     db.SaveChanges();
 
                     List<BuyerProduct> lstNewproducts = db.BuyerProducts.Where(m => m.BuyerID == 0).ToList();
@@ -47,10 +59,11 @@ namespace DAL.Implementation
                     lstinstallments.ForEach(m => m.BuyerID = buyerdb.BuyerID);
                     db.SaveChanges();
                 }
-                catch
+                catch(Exception ex)
                 {
 
                 }
+                return buyerdb.BuyerID;
             }
         }
 

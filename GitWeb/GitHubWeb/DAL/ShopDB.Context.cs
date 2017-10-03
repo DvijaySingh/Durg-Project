@@ -44,5 +44,6 @@ namespace DAL
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<BuyersBill> BuyersBills { get; set; }
         public virtual DbSet<CustomerProduct> CustomerProducts { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
     }
 }

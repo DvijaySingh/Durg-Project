@@ -71,8 +71,8 @@ namespace WebApplication1.Controllers
                     }
                      
                 }
-                _IBuyer.AddBuyer(buyerobj.buyer);
-                return RedirectToAction("Index");
+               long buyerID= _IBuyer.AddBuyer(buyerobj.buyer);
+                return RedirectToAction("Edit", new { id = buyerID });
             }
             else
             {
@@ -228,6 +228,13 @@ namespace WebApplication1.Controllers
                          select prod.ProductName  + "("+category.CategoryName+ "#" + prod.Type + ")").Distinct().ToList();
             return Json(products, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetAllCustomers()
+        {
+            var customers = (from cus in db.Customers
+                            select cus.CustmerName + "(" + cus.CustCode + "#" + cus.Address + ")").Distinct().ToList();
+            return Json(customers, JsonRequestBehavior.AllowGet);
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DAL.Customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="tblCustomers">
+    <thead>
+        <tr>
+            <th>
+               Customer Code
+            </th>
+            <th>
+                Custmer Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.CustCode.ToString(), "CustomerDetails", new { id = item.CustCode })
+                </td>
+                <td>
+                    @Html.ActionLink(item.CustmerName.ToString(), "CustomerDetails", new { id = item.CustCode })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustCode }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CustCode }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustCode })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#tblCustomers").DataTable();
+        $('#tblCustomers_length').remove();
+        //$('#tblProducts_filter label').remove();
+        $('#tblCustomers_filter input').addClass('form-control');
+    })
+
+</script>
