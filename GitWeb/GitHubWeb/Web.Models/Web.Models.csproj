@@ -54,6 +54,7 @@
     <Compile Include="BuyerInstallmentModel.cs" />
     <Compile Include="BuyerModel.cs" />
     <Compile Include="BuyerProductModel.cs" />
+    <Compile Include="CustomerModel.cs" />
     <Compile Include="CustomerProductModel.cs" />
     <Compile Include="Installments.cs" />
     <Compile Include="OrderModel.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="ViewModel\BorrowerViewModel.cs" />
     <Compile Include="ViewModel\BulkBuyViewModel.cs" />
     <Compile Include="ViewModel\BuyerViewModel.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\SellerSearchViewModel.cs" />
     <Compile Include="ViewModel\SellerViewModel.cs" />
   </ItemGroup>
