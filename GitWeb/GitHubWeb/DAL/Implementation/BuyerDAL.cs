@@ -84,7 +84,7 @@ namespace DAL.Implementation
                         buyerproduct = db.BuyerProducts.Where(m => m.BuyerProductlD == productModel.BuyerProductlD).FirstOrDefault();
                         oldUnits = buyerproduct.Units == null ? 0 : buyerproduct.Units;
                         var diffUnit = oldUnits - productModel.Units;
-                        var product = db.Products.Where(m => m.CategoryID == productModel.CategoryID && m.ProductName == productModel.ProductName && m.CategoryID == productModel.CategoryID).FirstOrDefault();
+                        var product = db.Products.Where(m =>  m.ProductName == productModel.ProductName ).FirstOrDefault();
                         if(product!=null)
                         {
                             product.Unit += diffUnit;
@@ -103,7 +103,7 @@ namespace DAL.Implementation
 
                         if (productModel.BuyerID > 0)
                         {
-                            var oldproduct = db.Products.Where(m => m.ProductName == productModel.ProductName && m.Type == productModel.Type && m.CategoryID == productModel.CategoryID).FirstOrDefault();
+                            var oldproduct = db.Products.Where(m => m.ProductName == productModel.ProductName && m.Type == productModel.Type  ).FirstOrDefault();
                             if (oldproduct != null)
                             {
                                 oldproduct.Unit -= productModel.Units;

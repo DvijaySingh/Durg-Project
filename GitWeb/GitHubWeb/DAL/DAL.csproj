@@ -88,6 +88,7 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EmailSender.cs" />
+    <Compile Include="Implementation\AccountDAL.cs" />
     <Compile Include="Implementation\BorrowerDAL.cs" />
     <Compile Include="Implementation\BulkBuyDAL.cs" />
     <Compile Include="Implementation\BuyerDAL.cs" />
@@ -95,10 +96,12 @@
     <Compile Include="Implementation\CustomerDAL.cs" />
     <Compile Include="Implementation\CustomerProductDAL.cs" />
     <Compile Include="Implementation\DashBoardDAL.cs" />
+    <Compile Include="Implementation\ManageDAL.cs" />
     <Compile Include="Implementation\OrderDAL.cs" />
     <Compile Include="Implementation\ProductDAL.cs" />
     <Compile Include="Implementation\ProductTypeDAL.cs" />
     <Compile Include="Implementation\SellerDAL.cs" />
+    <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IBorrower.cs" />
     <Compile Include="Interface\IBulkProduct.cs" />
     <Compile Include="Interface\IBuyer.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="Interface\ICustomer.cs" />
     <Compile Include="Interface\ICustomerProduct.cs" />
     <Compile Include="Interface\IDashBoard.cs" />
+    <Compile Include="Interface\IManage.cs" />
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Interface\IProduct.cs" />
     <Compile Include="Interface\IProductType.cs" />

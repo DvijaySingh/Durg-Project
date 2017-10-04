@@ -7,9 +7,11 @@ using System.Web.Mvc;
 using DAL;
 using Web.Models;
 using DAL.Interface;
+using WebApplication1.Filter;
 
 namespace WebApplication1.Controllers
 {
+    [AuthFilter]
     public class OrdersController : Controller
     {
         private ShopDevEntities db = new ShopDevEntities();

@@ -1,7 +1,7 @@
 ﻿
 
 body {
-    padding-top: 0px;
+    padding-top: 5%;
     padding-bottom: 20px;
     /*background-color: rgba(10, 75, 78, 0.86);*/
     background-color: rgba(224, 55, 96, 0.86);
@@ -44,7 +44,7 @@ img {
 }
 
 .navbar-inverse {
-    background-color: #06b0c1;
+    background-color: #167f8a;
     height: auto;
     border-bottom: 1px solid rgba(238, 238, 238, 0.32);
 }
@@ -152,6 +152,12 @@ div.tab {
     padding: 6px 12px;
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
+}
+
+.topmenu {
+    background-color: #23a28f;
+    width: 15%;
+    border-bottom: 0.5px solid;
 }
 
 /* Fade in tabs */
@@ -355,7 +361,7 @@ thead th {
     color: #fff;
     font-weight: bold;
     background-color: rgba(10, 60, 136, 0.69);
-        font-family: times;
+    font-family: times;
 }
 /*
  * off canvas sidebar

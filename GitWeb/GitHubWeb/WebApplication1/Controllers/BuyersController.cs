@@ -11,9 +11,11 @@ using DAL.Interface;
 using Web.Models.ViewModel;
 using Web.Models;
 using System.IO;
+using WebApplication1.Filter;
 
 namespace WebApplication1.Controllers
 {
+    [AuthFilter]
     public class BuyersController : Controller
     {
         private ShopDevEntities db = new ShopDevEntities();

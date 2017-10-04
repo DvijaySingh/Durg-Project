@@ -10,9 +10,11 @@ using DAL;
 using DAL.Interface;
 using Web.Models;
 using Web.Models.ViewModel;
+using WebApplication1.Filter;
 
 namespace WebApplication1.Controllers
 {
+    [AuthFilter]
     public class BorrowersController : Controller
     {
         private ShopDevEntities db = new ShopDevEntities();

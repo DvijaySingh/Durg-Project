@@ -182,6 +182,7 @@
     <Compile Include="Controllers\ProductTypesController.cs" />
     <Compile Include="Controllers\SellersController.cs" />
     <Compile Include="FactoryMethods\CustomControllerFactory.cs" />
+    <Compile Include="Filter\AuthFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

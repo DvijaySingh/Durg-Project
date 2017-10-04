@@ -28,9 +28,6 @@
     <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Customer Info</button>
     <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
     <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
-    <button class="tablinks" onclick="openCity(event, 'billInfo')">Bills</button>
-
-
 </div>
 <div id="custnfo" class="tabcontent">
     @using (Html.BeginForm("Create", "Buyers", FormMethod.Post, new { id = "frmcreatebuyer", enctype = "multipart/form-data" }))

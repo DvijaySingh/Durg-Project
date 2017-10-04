@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
+using DAL.Interface;
 
 namespace WebApplication1.Controllers
 {
@@ -19,7 +20,11 @@ namespace WebApplication1.Controllers
         public ManageController()
         {
         }
-
+        private IManage _IManage;
+        public ManageController(IManage iManage)
+        {
+            this._IManage = iManage;
+        }
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;

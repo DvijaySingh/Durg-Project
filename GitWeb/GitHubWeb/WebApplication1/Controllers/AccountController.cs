@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
+using DAL.Interface;
 
 namespace WebApplication1.Controllers
 {
@@ -21,7 +22,11 @@ namespace WebApplication1.Controllers
         public AccountController()
         {
         }
-
+        private IAccount _IAccount;
+        public AccountController(IAccount iAccount)
+        {
+            this._IAccount = iAccount;
+        }
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -151,6 +156,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
