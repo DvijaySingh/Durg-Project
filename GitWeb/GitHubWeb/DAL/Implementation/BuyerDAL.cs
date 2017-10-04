@@ -48,7 +48,7 @@ namespace DAL.Implementation
                     lstNewproducts.ForEach(m => m.BuyerID = buyerdb.BuyerID);
                     foreach (var product in lstNewproducts)
                     {
-                        var oldproduct = db.Products.Where(m => m.ProductName == product.ProductName && m.Type == product.Type && m.CategoryID == product.CategoryID).FirstOrDefault();
+                        var oldproduct = db.Products.Where(m => m.ProductName == product.ProductName && m.Type == product.Type).FirstOrDefault();
                         if (oldproduct != null)
                         {
                             oldproduct.Unit -= product.Units;

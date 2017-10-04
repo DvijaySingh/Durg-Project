@@ -8,6 +8,6 @@
         public  decimal? Weight { get; set; }
         public  int? Units { get; set; }
         public string Type { get; set; }
-        public  long? CategoryID { get; set; }
+        public decimal? Rate { get; set; }
     }
 }

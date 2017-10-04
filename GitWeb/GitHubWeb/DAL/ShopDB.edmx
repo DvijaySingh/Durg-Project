@@ -94,7 +94,7 @@
           <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Units" Type="int" />
           <Property Name="Type" Type="varchar" MaxLength="20" />
-          <Property Name="CategoryID" Type="bigint" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="BuyersBills">
           <Key>
@@ -460,7 +460,7 @@
           <Property Name="Units" Type="Int32" />
           <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="BuyerID" Type="Int64" />
-          <Property Name="CategoryID" Type="Int64" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -698,7 +698,7 @@
           <EntitySetMapping Name="BuyerProducts">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerProduct">
               <MappingFragment StoreEntitySet="BuyerProducts">
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Units" ColumnName="Units" />

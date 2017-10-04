@@ -20,6 +20,6 @@ namespace DAL
         public Nullable<int> Units { get; set; }
         public string Type { get; set; }
         public Nullable<long> BuyerID { get; set; }
-        public Nullable<long> CategoryID { get; set; }
+        public Nullable<decimal> Rate { get; set; }
     }
 }

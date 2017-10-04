@@ -15,5 +15,6 @@ namespace Web.Models.ViewModel
         public decimal OrderOutstanding { get; set; }
         public decimal BorrowOutstanding { get; set; }
         public decimal BuyOutstanding { get; set; }
+        public decimal TotalOutstanding { get; set; }
     }
 }
