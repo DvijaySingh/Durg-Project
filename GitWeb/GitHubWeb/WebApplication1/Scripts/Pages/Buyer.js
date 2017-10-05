@@ -56,23 +56,14 @@
         var Type = $(tr).find('td').eq(1).text().trim();
         var Approxw = $(tr).find('td').eq(2).text().trim();
         var unit = $(tr).find('td').eq(3).text().trim();
-        var typeid = 0;
-        switch (Type) {
-            case "Gold":
-                typeid = 2;
-                break;
-            case "Silver":
-                typeid = 1;
-                break;
-            default:
-                typeid = 0;
-                break;
-        }
+        var rate = $(tr).find('td').eq(4).text().trim();
+         
         $('#hdnProductId').val(Id);
         $('#txtProductname').val(productName);
-        $('#ddlType').val(typeid);
+        $('#ddlType').val(Type);
         $('#txtprodWeight').val(Approxw);
         $('#txtunit').val(unit);
+        $('#txtprodRate').val(rate);
 
     });
     $(document).delegate('.btnInstallmetedit', 'click', function () {
@@ -105,6 +96,7 @@ function RefreshProductDataTable() {
     $('#ddlType').val(0);
     $('#txtprodWeight').val('');
     $('#txtunit').val('');
+    $('#txtprodRate').val('');
 }
 
 

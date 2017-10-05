@@ -45,5 +45,10 @@ namespace DAL
         public virtual DbSet<BuyersBill> BuyersBills { get; set; }
         public virtual DbSet<CustomerProduct> CustomerProducts { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

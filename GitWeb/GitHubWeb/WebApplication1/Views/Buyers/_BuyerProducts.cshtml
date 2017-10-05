@@ -18,6 +18,9 @@
             <th>
                 Units
             </th>
+            <th>
+                Rate
+            </th>
             <th>Action</th>
         </tr>
     </thead>
@@ -39,7 +42,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Units)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
                     <button id="@item.BuyerProductlD" class="btn btn-default btnedit">Edit</button>

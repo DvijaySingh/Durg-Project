@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
 using DAL.Interface;
+using System.IO;
 
 namespace WebApplication1.Controllers
 {
@@ -152,12 +153,26 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register([Bind(Exclude = "UserPhoto")] RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                
+                byte[] imageData = null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImgFile = Request.Files["UserPhoto"];
+
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                    }
+                }
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                //Here we pass the byte array to user context to store in db
+                user.UserPhoto = imageData;
+              //  var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -408,7 +423,58 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        public FileContentResult UserPhotos()
+        {
+            byte[] imageData = null;
+            if (Session["ProfilePic"] == null)
+            {
+               
+                if (User.Identity.IsAuthenticated)
+                {
+                    String userId = User.Identity.GetUserId();
+                   
+                    if (userId == null)
+                    {
+                        imageData = GetImageData();
+                       return File(imageData, "image/png");
 
+                    }
+                    // to get the user details to load user Image
+                    var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                    var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
+                    Session["ProfilePic"] = userImage.UserPhoto;
+                    imageData= userImage.UserPhoto;
+                    if(imageData==null)
+                    {
+                        imageData = GetImageData();
+                        return File(imageData, "image/png");
+                    }
+                    return new FileContentResult(userImage.UserPhoto, "image/jpeg");
+                }
+                else
+                {
+                    imageData = GetImageData();
+                    return File(imageData, "image/png");
+
+                }
+            }
+            else
+            {
+                imageData =(byte[])Session["ProfilePic"];
+                return File(imageData, "image/png");
+            }
+        }
+        public byte[] GetImageData()
+        {
+            byte[] imageData = null;
+            string fileName = HttpContext.Server.MapPath(@"~/Images/NoImages.jpg");
+            FileInfo fileInfo = new FileInfo(fileName);
+            long imageFileLength = fileInfo.Length;
+            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            imageData = br.ReadBytes((int)imageFileLength);
+            return imageData;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

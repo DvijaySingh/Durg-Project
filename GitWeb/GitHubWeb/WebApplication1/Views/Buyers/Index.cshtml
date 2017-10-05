@@ -4,11 +4,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p style="margin-bottom:-30px;">
+    @Html.ActionLink("Create New", "Create","Buyers", null, new { @class = "btn btn-default" })
 </p>
 <table class="table" id="tblbuyers">
     <thead>

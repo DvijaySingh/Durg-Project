@@ -143,7 +143,7 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Units</label>
-                        @Html.TextBoxFor(model => model.productInfo.Units, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
+                        @Html.TextBoxFor(model => model.productInfo.Units, new { @class = "form-control", @type = "number", @id = "txtunit" })
                         @Html.ValidationMessageFor(model => model.productInfo.Units, "", new { @class = "text-danger" })
 
                     </div>
@@ -151,7 +151,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-group">
-                       
+                        <label>Rate</label>
+                        @Html.TextBoxFor(model => model.productInfo.Rate, new { @class = "form-control", @type = "number", @id = "txtprodRate" })
+                        @Html.ValidationMessageFor(model => model.productInfo.Rate, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6 form-group">
                     </div>
@@ -262,8 +264,7 @@
         </div>
     </div>*@
 <div>
-
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Buyers", null, new { @class = "btn btn-default" })
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
