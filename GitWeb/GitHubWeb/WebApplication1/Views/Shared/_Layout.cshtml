@@ -31,15 +31,17 @@
         </div>
     <div class="column col-sm-3 col-xs-1 sidebar-offcanvas" id="sidebar">
         <ul class="nav" id="menu">
+            <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+             <li>@Html.ActionLink("Buyer", "Index", "Buyers")</li>
+            <li>@Html.ActionLink("Seller", "Index", "Sellers")</li>
+            <li>@Html.ActionLink("Borrower", "Index", "Borrowers")</li>
             <li>@Html.ActionLink("Category", "Index", "Categories")</li>
             <li>@Html.ActionLink("Product Types", "Index", "ProductTypes")</li>
-            <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+          
             <li>@Html.ActionLink("Products", "Index", "Products")</li>
             <li>@Html.ActionLink("Order", "Index", "Orders")</li>
             <li>@Html.ActionLink("Bulk", "Index", "BulkBuys")</li>
-            <li>@Html.ActionLink("Buyer", "Index", "Buyers")</li>
-            <li>@Html.ActionLink("Seller", "Index", "Sellers")</li>
-            <li>@Html.ActionLink("Borrower", "Index", "Borrowers")</li>
+           
             @*<li>
                     <a href="#" data-target="#item1" data-toggle="collapse"><i class="fa fa-list"></i> <span class="collapse in hidden-xs">Menu <span class="caret"></span></span></a>
                     <ul class="nav nav-stacked collapse left-submenu" id="item1">

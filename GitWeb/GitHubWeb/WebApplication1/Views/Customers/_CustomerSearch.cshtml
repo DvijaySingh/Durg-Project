@@ -1,0 +1,39 @@
+﻿
+@model Web.Models.ViewModel.CustomerSearchViewModel
+<table class="table" id="tblCustomers">
+    <thead>
+        <tr>
+            <th>
+                Customer Code
+            </th>
+            <th>
+                Custmer Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Allcustomer)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.CustCode.ToString(), "CustomerDetails", new { id = item.CustCode })
+                </td>
+                <td>
+                    @Html.ActionLink(item.CustmerName.ToString(), "CustomerDetails", new { id = item.CustCode })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustCode }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CustCode }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustCode })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

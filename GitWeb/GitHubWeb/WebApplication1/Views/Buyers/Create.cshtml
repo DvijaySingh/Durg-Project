@@ -74,7 +74,7 @@
                     <div class=" row">
                         <div class="col-md-6 form-group">
                             <label>  Buy Date</label>
-                            @Html.TextBoxFor(model => model.buyer.BuyDate, new { @class = "form-control", @id = "txtbuyDate" })
+                            @Html.TextBoxFor(model => model.buyer.BuyDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtbuyDate" })
                             @Html.ValidationMessageFor(model => model.buyer.BuyDate, "", new { @class = "text-danger" })
                         </div>
                     </div>

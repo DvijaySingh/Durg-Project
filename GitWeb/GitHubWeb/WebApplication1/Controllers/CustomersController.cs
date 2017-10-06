@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using DAL;
 using DAL.Interface;
 using WebApplication1.Filter;
+using Web.Models.ViewModel;
+using Web.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -24,9 +26,21 @@ namespace WebApplication1.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            CustomerSearchViewModel vmodel = new CustomerSearchViewModel();
+            vmodel.Allcustomer = new List<CustomerModel>();
+            vmodel.Customer = new CustomerModel();
+            return View(vmodel);
+           // return View(db.Customers.ToList());
         }
-
+        public ActionResult Search(CustomerSearchViewModel objModel)
+        {
+            CustomerSearchViewModel vModel = new CustomerSearchViewModel();
+            vModel.Customer = new CustomerModel();
+            vModel.Allcustomer = new List<CustomerModel>();
+            List<CustomerModel> objRes = _ICustomer.AllCustomers(objModel.Customer);
+            vModel.Allcustomer.AddRange(objRes);
+            return PartialView("~/Views/Customers/_CustomerSearch.cshtml", vModel);
+        }
         // GET: Customers/Details/5
         public ActionResult Details(long? id)
         {

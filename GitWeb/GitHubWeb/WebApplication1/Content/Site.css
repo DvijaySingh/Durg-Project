@@ -248,7 +248,9 @@ html, body {
 .nav > li:last-child a {
     border: 0px !important;
 }
-
+.nav > li:first-child a {
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
 #sidebar > .nav > li > a {
     white-space: nowrap;
     overflow: hidden;

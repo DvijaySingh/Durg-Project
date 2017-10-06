@@ -1,0 +1,50 @@
+﻿@model Web.Models.ViewModel.BuyerSearchViewModel
+<table class="table" id="tblbuyers">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Buyer.BuyerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Buyer.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Buyer.DepositeAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Buyer.OutstandingAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Buyer.BuyDate)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Allbuyer)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepositeAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutstandingAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BuyerID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BuyerID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BuyerID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

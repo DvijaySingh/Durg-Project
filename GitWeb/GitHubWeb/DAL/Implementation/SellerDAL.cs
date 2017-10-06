@@ -308,6 +308,9 @@ namespace DAL.Implementation
             return objinstllment;
         }
 
+
+
+        #endregion
         public SellerSearchViewModel SearchSeller(string name)
         {
             SellerSearchViewModel searchRes = new SellerSearchViewModel();
@@ -320,14 +323,14 @@ namespace DAL.Implementation
                     var res = from seller in db.Sellers
                               where seller.SellerName.Contains(name) || string.IsNullOrEmpty(name)
                               orderby seller.BuyDate descending
-                              select seller ;
-                    foreach(var seller in res)
+                              select seller;
+                    foreach (var seller in res)
                     {
                         SellerModel sellerModel = new SellerModel();
                         seller.CopyProperties(sellerModel);
                         lstsellers.Add(sellerModel);
                     }
-                     
+
                 }
                 catch (Exception ex)
                 {
@@ -338,9 +341,6 @@ namespace DAL.Implementation
                 return searchRes;
             }
         }
-
-        #endregion
-
 
     }
 }

@@ -15,6 +15,7 @@ namespace Web.Models
         public  decimal? DepositeAmount { get; set; }
         public  decimal? OutstandingAmount { get; set; }
         //[Required(ErrorMessage = "BuyDate is required")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public   DateTime? BuyDate { get; set; }
         public byte[] Bill { get; set; }

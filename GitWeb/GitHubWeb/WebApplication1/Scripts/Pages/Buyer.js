@@ -152,7 +152,7 @@ function CallProductInfo() {
 
 function ProductAutoFill() {
     $.ajax({
-        url: "GetAllProducts",
+        url: "/Buyers/GetAllProducts",
         cache: false,
         type: "GET",
         data: {},
@@ -203,7 +203,7 @@ function ProductAutoFill() {
 
 function CustomerAutoFill() {
     $.ajax({
-        url: "GetAllCustomers",
+        url: "/Buyers/GetAllCustomers",
         cache: false,
         type: "GET",
         data: {},
@@ -251,4 +251,15 @@ function CustomerAutoFill() {
     });
 
 }
+
+function RefreshBuyerGrid() {
+    $("#tblbuyers").DataTable({
+        paging: true,
+        aaSorting: [],
+        responsive: true
+    });
+    $('#tblbuyers_length').remove();
+    $('#tblbuyers_filter input').addClass('form-control');
+}
+
 

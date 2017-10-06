@@ -1,58 +1,68 @@
-﻿@model IEnumerable<DAL.Customer>
-
+﻿@model Web.Models.ViewModel.CustomerSearchViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
+<center> <label> All Customer</label></center>
+@*<p style="margin-bottom:-30px;">
+        @Html.ActionLink("Create New", "Create", "Customers", null, new { @class = "btn btn-default" })
+    </p>*@
+<p >
+    @Html.ActionLink("Create New", "Create", "Customers", null, new { @class = "btn btn-default" })
 </p>
-<table class="table" id="tblCustomers">
-    <thead>
-        <tr>
-            <th>
-               Customer Code
-            </th>
-            <th>
-                Custmer Name
-            </th>
-            <th>
-                Address
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.CustCode.ToString(), "CustomerDetails", new { id = item.CustCode })
-                </td>
-                <td>
-                    @Html.ActionLink(item.CustmerName.ToString(), "CustomerDetails", new { id = item.CustCode })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CustCode }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CustCode }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CustCode })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+@using (Ajax.BeginForm("Search", "Customers",
+                                                                                                                                                                                          new AjaxOptions
+                                                                                                                                                                                          {
+                                                                                                                                                                                              HttpMethod = "Post",
+                                                                                                                                                                                              UpdateTargetId = "lstCusProducts",
+                                                                                                                                                                                              OnSuccess = "RefreshCustomerGrid"
+                                                                                                                                                                                          }))
+{
+    <div id="ajaxform">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Customer Name </label>
+                @Html.TextBoxFor(model => model.Customer.CustmerName, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Customer Code </label>
+                @Html.TextBoxFor(model => model.Customer.CustCode, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3 form-group">
+
+                <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Search" />
+            </div>
+            <div class="col-md-3 form-group">
+
+
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 form-group">
+            </div>
+            <div class="col-md-3 form-group">
+
+            </div>
+        </div>
+    </div>
+
+}
+<div id="lstCusProducts">
+    @Html.Partial("~/Views/Customers/_CustomerSearch.cshtml", Model)
+</div>
+
 <script>
     $(document).ready(function () {
+        RefreshCustomerGrid();
+    })
+    function RefreshCustomerGrid() {
         $("#tblCustomers").DataTable();
         $('#tblCustomers_length').remove();
         //$('#tblProducts_filter label').remove();
         $('#tblCustomers_filter input').addClass('form-control');
-    })
-
+    }
 </script>

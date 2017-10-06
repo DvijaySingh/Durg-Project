@@ -11,6 +11,8 @@ namespace DAL.Interface
     public interface IBuyer
     {
         void DeleteInitilProducts();
+
+        List<BuyerModel> AllBuyers(BuyerModel objModel);
         BuyerViewModel GetBuyerInfo(long? bulkID);
         long AddBuyer(BuyerModel buyer);
         List<BuyerProductModel> AddBuyerProduct(BuyerProductModel ProductModel);

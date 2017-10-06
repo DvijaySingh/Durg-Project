@@ -305,6 +305,34 @@ namespace DAL.Implementation
             }
             return buyermodel;
         }
+
+        public List<BuyerModel> AllBuyers(BuyerModel objbuyer)
+        {
+            List<BuyerModel> Allbuyers = new List<BuyerModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    var res = from buyer in db.Buyers
+                              where (buyer.BuyerName.Contains(objbuyer.BuyerName) ||
+                              buyer.CustomerCode==objbuyer.CustomerCode)
+                                || (string.IsNullOrEmpty(objbuyer.BuyerName) && objbuyer.CustomerCode==null)
+                              
+                              select buyer;
+                    foreach (var seller in res)
+                    {
+                        BuyerModel sellerModel = new BuyerModel();
+                        seller.CopyProperties(sellerModel);
+                        Allbuyers.Add(sellerModel);
+                    }
+                }
+                catch
+                {
+
+                }
+                return Allbuyers;
+            }
+        }
     }
 }
 

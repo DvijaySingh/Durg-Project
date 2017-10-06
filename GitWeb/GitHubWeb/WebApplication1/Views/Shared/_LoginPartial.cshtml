@@ -10,7 +10,7 @@
             <img src="@Url.Action("UserPhotos", "Account" )" style="width:50px;height:50px; background: #FFFFFF; margin: auto; -moz-border-radius: 60px; border-radius: 100px; padding: 6px; box-shadow: 0px 0px 20px #888;" />
         </li>
         <li>
-            @Html.ActionLink("Hello " + User.Identity.Name.Split('@')[0] + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hello " + User.Identity.Name.Split('@')[0] + "!", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "Change Password" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>

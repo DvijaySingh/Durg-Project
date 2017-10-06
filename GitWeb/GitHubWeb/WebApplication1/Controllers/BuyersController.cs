@@ -27,9 +27,21 @@ namespace WebApplication1.Controllers
         // GET: Buyers
         public ActionResult Index()
         {
-            return View(db.Buyers.ToList());
+            BuyerSearchViewModel vModel = new BuyerSearchViewModel();
+            vModel.Buyer = new BuyerModel();
+            vModel.Allbuyer = new List<BuyerModel>();
+            return View(vModel);
+           // return View(db.Buyers.ToList());
         }
-
+        public ActionResult Search(BuyerSearchViewModel objModel)
+        {
+            BuyerSearchViewModel vModel = new BuyerSearchViewModel();
+            vModel.Buyer = new BuyerModel();
+            vModel.Allbuyer = new List<BuyerModel>();
+            List<BuyerModel> objRes = _IBuyer.AllBuyers(objModel.Buyer);
+            vModel.Allbuyer.AddRange(objRes);
+            return PartialView("~/Views/Buyers/_BuyerSearch.cshtml", vModel);
+        }
         // GET: Buyers/Details/5
         public ActionResult Details(long? id)
         {
