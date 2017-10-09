@@ -6,6 +6,9 @@
                 @Html.DisplayNameFor(model => model.Buyer.BuyerName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Buyer.CustomerCode)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Buyer.Address)
             </th>
             <th>
@@ -26,6 +29,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.BuyerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerCode)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Address)
