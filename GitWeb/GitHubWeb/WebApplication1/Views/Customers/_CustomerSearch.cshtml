@@ -12,7 +12,7 @@
             <th>
                 Address
             </th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -29,9 +29,15 @@
                     @Html.DisplayFor(modelItem => item.Address)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CustCode }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CustCode }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CustCode })
+                    <a href="@Url.Action("Edit", "Customers",  new { id = item.CustCode })" title="Update">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>  |
+                    <a href="@Url.Action("Details", "Customers",  new { id = item.CustCode })" title="Details">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>  |
+                    <a href="@Url.Action("Delete", "Customers",  new { id = item.CustCode })" title="Delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
                 </td>
             </tr>
         }

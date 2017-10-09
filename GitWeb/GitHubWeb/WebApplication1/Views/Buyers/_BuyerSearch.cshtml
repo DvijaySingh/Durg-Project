@@ -3,22 +3,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Buyer.BuyerName)
+               Customer Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Buyer.CustomerCode)
+                 Code
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Buyer.Address)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Buyer.DepositeAmount)
+                DepositeAmount
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Buyer.OutstandingAmount)
+                OutstandingAmount
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Buyer.BuyDate)
+                BuyDate
             </th>
             <th>Action</th>
         </tr>
@@ -46,9 +46,15 @@
                     @Html.DisplayFor(modelItem => item.BuyDate)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BuyerID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.BuyerID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BuyerID })
+                    <a href="@Url.Action("Edit", "Buyers",  new { id = item.BuyerID })" title="Update">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>  |
+                    <a href="@Url.Action("Details", "Buyers",  new { id = item.BuyerID })" title="Details">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>  |
+                    <a href="@Url.Action("Delete", "Buyers",  new { id = item.BuyerID })" title="Delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
                 </td>
             </tr>
         }

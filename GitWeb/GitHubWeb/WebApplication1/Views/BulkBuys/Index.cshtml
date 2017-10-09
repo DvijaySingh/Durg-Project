@@ -63,9 +63,15 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BulkBuyID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.BulkBuyID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BulkBuyID })
+                    <a href="@Url.Action("Edit", "BulkBuys",  new { id = item.BulkBuyID })" title="Update">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>  |
+                    <a href="@Url.Action("Details", "BulkBuys",  new { id = item.BulkBuyID })" title="Details">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>  |
+                    <a href="@Url.Action("Delete", "BulkBuys",  new { id = item.BulkBuyID })" title="Delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
                 </td>
             </tr>
         }

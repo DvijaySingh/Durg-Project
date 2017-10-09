@@ -7,17 +7,21 @@ namespace Web.Models
     {
         public long BuyerID { get; set; }
         public long? CustomerCode { get; set; }
-        //[Required (ErrorMessage ="Buyer name is required")]
+        [Required (ErrorMessage ="Buyer name is required")]
         public string BuyerName { get; set; }
-       // [Required(ErrorMessage = "Address is required")]
+        [Required(ErrorMessage = "Address is required")]
         public string Address { get; set; }
        // [Required(ErrorMessage = "Deposite Amount is required")]
         public  decimal? DepositeAmount { get; set; }
         public  decimal? OutstandingAmount { get; set; }
-        //[Required(ErrorMessage = "BuyDate is required")]
+        [Required(ErrorMessage = "BuyDate is required")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public   DateTime? BuyDate { get; set; }
         public byte[] Bill { get; set; }
+        public  decimal? InterestRate { get; set; }
+        public decimal? Interest { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public  DateTime? finalDate { get; set; }
     }
 }

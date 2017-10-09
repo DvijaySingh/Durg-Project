@@ -22,5 +22,8 @@ namespace DAL
         public Nullable<System.DateTime> BuyDate { get; set; }
         public byte[] Bill { get; set; }
         public Nullable<long> CustomerCode { get; set; }
+        public Nullable<decimal> InterestRate { get; set; }
+        public Nullable<decimal> Interest { get; set; }
+        public Nullable<System.DateTime> finalDate { get; set; }
     }
 }

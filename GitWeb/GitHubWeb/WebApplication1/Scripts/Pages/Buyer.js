@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#txtbuyDate,#txtinsdate,#txtbillDate").datepicker({
+    $("#txtbuyDate,#txtinsdate,#txtbillDate,#txtFinalDate").datepicker({
         showOtherMonths: true,
         changeYear: true,
         selectOtherMonths: true,

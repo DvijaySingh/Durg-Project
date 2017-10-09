@@ -19,5 +19,6 @@ namespace DAL
         public Nullable<decimal> Amount { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string Description { get; set; }
     }
 }

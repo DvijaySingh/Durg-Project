@@ -30,7 +30,7 @@
           
             @Html.Partial("_LoginPartial")
         </div>
-    <div class="column col-sm-3 col-xs-1 sidebar-offcanvas" id="sidebar">
+    <div class="column col-md-2 col-xs-1 sidebar-offcanvas" id="sidebar">
         <ul class="nav" id="menu">
             <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
              <li>@Html.ActionLink("Buyer", "Index", "Buyers")</li>
@@ -63,7 +63,7 @@
     </div>
     @*</div>*@
     @*</div>*@
-    <div class="column col-sm-9 col-xs-11" id="main">
+    <div class="column col-md-10 col-xs-11" id="main">
         @RenderBody()
         <hr />
 
@@ -98,8 +98,10 @@
     <script src="http://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js"></script>
     <script src="http://cdn.datatables.net/buttons/1.2.1/js/buttons.flash.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    @*<script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />*@
     <script>
          $(".noti-head").click(function () {
              $(".notice-list").toggleClass("open");

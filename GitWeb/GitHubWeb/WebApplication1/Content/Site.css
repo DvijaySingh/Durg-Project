@@ -196,6 +196,12 @@ div.tab {
     text-align: center;
     overflow: auto;
 }
+.glyphicon-remove{
+    color:#a70c0c;
+}
+.glyphicon-edit{
+    color:darkblue;
+}
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
     from {

@@ -326,7 +326,7 @@ namespace DAL.Implementation
                         Allbuyers.Add(sellerModel);
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
 
                 }

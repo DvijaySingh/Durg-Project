@@ -135,6 +135,9 @@
           <Property Name="OutstandingAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="BuyDate" Type="date" />
           <Property Name="Bill" Type="varbinary(max)" />
+          <Property Name="InterestRate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="finalDate" Type="datetime" />
         </EntityType>
         <EntityType Name="BuyerInstallment">
           <Key>
@@ -145,6 +148,7 @@
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Date" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BuyerProducts">
           <Key>
@@ -596,6 +600,9 @@
           <Property Name="BuyDate" Type="DateTime" Precision="0" />
           <Property Name="Bill" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="CustomerCode" Type="Int64" />
+          <Property Name="InterestRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="finalDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="BuyerInstallment">
           <Key>
@@ -606,6 +613,7 @@
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BuyerProduct">
           <Key>
@@ -922,6 +930,9 @@
           <EntitySetMapping Name="Buyers">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Buyer">
               <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="finalDate" ColumnName="finalDate" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
                 <ScalarProperty Name="Bill" ColumnName="Bill" />
                 <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
@@ -936,6 +947,7 @@
           <EntitySetMapping Name="BuyerInstallments">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BuyerInstallment">
               <MappingFragment StoreEntitySet="BuyerInstallment">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />

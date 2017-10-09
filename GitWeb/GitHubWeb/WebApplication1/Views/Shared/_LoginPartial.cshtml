@@ -12,7 +12,9 @@
         <li>
             @Html.ActionLink("Hello " + User.Identity.Name.Split('@')[0] + "!", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "Change Password" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" title="log out">
+            <span class="glyphicon glyphicon-off"></span>
+            </a></li>
     </ul>
     }
 }

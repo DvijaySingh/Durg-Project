@@ -94,6 +94,24 @@
                             @Html.TextBoxFor(model => model.buyer.BuyDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtbuyDate" })
                             @Html.ValidationMessageFor(model => model.buyer.BuyDate, "", new { @class = "text-danger" })
                         </div>
+                        <div class="col-md-6 form-group">
+                            <label>  Interest Rate</label>
+                            @Html.TextBoxFor(model => model.buyer.InterestRate, new { @class = "form-control", @type = "number", @id = "txtInterestRate" })
+                            @Html.ValidationMessageFor(model => model.buyer.InterestRate, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class=" row">
+                        <div class="col-md-6 form-group">
+                            <label>  Interest</label>
+                            @Html.TextBoxFor(model => model.buyer.Interest, new { @class = "form-control", @type = "number", @id = "txtinterst" })
+                            @Html.ValidationMessageFor(model => model.buyer.Interest, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>  Final Date</label>
+                            @Html.TextBoxFor(model => model.buyer.finalDate, "{0:dd/MM/yyyy}", new { @class = "form-control"  , @id = "txtFinalDate" })
+                            @Html.ValidationMessageFor(model => model.buyer.finalDate, "", new { @class = "text-danger" })
+                        </div>
                     </div>
 
                 </div>
