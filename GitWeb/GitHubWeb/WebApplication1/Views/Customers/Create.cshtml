@@ -1,47 +1,53 @@
 ﻿@model DAL.Customer
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <center> <label> Add Customer </label></center>
+@*<script src="~/Scripts/Pages/Customer.js"></script>*@
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Customers", FormMethod.Post,
+    new { encType = "multipart/form-data", id = "AddCustomers", name = "myform" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustmerName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-6">
-                @Html.TextBoxFor(model => model.CustmerName,   new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.CustmerName, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-6">
-                @Html.TextAreaFor(model => model.Address,  new { @class = "form-control" } )
+    <div class="customer-information">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6 form-group">
+                    @Html.LabelFor(model => model.CustmerName, htmlAttributes: new { @class = "control-label  " })
+                        @Html.TextBoxFor(model => model.CustmerName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CustmerName, "", new { @class = "text-danger" })
+                </div>
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label  " })
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-6 col-md-8">
-                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-offset-10 col-md-2">
+                    <input type="submit" value="Save" id="btnCreateCust" class="btn btn-default" />
+                </div>
             </div>
         </div>
-    </div>
-}
+       </div>
+            }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+@*<div id="fade"></div>
+<div id="modal">
+    <img id="loader" src="~/images/ajax-loader.gif" />
+</div>*@
+@*<div id="divProcessing" class="fade" style="display:none">
+    <p><img src="~/images/ajax-loader.gif"></p>
+</div>*@
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
