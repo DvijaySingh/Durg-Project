@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-2 form-group">
                             <label>  Code </label>
-                            @Html.TextBoxFor(model => model.buyer.CustomerCode, new { @class = "form-control",@readonly="true", @id = "txtcustCode" })
+                            @Html.TextBoxFor(model => model.buyer.CustomerCode, new { @class = "form-control", @id = "txtcustCode" })
                             @Html.ValidationMessageFor(model => model.buyer.CustomerCode, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-6 form-group">

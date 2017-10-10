@@ -24,11 +24,27 @@ namespace WebApplication1.Controllers
             this._IBorrower = iBorrower;
         }
         // GET: Borrowers
+        //public ActionResult Index()
+        //{
+        //    return View(db.Borrowers.ToList());
+        //}
         public ActionResult Index()
         {
-            return View(db.Borrowers.ToList());
+            BorrowerSearchViewModel vModel = new BorrowerSearchViewModel();
+            vModel.Borrower = new BorrowerModel();
+            vModel.AllBorrowers = new List<BorrowerModel>();
+            return View(vModel);
+            // return View(db.Buyers.ToList());
         }
-
+        public ActionResult Search(BorrowerSearchViewModel objModel)
+        {
+            BorrowerSearchViewModel vModel = new BorrowerSearchViewModel();
+            vModel.Borrower = new BorrowerModel();
+            vModel.AllBorrowers = new List<BorrowerModel>();
+            List<BorrowerModel> objRes = _IBorrower.AllBorrowers(objModel.Borrower);
+            vModel.AllBorrowers.AddRange(objRes);
+            return PartialView("~/Views/Borrowers/_BorrowerSearch.cshtml", vModel);
+        }
         // GET: Borrowers/Details/5
         public ActionResult Details(long? id)
         {
@@ -75,10 +91,10 @@ namespace WebApplication1.Controllers
             borrowerviewModel.Lstinstallments.AddRange(lstinstallment);
             return PartialView("~/Views/Borrowers/_BorrowerInstallment.cshtml", borrowerviewModel);
         }
-        public ActionResult DeleteInstallment(long InstallmentID, long buyerID)
+        public ActionResult DeleteInstallment(long InstallmentID, long BorrowerID)
         {
             BorrowerViewModel borrowerviewModel = new BorrowerViewModel();
-            List<BorrowerInstallmentModel> lstinstallments = _IBorrower.DeleteBorrowerInstallment(InstallmentID, buyerID);
+            List<BorrowerInstallmentModel> lstinstallments = _IBorrower.DeleteBorrowerInstallment(InstallmentID, BorrowerID);
             // products
             borrowerviewModel.Borrower = new BorrowerModel();
 

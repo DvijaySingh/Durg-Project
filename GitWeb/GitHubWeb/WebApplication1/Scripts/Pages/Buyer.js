@@ -245,6 +245,42 @@ function CustomerAutoFill() {
                 }
                 catch (e) { }
             });
+            // for cust code auto complete
+            $("#txtcustCode").autocomplete({
+                minLength: 1,
+                open: function () {
+                    $('.ui-menu')
+                        .width($('#txtcustCode').width() + 22);
+                },
+                source: lstdata,
+                innerHeight: "200",
+                select: function (event, ui) {
+                    event.preventDefault();
+                    var labelValue = ui.item.label;
+                    if (labelValue.indexOf('(') > 0) {
+                        var codeAndText = labelValue.split('(');
+                        $('#txtbuyerName').val(codeAndText[0]);
+                        var categoryAndType = (codeAndText[1].slice(0, -1)).split('#');;
+                        $('#txtbuyerAdd').val(categoryAndType[1]);
+                        $('#txtcustCode').val(categoryAndType[0]);
+                    }
+                    else {
+                        $("#txtcustCode").val(labelValue);
+                    }
+                },
+                click: function (event, ui) {
+                    try {
+                        event.preventDefault();
+                        $("#txtcustCode").val(ui.item.label);
+                    }
+                    catch (e) { }
+                },
+            }).focus(function () {
+                try {
+                    $(this).autocomplete("search", "");
+                }
+                catch (e) { }
+            });
         },
         error: function () {
         }

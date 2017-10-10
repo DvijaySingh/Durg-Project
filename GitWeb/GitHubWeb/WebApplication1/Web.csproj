@@ -339,6 +339,7 @@
     <Content Include="Views\Buyers\_BuyerSearch.cshtml" />
     <Content Include="Views\Customers\_CustomerSearch.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Borrowers\_BorrowerSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

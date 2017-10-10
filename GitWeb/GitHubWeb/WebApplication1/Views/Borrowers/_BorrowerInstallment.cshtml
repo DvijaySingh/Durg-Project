@@ -11,7 +11,9 @@
             <th>
                 Date
             </th>
-
+            <th>
+                Description
+            </th>
             <th>Action</th>
         </tr>
     </thead>
@@ -25,18 +27,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
-                    <button id="@item.InstallmentID" class="btn btn-default btnInstallmetedit">Edit</button>
-                    @Ajax.ActionLink("Delete", "DeleteInstallMent", "Borrowers", new { InstallmentID = item.InstallmentID, BorrowerID = item.BorrowerID ,@class="btn btn-default"},
+                    <button id="@item.InstallmentID" class="glyphicon glyphicon-edit btnInstallmetedit">Edit</button>
+                    @Ajax.ActionLink("Delete", "DeleteInstallment", "Borrowers", new { InstallmentID = item.InstallmentID, BorrowerID = item.BorrowerID },
                     new AjaxOptions
                     {
                         Confirm = "are you sure to perform the deletion.",
                         HttpMethod = "POST",
                         UpdateTargetId = "lstinstallment",
                         OnSuccess = "RefreshInstallmentDatatable",
-                    })
+                    },
+                    new { @class = "glyphicon glyphicon-remove" })
+                    
                 </td>
             </tr>
         }

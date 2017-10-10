@@ -18,5 +18,6 @@ namespace DAL.Interface
         List<BorrowerInstallmentModel> AddBorrowerInstallment(BorrowerInstallmentModel installment);
         List<BorrowerInstallmentModel> DeleteBorrowerInstallment(long Id, long buyerID);
         BorrowerInstallment GetBorrowerInstallment(ShopDevEntities db, long Id);
+        List<BorrowerModel> AllBorrowers(BorrowerModel objborrower);
     }
 }

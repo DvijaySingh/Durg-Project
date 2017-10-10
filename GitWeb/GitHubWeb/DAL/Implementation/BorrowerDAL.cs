@@ -32,6 +32,17 @@ namespace DAL.Implementation
             {
                 try
                 {
+                    if (borrower.CustCode == null || borrower.CustCode==0)
+                    {
+                        Customer customer = new Customer
+                        {
+                            CustmerName = borrower.Name,
+                            Address = borrower.Address
+                        };
+                        db.Customers.Add(customer);
+                        db.SaveChanges();
+                        borrower.CustCode = customer.CustCode;
+                    }
                     Borrower borrowerdb = null;
                     if (borrower.BorrowID == 0)
                     {
@@ -99,6 +110,7 @@ namespace DAL.Implementation
                     if (installment.InstallmentID > 0)
                     {
                         borrowerinstDetail = db.BorrowerInstallments.Where(m => m.InstallmentID == installment.InstallmentID).FirstOrDefault();
+
                     }
                     else
                     {
@@ -107,6 +119,30 @@ namespace DAL.Implementation
                     installment.CopyProperties(borrowerinstDetail);
                     if (borrowerinstDetail.InstallmentID == 0)
                     {
+                        var borrower = db.Borrowers.Where(m => m.BorrowID == installment.BorrowerID).FirstOrDefault();
+                        if(borrower.Amont>0)
+                        {
+                            if (borrower.Interest != null && borrower.Interest != 0)
+                            {
+                                if (installment.Amount > borrower.Interest)
+                                {
+                                    borrower.Amont -= installment.Amount - borrower.Interest;
+                                    borrower.Interest = 0;
+                                    borrowerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(borrower.Interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - borrower.Interest);
+                                }
+                                else
+                                {
+                                    borrower.Interest -= installment.Amount;
+                                    borrowerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(installment.Amount) + " and adjust for amunt is 0";
+                                }
+                            }
+                            else
+                            {
+                                borrower.Amont -= installment.Amount;
+                                borrowerinstDetail.Description = "Amount cut for Interset 0 and adjust for amunt is " + Convert.ToString(installment.Amount) ;
+                            }
+                            db.SaveChanges();
+                        }
                         db.BorrowerInstallments.Add(borrowerinstDetail);
                     }
                     db.SaveChanges();
@@ -131,6 +167,8 @@ namespace DAL.Implementation
                 try
                 {
                     BorrowerInstallment installment = GetBorrowerInstallment(db, Id);
+                    var borrower = db.Borrowers.Where(m => m.BorrowID == installment.BorrowerID).FirstOrDefault();
+                    borrower.Amont += installment.Amount;
                     db.BorrowerInstallments.Remove(installment);
                     db.SaveChanges();
                     var lstproducts = db.BorrowerInstallments.Where(m => m.BorrowerID == buyerID).ToList();
@@ -155,7 +193,7 @@ namespace DAL.Implementation
             BorrowerInstallment objinstllment = null;
             try
             {
-                objinstllment = db.BorrowerInstallments.Where(m => m.BorrowerID == Id).FirstOrDefault();
+                objinstllment = db.BorrowerInstallments.Where(m => m.InstallmentID == Id).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -164,6 +202,33 @@ namespace DAL.Implementation
             return objinstllment;
         }
 
-       
+        public List<BorrowerModel> AllBorrowers(BorrowerModel objborrower)
+        {
+            List<BorrowerModel> Allcust = new List<BorrowerModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    var res = from buyer in db.Borrowers
+                              where (buyer.Name.Contains(objborrower.Name) ||
+                              buyer.CustCode == objborrower.CustCode)
+                                || (string.IsNullOrEmpty(objborrower.Name) && objborrower.CustCode == null)
+
+                              select buyer;
+                    foreach (var seller in res)
+                    {
+                        BorrowerModel sellerModel = new BorrowerModel();
+                        seller.CopyProperties(sellerModel);
+                        Allcust.Add(sellerModel);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+                return Allcust;
+            }
+        }
+
     }
 }

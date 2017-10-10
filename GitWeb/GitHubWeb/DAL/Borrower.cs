@@ -20,5 +20,8 @@ namespace DAL
         public Nullable<decimal> Amont { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Status { get; set; }
+        public Nullable<long> CustCode { get; set; }
+        public Nullable<decimal> InterestRate { get; set; }
+        public Nullable<decimal> Interest { get; set; }
     }
 }

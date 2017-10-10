@@ -190,6 +190,30 @@ namespace DAL.Implementation
                     installment.CopyProperties(buyerinstDetail);
                     if (buyerinstDetail.BuyerInstallmentID == 0)
                     {
+                        var buyer = db.Buyers.Where(m => m.BuyerID == installment.BuyerID).FirstOrDefault();
+                        if (buyer.OutstandingAmount > 0)
+                        {
+                            if (buyer.Interest != null && buyer.Interest != 0)
+                            {
+                                if (installment.Amount > buyer.Interest)
+                                {
+                                    buyer.OutstandingAmount -= installment.Amount - buyer.Interest;
+                                    buyer.Interest = 0;
+                                    buyerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(borrower.Interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - borrower.Interest);
+                                }
+                                else
+                                {
+                                    buyer.Interest -= installment.Amount;
+                                    buyerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(installment.Amount) + " and adjust for amunt is 0";
+                                }
+                            }
+                            else
+                            {
+                                buyer.OutstandingAmount -= installment.Amount;
+                                buyerinstDetail.Description = "Amount cut for Interset 0 and adjust for amunt is " + Convert.ToString(installment.Amount);
+                            }
+                            db.SaveChanges();
+                        }
                         db.BuyerInstallments.Add(buyerinstDetail);
                     }
                     db.SaveChanges();
@@ -214,6 +238,9 @@ namespace DAL.Implementation
                 try
                 {
                     BuyerInstallment installment = GetBuyerInstallment(db, Id);
+                    var buyer = db.Buyers.Where(m => m.BuyerID == installment.BuyerID).FirstOrDefault();
+                    var outstandingAmount = buyer.OutstandingAmount;
+                    buyer.OutstandingAmount= outstandingAmount == null? installment.Amount: outstandingAmount+installment.Amount;
                     db.BuyerInstallments.Remove(installment);
                     db.SaveChanges();
                     var lstproducts = db.BuyerInstallments.Where(m => m.BuyerID == buyerID).ToList();

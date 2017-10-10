@@ -11,7 +11,7 @@
 
 <div class="tab">
     <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Borrower</button>
-    <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
+    @*<button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>*@
 </div>
 <div id="custnfo" class="tabcontent">
     @using (Html.BeginForm())
@@ -27,12 +27,17 @@
                 <div class="col-md-3 form-group">
                     <label> Name </label>
                     @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
-                    @Html.TextBoxFor(model => model.Borrower.Name, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.Borrower.Name, new { @class = "form-control",@id="txtName" })
                     @Html.ValidationMessageFor(model => model.Borrower.Name, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
+                    <label> Code</label>
+                    @Html.TextBoxFor(model => model.Borrower.CustCode, new { @class = "form-control", @id = "txtCustCode" })
+                    @Html.ValidationMessageFor(model => model.Borrower.CustCode, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
                     <label> Address </label>
-                    @Html.TextAreaFor(model => model.Borrower.Address, new { @class = "form-control" })
+                    @Html.TextAreaFor(model => model.Borrower.Address, new { @class = "form-control",@id="txtAddress" })
                     @Html.ValidationMessageFor(model => model.Borrower.Address, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
@@ -40,10 +45,27 @@
                     @Html.TextBoxFor(model => model.Borrower.Amont, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessageFor(model => model.Borrower.Amont, "", new { @class = "text-danger" })
                 </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Interest Rate </label>
+                    @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
+                    @Html.TextBoxFor(model => model.Borrower.InterestRate, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Borrower.InterestRate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Interest </label>
+                    @Html.TextBoxFor(model => model.Borrower.Interest, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Interest, "", new { @class = "text-danger" })
+                </div>
                 <div class="col-md-3 form-group">
                     <label> Date</label>
-                    @Html.TextBoxFor(model => model.Borrower.Date, new { @class = "form-control",@id="txtdate" })
+                    @Html.TextBoxFor(model => model.Borrower.Date, new { @class = "form-control", @id = "txtdate" })
                     @Html.ValidationMessageFor(model => model.Borrower.Date, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                   
                 </div>
             </div>
             <div class="row">

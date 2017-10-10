@@ -64,6 +64,7 @@
     <Compile Include="SellerModel.cs" />
     <Compile Include="SellerProductModel.cs" />
     <Compile Include="VendorModel.cs" />
+    <Compile Include="ViewModel\BorrowerSearchViewModel.cs" />
     <Compile Include="ViewModel\BorrowerViewModel.cs" />
     <Compile Include="ViewModel\BulkBuyViewModel.cs" />
     <Compile Include="ViewModel\BuyerSearchViewModel.cs" />

@@ -77,6 +77,9 @@
           <Property Name="Amont" Type="money" />
           <Property Name="Date" Type="datetime" />
           <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="CustCode" Type="bigint" />
+          <Property Name="InterestRate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="BorrowerInstallment">
           <Key>
@@ -87,6 +90,7 @@
           <Property Name="Amount" Type="money" />
           <Property Name="Date" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BulkBuy">
           <Key>
@@ -577,6 +581,9 @@
           <Property Name="Amont" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustCode" Type="Int64" />
+          <Property Name="InterestRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="BorrowerInstallment">
           <Key>
@@ -587,6 +594,7 @@
           <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Buyer">
           <Key>
@@ -907,6 +915,9 @@
           <EntitySetMapping Name="Borrowers">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Borrower">
               <MappingFragment StoreEntitySet="Borrower">
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
+                <ScalarProperty Name="CustCode" ColumnName="CustCode" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Amont" ColumnName="Amont" />
@@ -919,6 +930,7 @@
           <EntitySetMapping Name="BorrowerInstallments">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BorrowerInstallment">
               <MappingFragment StoreEntitySet="BorrowerInstallment">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
