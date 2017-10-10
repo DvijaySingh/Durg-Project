@@ -199,7 +199,7 @@ namespace DAL.Implementation
                                 {
                                     buyer.OutstandingAmount -= installment.Amount - buyer.Interest;
                                     buyer.Interest = 0;
-                                    buyerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(borrower.Interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - borrower.Interest);
+                                    buyerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(buyer.Interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - buyer.Interest);
                                 }
                                 else
                                 {
