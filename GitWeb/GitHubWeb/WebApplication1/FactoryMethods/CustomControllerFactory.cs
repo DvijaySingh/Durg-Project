@@ -88,6 +88,12 @@ namespace WebApplication1.FactoryMethods
                         break;
                         
                     }
+                case "Vendors":
+                    {
+                        service = new VendorDAL();
+                        break;
+
+                    }
             }
             IController controller = Activator.CreateInstance(controllerType, new[] { service }) as Controller;
             return controller;

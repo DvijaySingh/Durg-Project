@@ -88,8 +88,7 @@ namespace DAL.Implementation
                 }
             }
         }
-
-
+        
         public BulkBuyProduct GetProduct(ShopDevEntities db, long Id)
         {
             BulkBuyProduct objProduct = null;
@@ -103,7 +102,22 @@ namespace DAL.Implementation
             }
             return objProduct;
         }
-
+        public BulkBuyProductsModel GetProductDetails(long Id)
+        {
+            BulkBuyProductsModel objModel = new BulkBuyProductsModel();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    BulkBuyProduct product = GetProduct(db, Id);
+                    product.CopyProperties(objModel);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return objModel;
+        }
         public List<BulkBuyProductsModel> DeleteProduct(long Id, long bulkBuyID)
         {
             List<BulkBuyProductsModel> lstbulkproducts = new List<BulkBuyProductsModel>();
@@ -185,6 +199,24 @@ namespace DAL.Implementation
 
             }
             return objvendor;
+        }
+
+
+        public VendorDetailsModel GetVendorDetails(long Id)
+        {
+            VendorDetailsModel objModel = new VendorDetailsModel();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    VendorDetail vendor = GetVendor(db, Id);
+                    vendor.CopyProperties(objModel);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return objModel;
         }
         public List<VendorDetailsModel> DeleteVendor(long Id, long bulkBuyID)
         {
@@ -288,7 +320,22 @@ namespace DAL.Implementation
             }
             return objinstllment;
         }
-
+        public Installments GetInstallmentDetails(long Id)
+        {
+            Installments objModel = new Installments();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    BulkBuyInstallment installment = GetInstallment(db, Id);
+                    installment.CopyProperties(objModel);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return objModel;
+        }
         public void DeleteInitilProducts()
         {
             using (ShopDevEntities db = new ShopDevEntities())
@@ -365,5 +412,10 @@ namespace DAL.Implementation
             }
             return bulkmodel;
         }
+
+       
+
+
+       
     }
 }

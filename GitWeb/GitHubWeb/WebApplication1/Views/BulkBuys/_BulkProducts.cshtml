@@ -36,7 +36,14 @@
 
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
-                    <button id="@item.BulkBuyProductID" class="glyphicon glyphicon-edit btnedit">Edit</button>
+                    @*<button id="@item.BulkBuyProductID" class="glyphicon glyphicon-edit btnedit">Edit</button>*@
+                    @Ajax.ActionLink("Update", "GetProductDetails", "BulkBuys", new { BulkBuyProductID = item.BulkBuyProductID},
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "AddProduct",
+                    }, new { @class = "glyphicon glyphicon-edit" })
+
                     @Ajax.ActionLink("Delete", "DeleteProduct", "BulkBuys", new { BulkBuyProductID = item.BulkBuyProductID, bulkBuyID=item.BulkBuyID },
                     new AjaxOptions
                     {

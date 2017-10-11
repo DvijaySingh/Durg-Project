@@ -1,0 +1,93 @@
+﻿@model Web.Models.ViewModel.BulkBuyViewModel
+
+@using (Ajax.BeginForm("AddVendor", "BulkBuys",
+                                                                                                                                                      new AjaxOptions
+                                                                                                                                                      {
+                                                                                                                                                          HttpMethod = "Post",
+                                                                                                                                                          UpdateTargetId = "lstVendors",
+                                                                                                                                                          OnSuccess = "RefreshVendorDatatable"
+                                                                                                                                                      }))
+{
+    <div id="ajaxform">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Name </label>
+                @Html.HiddenFor(m => m.Vendors.BuyVendorID, new { @id = "hdnvendorId" })
+                @Html.HiddenFor(m => m.Vendors.BulkByID, new { @id = "hdnvendorBulkBuyID" })
+                @Html.TextBoxFor(model => model.Vendors.VendorName, new { @class = "form-control", @id = "txtVendorName" })
+                @Html.ValidationMessageFor(model => model.Vendors.VendorName, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Code </label>
+                @Html.TextBoxFor(model => model.Vendors.VendorCode, new { @class = "form-control",@readonly="true", @id = "txtVendorCode" })
+                @Html.ValidationMessageFor(model => model.Vendors.VendorCode, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Address </label>
+                @Html.TextBoxFor(model => model.Vendors.Address, new { @class = "form-control", @id = "txtAddress" })
+                @Html.ValidationMessageFor(model => model.Vendors.Address, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Mobile  </label>
+                @Html.TextBoxFor(model => model.Vendors.MobileNo, new { @class = "form-control", @id = "txtMobileNo" })
+                @Html.ValidationMessageFor(model => model.Vendors.MobileNo, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Taken Amount </label>
+                @Html.TextBoxFor(model => model.Vendors.TakenAmount, new { @class = "form-control", @type = "number", @id = "txtamountTaken" })
+                @Html.ValidationMessageFor(model => model.Vendors.TakenAmount, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Start Date </label>
+
+                @Html.TextBoxFor(model => model.Vendors.StartDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtstartDate" })
+                @Html.ValidationMessageFor(model => model.Vendors.StartDate, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="col-md-3 form-group">
+                <label> Rate </label>
+                @Html.TextBoxFor(model => model.Vendors.InterestRate, new { @class = "form-control", @type = "number", @id = "txtrate" })
+                @Html.ValidationMessageFor(model => model.Vendors.InterestRate, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Interest </label>
+                @Html.TextBoxFor(model => model.Vendors.Interest, new { @class = "form-control", @type = "number", @id = "txtInterest" })
+                @Html.ValidationMessageFor(model => model.Vendors.Interest, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> End Date </label>
+
+                @Html.TextBoxFor(model => model.Vendors.EndDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtendDate" })
+                @Html.ValidationMessageFor(model => model.Vendors.EndDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Return Amount </label>
+                @Html.TextBoxFor(model => model.Vendors.ReturnAmount, new { @class = "form-control", @type = "number", @id = "txtReturnAmount" })
+                @Html.ValidationMessageFor(model => model.Vendors.ReturnAmount, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+
+
+            </div>
+            <div class="col-md-3 form-group">
+                <input type="submit" class="btn btn-default frm-button" id="btnVendorSubmit" value="Submit" />
+            </div>
+        </div>
+    </div>
+
+
+}

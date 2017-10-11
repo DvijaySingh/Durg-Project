@@ -117,6 +117,38 @@
     RefreshInstallmentDatatable();
     document.getElementById("defaultOpen").click();
 
+
+    var Address = $('#txtAddress');
+    var MobileNo = $('#txtMobileNo');
+    var Name = $('#txtVendorName');
+
+    $('#txtVendorName').autocomplete({
+        minLength: 1,
+        open: function () {
+            $('.ui-menu')
+                .width($('#txtVendorName').width() + 22);
+        },
+        source: "/Vendors/GetAllVendorsNames",
+        innerHeight: "200",
+        select: function( event, ui ) {
+            var ID = ui.item.value;
+            var labelValue = ui.item.label;
+            if (labelValue.indexOf('(') > 0) {
+                var codeAndText = labelValue.split('(');
+                var code = (codeAndText[1].slice(0, -1));
+                $('#txtVendorCode').val(code);
+                $.getJSON('/Vendors/GetVendorDetails', { vendorCode: code }, function (data) {
+                    if (data) {
+                        Address.val(data.Address);
+                        MobileNo.val(data.MobileNo);
+                        Name.val(data.VendorName)
+                    }
+
+                });
+            }
+    }
+})
+
 });
 function RefreshProductDataTable() {
     $("#tblbulkProducts").DataTable({
@@ -148,6 +180,9 @@ function RefreshVendorDatatable() {
 
     $('#hdnvendorId').val('');
     $('#txtVendorName').val('');
+    $('#txtAddress').val('');
+    $('#txtMobileNo').val('');
+    $('#txtVendorCode').val('');
     $('#txtamountTaken').val('');
     $('#txtstartDate').val('');
     $('#txtendDate').val('');
@@ -203,4 +238,6 @@ function openCity(evt, cityName) {
 function CallProductInfo() {
     document.getElementById("productInfo").click();
 }
+
+
 

@@ -103,6 +103,25 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             return PartialView("~/Views/BulkBuys/_BulkProducts.cshtml", objBulkBuyViewModel);
         }
+        public ActionResult GetProductDetails(long BulkBuyProductID)
+        {
+            BulkBuyViewModel objBulkBuyViewModel = new BulkBuyViewModel();
+ 
+            // products
+            objBulkBuyViewModel.bulkBuyModel = new BulkBuyModel();
+            objBulkBuyViewModel.Products = _IBulkProduct.GetProductDetails(BulkBuyProductID);
+            objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
+            
+            // vendors
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
+
+            // Installments
+            objBulkBuyViewModel.installments = new Installments();
+            objBulkBuyViewModel.lstinstallments = new List<Installments>();
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
+            return PartialView("~/Views/BulkBuys/_AddProduct.cshtml", objBulkBuyViewModel);
+        }
         public ActionResult AddVendor(BulkBuyViewModel objBulkBuyViewModel)
         {
             List<VendorDetailsModel> lstvendors = _IBulkProduct.AddVendor(objBulkBuyViewModel.Vendors);
@@ -132,6 +151,25 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             return PartialView("~/Views/BulkBuys/_bulkVendors.cshtml", objBulkBuyViewModel);
+        }
+        public ActionResult GetVendorDetails(long VendorID)
+        {
+            BulkBuyViewModel objBulkBuyViewModel = new BulkBuyViewModel();
+          
+            // products
+            objBulkBuyViewModel.bulkBuyModel = new BulkBuyModel();
+            objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
+
+            // vendors
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
+           
+            objBulkBuyViewModel.Vendors = _IBulkProduct.GetVendorDetails(VendorID);
+
+            // Installments
+            objBulkBuyViewModel.installments = new Installments();
+            objBulkBuyViewModel.lstinstallments = new List<Installments>();
+
+            return PartialView("~/Views/BulkBuys/_AddVendor.cshtml", objBulkBuyViewModel);
         }
 
         public ActionResult AddInstallment(BulkBuyViewModel objBulkBuyViewModel)
@@ -163,7 +201,25 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             objBulkBuyViewModel.lstinstallments.AddRange(lstinstallments);
-            return PartialView("~/Views/BulkBuys/_Installments.cshtml.cshtml", objBulkBuyViewModel);
+            return PartialView("~/Views/BulkBuys/_Installments.cshtml", objBulkBuyViewModel);
+        }
+        public ActionResult GetInstallMent(long InstallmentID)
+        {
+            BulkBuyViewModel objBulkBuyViewModel = new BulkBuyViewModel();
+           
+            // products
+            objBulkBuyViewModel.bulkBuyModel = new BulkBuyModel();
+            objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
+
+            // vendors
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
+
+            // Installments
+            //Installments installment = 
+            objBulkBuyViewModel.installments = _IBulkProduct.GetInstallmentDetails(InstallmentID); ;
+            objBulkBuyViewModel.lstinstallments = new List<Installments>();
+            return PartialView("~/Views/BulkBuys/_BulkAddVendorInstallment.cshtml", objBulkBuyViewModel);
         }
         // GET: BulkBuys/Edit/5
         public ActionResult Edit(long? id)

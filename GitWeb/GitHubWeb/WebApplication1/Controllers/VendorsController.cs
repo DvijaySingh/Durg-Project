@@ -7,14 +7,33 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DAL.Interface;
 
 namespace WebApplication1.Controllers
 {
     public class VendorsController : Controller
     {
         private ShopDevEntities db = new ShopDevEntities();
-
+        private IVendor _IVendor;
+        public VendorsController(IVendor iVendor)
+        {
+            this._IVendor = iVendor;
+        }
         // GET: Vendors
+        public JsonResult GetAllVendorsNames()
+        {
+            var AllVendors = (from vendor in db.Vendors
+                             select vendor.VendorName + "(" + vendor.VendorCode+ ")").Distinct().ToList();
+            return Json(AllVendors, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetVendorDetails(long? vendorCode)
+        {
+            var VendorDetails = (from vendor in db.Vendors
+                              where vendor.VendorCode == vendorCode
+                              select vendor).FirstOrDefault();
+            return Json(VendorDetails, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index()
         {
             return View(db.Vendors.ToList());
