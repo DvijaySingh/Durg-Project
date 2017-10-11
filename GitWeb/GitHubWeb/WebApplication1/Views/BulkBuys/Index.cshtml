@@ -6,77 +6,90 @@
 }
 <center><h2>All bulks</h2></center>
 
-
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p style="margin-bottom:2px;">
+    @Html.ActionLink("Create New", "Create", "BulkBuys", null, new { @class = "btn btn-default" })
 </p>
-<table class="table datatables" id="tblbulkIndex">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TakenAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GWeight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SWeight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="customer-information">
+    <table class="table datatables" id="tblbulkIndex">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TakenAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GWeight)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SWeight)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit", "BulkBuys",  new { id = item.BulkBuyID })" title="Update">
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </a>  |
-                    <a href="@Url.Action("Details", "BulkBuys",  new { id = item.BulkBuyID })" title="Details">
-                        <span class="glyphicon glyphicon-list-alt"></span>
-                    </a>  |
-                    <a href="@Url.Action("Delete", "BulkBuys",  new { id = item.BulkBuyID })" title="Delete">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                </td>
+                <th>
+                     Code
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Interest)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GWeight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SWeight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TakenAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InterestRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Interest)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GWeight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SWeight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "BulkBuys",  new { id = item.BulkBuyID })" title="Update">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>  |
+                        <a href="@Url.Action("Details", "BulkBuys",  new { id = item.BulkBuyID })" title="Details">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                        </a>  |
+                        <a href="@Url.Action("Delete", "BulkBuys",  new { id = item.BulkBuyID })" title="Delete">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <script>
     $(document).ready(function () {
         $("#tblbulkIndex").DataTable({

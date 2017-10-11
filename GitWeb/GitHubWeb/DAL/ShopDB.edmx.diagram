@@ -10,9 +10,7 @@
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="db5ae8b958e1b947fbb352a7c400ba93b4Model.FK_Product_Category" ManuallyRouted="false" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.MType" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" Width="1.5" PointX="7.375" PointY="3.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment" Width="1.5" PointX="5.375" PointY="7.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Borrower" Width="1.5" PointX="7.75" PointY="7.75" />
         <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BorrowerInstallment" Width="1.5" PointX="9.75" PointY="0.75" />
@@ -34,6 +32,11 @@
         <AssociationConnector Association="db5ae8b958e1b947fbb352a7c400ba93b4Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="db5ae8b958e1b947fbb352a7c400ba93b4Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="db5ae8b958e1b947fbb352a7c400ba93b4Model.AspNetUserRoles" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Vendor" Width="1.5" PointX="3.375" PointY="13.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy" Width="1.5" PointX="9.375" PointY="13.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" Width="1.5" PointX="11.375" PointY="13.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.UserMenu" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.WebMenu" Width="1.5" PointX="14.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

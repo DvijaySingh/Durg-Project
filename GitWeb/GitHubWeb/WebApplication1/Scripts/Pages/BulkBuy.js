@@ -81,7 +81,7 @@
         var Approxw = $(tr).find('td').eq(2).text().trim();
         $('#hdnProductId').val(Id);
         $('#txtProductname').val(productName);
-        $('#ddlType option:selected').val(1);
+        $('#ddlType').val(Type);
         $('#txtprodWeight').val(Approxw);
        
     });

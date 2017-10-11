@@ -181,6 +181,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductTypesController.cs" />
     <Compile Include="Controllers\SellersController.cs" />
+    <Compile Include="Controllers\VendorsController.cs" />
     <Compile Include="FactoryMethods\CustomControllerFactory.cs" />
     <Compile Include="Filter\AuthFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -340,6 +341,11 @@
     <Content Include="Views\Customers\_CustomerSearch.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Borrowers\_BorrowerSearch.cshtml" />
+    <Content Include="Views\Vendors\Create.cshtml" />
+    <Content Include="Views\Vendors\Delete.cshtml" />
+    <Content Include="Views\Vendors\Details.cshtml" />
+    <Content Include="Views\Vendors\Edit.cshtml" />
+    <Content Include="Views\Vendors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

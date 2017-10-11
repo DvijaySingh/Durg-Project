@@ -63,6 +63,8 @@
     <Compile Include="SellerInstallmentModel.cs" />
     <Compile Include="SellerModel.cs" />
     <Compile Include="SellerProductModel.cs" />
+    <Compile Include="UserMenu.cs" />
+    <Compile Include="VendorDetailsModel.cs" />
     <Compile Include="VendorModel.cs" />
     <Compile Include="ViewModel\BorrowerSearchViewModel.cs" />
     <Compile Include="ViewModel\BorrowerViewModel.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\SellerSearchViewModel.cs" />
     <Compile Include="ViewModel\SellerViewModel.cs" />
+    <Compile Include="WebMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppModelResources.resx">

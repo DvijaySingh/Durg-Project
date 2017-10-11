@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <img src="@Url.Action("UserPhotos", "Account" )" style="width:50px;height:50px; background: #FFFFFF; margin: auto; -moz-border-radius: 60px; border-radius: 100px; padding: 6px; box-shadow: 0px 0px 20px #888;" />
+            <img src="@Url.Action("UserPhotos", "Account" )" style="width:50px;height:50px; background: #FFFFFF; margin: auto; -moz-border-radius: 60px; border-radius: 100px; padding: 2px; box-shadow: 0px 0px 20px #888;" />
         </li>
         <li>
             @Html.ActionLink("Hello " + User.Identity.Name.Split('@')[0] + "!", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "Change Password" })

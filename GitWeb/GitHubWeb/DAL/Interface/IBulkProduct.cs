@@ -18,8 +18,8 @@ namespace DAL.Interface
         List<BulkBuyProductsModel> DeleteProduct(long Id, long bulkBuyID);
         BulkBuyProduct GetProduct(ShopDevEntities db, long Id);
         // vendors
-        List<VendorModel> AddVendor(VendorModel ProductModel);
-        List<VendorModel> DeleteVendor(long Id,long bulkBuyID);
+        List<VendorDetailsModel> AddVendor(VendorDetailsModel ProductModel);
+        List<VendorDetailsModel> DeleteVendor(long Id,long bulkBuyID);
         VendorDetail  GetVendor(ShopDevEntities db, long Id);
 
         // Installment

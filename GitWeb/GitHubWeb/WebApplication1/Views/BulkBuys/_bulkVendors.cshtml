@@ -4,15 +4,17 @@
 <table class="table table-striped" id="tblVendors">
     <thead>
         <tr>
-
+            <th> Code</th>
             <th>
                 Name
             </th>
+            <th>Address</th>
+            <th>Mobile</th>
             <th>
-                Amount Taken
+                Amount 
             </th>
             <th>
-                Rate
+                InterestRate
             </th>
             <th>
                 Start Date
@@ -31,16 +33,25 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.VendorCode)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.VendorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TakenAmount)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Rate)
+                    @Html.DisplayFor(modelItem => item.InterestRate)
                 </td>
                 <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                    @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
@@ -51,7 +62,7 @@
 
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
-                    <button id="@item.BuyVendorID" class="btn btn-default btnvendoredit">Edit</button>
+                    <button id="@item.BuyVendorID" class="glyphicon glyphicon-edit btnvendoredit">Edit</button>
                     @Ajax.ActionLink("Delete", "DeleteVendor", "BulkBuys", new { VendorID = item.BuyVendorID, bulkBuyID = item.BulkByID },
                     new AjaxOptions
                     {
@@ -59,7 +70,7 @@
                         HttpMethod = "POST",
                         UpdateTargetId = "lstVendors",
                         OnSuccess = "RefreshVendorDatatable",
-                    })
+                    }, new { @class = "glyphicon glyphicon-remove" })
                 </td>
             </tr>
         }

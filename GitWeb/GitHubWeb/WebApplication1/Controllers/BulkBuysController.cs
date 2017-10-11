@@ -49,6 +49,7 @@ namespace WebApplication1.Controllers
         {
             _IBulkProduct.DeleteInitilProducts();
             var objbulkBuy = InitilCreateBulk();
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(objbulkBuy);
         }
 
@@ -66,7 +67,7 @@ namespace WebApplication1.Controllers
                 return View(objbulkBuy);
                 //return RedirectToAction("Index");
             }
-
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(bulkBuy);
         }
 
@@ -77,8 +78,8 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.bulkBuyModel = new BulkBuyModel();
             objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
             objBulkBuyViewModel.lstbulkBuyProducts.AddRange(lstAddedProducts);
-            objBulkBuyViewModel.lstVendors = new List<VendorModel>();
-            objBulkBuyViewModel.Vendors = new VendorModel();
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             return PartialView("~/Views/BulkBuys/_BulkProducts.cshtml", objBulkBuyViewModel);
@@ -94,8 +95,8 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
             objBulkBuyViewModel.lstbulkBuyProducts.AddRange(lstproducts);
             // vendors
-            objBulkBuyViewModel.lstVendors = new List<VendorModel>();
-            objBulkBuyViewModel.Vendors = new VendorModel();
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
 
             // Installments
             objBulkBuyViewModel.installments = new Installments();
@@ -104,12 +105,12 @@ namespace WebApplication1.Controllers
         }
         public ActionResult AddVendor(BulkBuyViewModel objBulkBuyViewModel)
         {
-            List<VendorModel> lstvendors = _IBulkProduct.AddVendor(objBulkBuyViewModel.Vendors);
+            List<VendorDetailsModel> lstvendors = _IBulkProduct.AddVendor(objBulkBuyViewModel.Vendors);
             objBulkBuyViewModel.bulkBuyModel = new BulkBuyModel();
             objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
-            objBulkBuyViewModel.lstVendors = new List<VendorModel>();
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
             objBulkBuyViewModel.lstVendors.AddRange(lstvendors);
-            objBulkBuyViewModel.Vendors = new VendorModel();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             return PartialView("~/Views/BulkBuys/_bulkVendors.cshtml", objBulkBuyViewModel);
@@ -117,15 +118,15 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteVendor(long VendorID,long bulkBuyID)
         {
             BulkBuyViewModel objBulkBuyViewModel = new BulkBuyViewModel();
-            List<VendorModel> lstvendors = _IBulkProduct.DeleteVendor(VendorID, bulkBuyID);
+            List<VendorDetailsModel> lstvendors = _IBulkProduct.DeleteVendor(VendorID, bulkBuyID);
             // products
             objBulkBuyViewModel.bulkBuyModel = new BulkBuyModel();
             objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
 
             // vendors
-            objBulkBuyViewModel.lstVendors = new List<VendorModel>();
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
             objBulkBuyViewModel.lstVendors.AddRange(lstvendors);
-            objBulkBuyViewModel.Vendors = new VendorModel();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
 
             // Installments
             objBulkBuyViewModel.installments = new Installments();
@@ -138,9 +139,9 @@ namespace WebApplication1.Controllers
             List<Installments> lstinstallment= _IBulkProduct.AddInstallment(objBulkBuyViewModel.installments);
             objBulkBuyViewModel.bulkBuyModel = new BulkBuyModel();
             objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
-            objBulkBuyViewModel.lstVendors = new List<VendorModel>();
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
            
-            objBulkBuyViewModel.Vendors = new VendorModel();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             objBulkBuyViewModel.lstinstallments.AddRange(lstinstallment);
@@ -155,8 +156,8 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
 
             // vendors
-            objBulkBuyViewModel.lstVendors = new List<VendorModel>();
-            objBulkBuyViewModel.Vendors = new VendorModel();
+            objBulkBuyViewModel.lstVendors = new List<VendorDetailsModel>();
+            objBulkBuyViewModel.Vendors = new VendorDetailsModel();
 
             // Installments
             objBulkBuyViewModel.installments = new Installments();
@@ -176,6 +177,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(bulkBuy);
         }
 
@@ -192,6 +194,7 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(bulkBuy);
         }
 
@@ -223,10 +226,10 @@ namespace WebApplication1.Controllers
         private BulkBuyViewModel InitilCreateBulk()
         {
             BulkBuyViewModel objbulkBuy = new BulkBuyViewModel();
-            objbulkBuy.Vendors = new VendorModel();
+            objbulkBuy.Vendors = new VendorDetailsModel();
             objbulkBuy.Products = new BulkBuyProductsModel();
             objbulkBuy.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
-            objbulkBuy.lstVendors = new List<VendorModel>();
+            objbulkBuy.lstVendors = new List<VendorDetailsModel>();
             objbulkBuy.installments = new Installments();
             objbulkBuy.lstinstallments = new List<Installments>();
             return objbulkBuy;

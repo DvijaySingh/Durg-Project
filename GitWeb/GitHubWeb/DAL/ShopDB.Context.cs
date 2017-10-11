@@ -29,9 +29,7 @@ namespace DAL
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<MType> MTypes { get; set; }
-        public virtual DbSet<BulkBuy> BulkBuys { get; set; }
         public virtual DbSet<BulkBuyProduct> BulkBuyProducts { get; set; }
-        public virtual DbSet<VendorDetail> VendorDetails { get; set; }
         public virtual DbSet<BulkBuyInstallment> BulkBuyInstallments { get; set; }
         public virtual DbSet<Borrower> Borrowers { get; set; }
         public virtual DbSet<BorrowerInstallment> BorrowerInstallments { get; set; }
@@ -50,5 +48,10 @@ namespace DAL
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<BulkBuy> BulkBuys { get; set; }
+        public virtual DbSet<VendorDetail> VendorDetails { get; set; }
+        public virtual DbSet<UserMenu> UserMenus { get; set; }
+        public virtual DbSet<WebMenu> WebMenus { get; set; }
     }
 }

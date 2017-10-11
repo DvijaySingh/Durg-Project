@@ -45,8 +45,8 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <label> Rate</label>
-                    @Html.TextBoxFor(model => model.bulkBuyModel.Rate, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.bulkBuyModel.Rate, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.bulkBuyModel.InterestRate, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.InterestRate, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
@@ -110,12 +110,7 @@
                     <div class="col-md-3 form-group">
                         <label> Type </label>
 
-                        @Html.DropDownListFor(model => model.Products.Type, new SelectList(
-                  new List<Object>{
-                         new { value = 0 , text = "Please Select"  },new { value = 1 , text = "Silver"  },
-                       new { value = 2 , text = "Gold" }
-                    }, "value",
-                  "text"), new { @class = "form-control", @id = "ddlType" })
+                        @Html.DropDownListFor(model => model.Products.Type, ViewBag.ProductTypeID as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "ddlType" })
                         @Html.ValidationMessageFor(model => model.Products.Type, "", new { @class = "text-danger" })
 
                     </div>
@@ -193,8 +188,8 @@
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label> Rate </label>
-                        @Html.TextBoxFor(model => model.Vendors.Rate, new { @class = "form-control", @type = "number", @id = "txtrate" })
-                        @Html.ValidationMessageFor(model => model.Vendors.Rate, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Vendors.InterestRate, new { @class = "form-control", @type = "number", @id = "txtrate" })
+                        @Html.ValidationMessageFor(model => model.Vendors.InterestRate, "", new { @class = "text-danger" })
 
                     </div>
                     <div class="col-md-3 form-group">

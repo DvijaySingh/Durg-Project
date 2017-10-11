@@ -167,7 +167,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShopDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="UserMenu.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="VendorDetail.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebMenu.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

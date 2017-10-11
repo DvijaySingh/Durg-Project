@@ -28,7 +28,7 @@
 
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
-                    <button id="@item.InstallmentID" class="btn btn-default btnInstallmetedit">Edit</button>
+                    <button id="@item.InstallmentID" class="glyphicon glyphicon-edit btnInstallmetedit">Edit</button>
                     @Ajax.ActionLink("Delete", "DeleteInstallMent", "BulkBuys", new { InstallmentID = item.InstallmentID,bulkBuyID=item.BulkBuyID },
                     new AjaxOptions
                     {
@@ -36,7 +36,7 @@
                         HttpMethod = "POST",
                         UpdateTargetId = "lstinstallment",
                         OnSuccess = "RefreshInstallmentDatatable",
-                    })
+                    }, new { @class = "glyphicon glyphicon-remove" })
                 </td>
             </tr>
         }

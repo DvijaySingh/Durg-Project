@@ -133,9 +133,9 @@ namespace DAL.Implementation
         }
 
         // vendor
-        public List<VendorModel> AddVendor(VendorModel vendorModel)
+        public List<VendorDetailsModel> AddVendor(VendorDetailsModel vendorModel)
         {
-            List<VendorModel> lstvendors = new List<VendorModel>();
+            List<VendorDetailsModel> lstvendors = new List<VendorDetailsModel>();
             using (ShopDevEntities db = new ShopDevEntities())
             {
                 try
@@ -161,7 +161,7 @@ namespace DAL.Implementation
                     var lstAllvendors = db.VendorDetails.Where(m => m.BulkByID == vendorModel.BulkByID).ToList();
                     foreach (var cusprod in lstAllvendors)
                     {
-                        VendorModel objcsproduct = new VendorModel();
+                        VendorDetailsModel objcsproduct = new VendorDetailsModel();
                         cusprod.CopyProperties(objcsproduct);
                         lstvendors.Add(objcsproduct);
                     }
@@ -186,9 +186,9 @@ namespace DAL.Implementation
             }
             return objvendor;
         }
-        public List<VendorModel> DeleteVendor(long Id, long bulkBuyID)
+        public List<VendorDetailsModel> DeleteVendor(long Id, long bulkBuyID)
         {
-            List<VendorModel> lstvendors = new List<VendorModel>();
+            List<VendorDetailsModel> lstvendors = new List<VendorDetailsModel>();
             using (ShopDevEntities db = new ShopDevEntities())
             {
                 try
@@ -200,7 +200,7 @@ namespace DAL.Implementation
                     var lstproducts = db.VendorDetails.Where(m => m.BulkByID == bulkBuyID).ToList();
                     foreach (var cusprod in lstproducts)
                     {
-                        VendorModel objvendor = new VendorModel();
+                        VendorDetailsModel objvendor = new VendorDetailsModel();
                         cusprod.CopyProperties(objvendor);
                         lstvendors.Add(objvendor);
                     }
@@ -329,10 +329,10 @@ namespace DAL.Implementation
                         cusprod.CopyProperties(objcsproduct);
                         lstcsproducts.Add(objcsproduct);
                     }
-                    List<VendorModel> lstvendors = new List<VendorModel>();
+                    List<VendorDetailsModel> lstvendors = new List<VendorDetailsModel>();
                     foreach (var cusprod in Allvendors)
                     {
-                        VendorModel objcsproduct = new VendorModel();
+                        VendorDetailsModel objcsproduct = new VendorDetailsModel();
                         cusprod.CopyProperties(objcsproduct);
                         lstvendors.Add(objcsproduct);
                     }
@@ -350,8 +350,8 @@ namespace DAL.Implementation
                     bulkmodel.lstbulkBuyProducts = new List<BulkBuyProductsModel>();
                     bulkmodel.lstbulkBuyProducts.AddRange(lstcsproducts);
 
-                    bulkmodel.Vendors = new VendorModel();
-                    bulkmodel.lstVendors = new List<VendorModel>();
+                    bulkmodel.Vendors = new VendorDetailsModel();
+                    bulkmodel.lstVendors = new List<VendorDetailsModel>();
                     bulkmodel.lstVendors.AddRange(lstvendors);
 
                     bulkmodel.installments = new Installments();

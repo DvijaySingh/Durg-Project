@@ -18,12 +18,14 @@ namespace DAL
         public string CustomerName { get; set; }
         public string Address { get; set; }
         public Nullable<decimal> TakenAmount { get; set; }
-        public Nullable<decimal> Rate { get; set; }
+        public Nullable<decimal> InterestRate { get; set; }
         public Nullable<decimal> GWeight { get; set; }
         public Nullable<decimal> SWeight { get; set; }
         public string Status { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> CloseDate { get; set; }
         public Nullable<decimal> ClosingAmount { get; set; }
+        public Nullable<decimal> Interest { get; set; }
+        public Nullable<long> CustomerCode { get; set; }
     }
 }

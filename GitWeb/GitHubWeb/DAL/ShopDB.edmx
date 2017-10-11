@@ -97,16 +97,18 @@
             <PropertyRef Name="BulkBuyID" />
           </Key>
           <Property Name="BulkBuyID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerCode" Type="bigint" />
           <Property Name="CustomerName" Type="varchar" MaxLength="128" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="TakenAmount" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="InterestRate" Type="decimal" Precision="18" Scale="2" />
           <Property Name="GWeight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="SWeight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="StartDate" Type="datetime" />
           <Property Name="CloseDate" Type="datetime" />
           <Property Name="ClosingAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="BulkBuyInstallment">
           <Key>
@@ -289,18 +291,57 @@
           <Property Name="weight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CategoryID" Type="bigint" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'db5ae8b958e1b947fbb352a7c400ba93b4.dbo.User' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="User">
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+          <Property Name="Eamil" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="ProfilePic" Type="varbinary(max)" />
+        </EntityType>-->
+        <EntityType Name="UserMenu">
+          <Key>
+            <PropertyRef Name="UserMenuID" />
+          </Key>
+          <Property Name="UserMenuID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="MenuID" Type="int" />
+        </EntityType>
         <EntityType Name="VendorDetails">
           <Key>
             <PropertyRef Name="BuyVendorID" />
           </Key>
           <Property Name="BuyVendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BulkByID" Type="bigint" />
+          <Property Name="VendorCode" Type="int" />
           <Property Name="VendorName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="16" />
           <Property Name="StartDate" Type="datetime" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="TakenAmount" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="InterestRate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ReturnAmount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Vendors">
+          <Key>
+            <PropertyRef Name="VendorCode" />
+          </Key>
+          <Property Name="VendorCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="16" />
+          <Property Name="TotalBulks" Type="int" />
+        </EntityType>
+        <EntityType Name="WebMenu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="varchar" MaxLength="50" />
+          <Property Name="ControllerName" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -396,7 +437,10 @@
           <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellerInstallments" EntityType="Self.SellerInstallments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellerProduct" EntityType="Self.SellerProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMenu" EntityType="Self.UserMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorDetails" EntityType="Self.VendorDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebMenu" EntityType="Self.WebMenu" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -482,9 +526,7 @@
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <EntitySet Name="MTypes" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.MType" />
-          <EntitySet Name="BulkBuys" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy" />
           <EntitySet Name="BulkBuyProducts" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct" />
-          <EntitySet Name="VendorDetails" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" />
           <EntitySet Name="BulkBuyInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment" />
           <EntitySet Name="Borrowers" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Borrower" />
           <EntitySet Name="BorrowerInstallments" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BorrowerInstallment" />
@@ -515,6 +557,11 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Vendors" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.Vendor" />
+          <EntitySet Name="BulkBuys" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy" />
+          <EntitySet Name="VendorDetails" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail" />
+          <EntitySet Name="UserMenus" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.UserMenu" />
+          <EntitySet Name="WebMenus" EntityType="db5ae8b958e1b947fbb352a7c400ba93b4Model.WebMenu" />
         </EntityContainer>
         <EntityType Name="MType">
           <Key>
@@ -522,22 +569,6 @@
           </Key>
           <Property Name="MtypeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="BulkBuy">
-          <Key>
-            <PropertyRef Name="BulkBuyID" />
-          </Key>
-          <Property Name="BulkBuyID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TakenAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="GWeight" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SWeight" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="CloseDate" Type="DateTime" Precision="3" />
-          <Property Name="ClosingAmount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="BulkBuyProduct">
           <Key>
@@ -548,19 +579,6 @@
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
-        <EntityType Name="VendorDetail">
-          <Key>
-            <PropertyRef Name="BuyVendorID" />
-          </Key>
-          <Property Name="BuyVendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BulkByID" Type="Int64" />
-          <Property Name="VendorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="TakenAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ReturnAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="BulkBuyInstallment">
           <Key>
@@ -806,6 +824,67 @@
           <End Type="db5ae8b958e1b947fbb352a7c400ba93b4Model.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="db5ae8b958e1b947fbb352a7c400ba93b4Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorCode" />
+          </Key>
+          <Property Name="VendorCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="TotalBulks" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BulkBuy">
+          <Key>
+            <PropertyRef Name="BulkBuyID" />
+          </Key>
+          <Property Name="BulkBuyID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TakenAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InterestRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="CloseDate" Type="DateTime" Precision="3" />
+          <Property Name="ClosingAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CustomerCode" Type="Int64" />
+        </EntityType>
+        <EntityType Name="VendorDetail">
+          <Key>
+            <PropertyRef Name="BuyVendorID" />
+          </Key>
+          <Property Name="BuyVendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BulkByID" Type="Int64" />
+          <Property Name="VendorCode" Type="Int32" />
+          <Property Name="VendorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="TakenAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InterestRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ReturnAmount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="UserMenu">
+          <Key>
+            <PropertyRef Name="UserMenuID" />
+          </Key>
+          <Property Name="UserMenuID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MenuID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="WebMenu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -860,23 +939,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BulkBuys">
-            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy">
-              <MappingFragment StoreEntitySet="BulkBuy">
-                <ScalarProperty Name="ClosingAmount" ColumnName="ClosingAmount" />
-                <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="SWeight" ColumnName="SWeight" />
-                <ScalarProperty Name="GWeight" ColumnName="GWeight" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="TakenAmount" ColumnName="TakenAmount" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BulkBuyProducts">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyProduct">
               <MappingFragment StoreEntitySet="BulkBuyProducts">
@@ -885,20 +947,6 @@
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
                 <ScalarProperty Name="BulkBuyProductID" ColumnName="BulkBuyProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VendorDetails">
-            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail">
-              <MappingFragment StoreEntitySet="VendorDetails">
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="ReturnAmount" ColumnName="ReturnAmount" />
-                <ScalarProperty Name="TakenAmount" ColumnName="TakenAmount" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-                <ScalarProperty Name="BulkByID" ColumnName="BulkByID" />
-                <ScalarProperty Name="BuyVendorID" ColumnName="BuyVendorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1131,6 +1179,72 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Vendor">
+              <MappingFragment StoreEntitySet="Vendors">
+                <ScalarProperty Name="TotalBulks" ColumnName="TotalBulks" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BulkBuys">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy">
+              <MappingFragment StoreEntitySet="BulkBuy">
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="ClosingAmount" ColumnName="ClosingAmount" />
+                <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SWeight" ColumnName="SWeight" />
+                <ScalarProperty Name="GWeight" ColumnName="GWeight" />
+                <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
+                <ScalarProperty Name="TakenAmount" ColumnName="TakenAmount" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendorDetails">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.VendorDetail">
+              <MappingFragment StoreEntitySet="VendorDetails">
+                <ScalarProperty Name="ReturnAmount" ColumnName="ReturnAmount" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
+                <ScalarProperty Name="TakenAmount" ColumnName="TakenAmount" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+                <ScalarProperty Name="BulkByID" ColumnName="BulkByID" />
+                <ScalarProperty Name="BuyVendorID" ColumnName="BuyVendorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMenus">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.UserMenu">
+              <MappingFragment StoreEntitySet="UserMenu">
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserMenuID" ColumnName="UserMenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebMenus">
+            <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.WebMenu">
+              <MappingFragment StoreEntitySet="WebMenu">
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

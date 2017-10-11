@@ -12,19 +12,12 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class VendorDetail
+    public partial class Vendor
     {
-        public int BuyVendorID { get; set; }
-        public Nullable<long> BulkByID { get; set; }
-        public Nullable<int> VendorCode { get; set; }
+        public int VendorCode { get; set; }
         public string VendorName { get; set; }
         public string Address { get; set; }
         public string MobileNo { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<decimal> TakenAmount { get; set; }
-        public Nullable<decimal> InterestRate { get; set; }
-        public Nullable<decimal> Interest { get; set; }
-        public Nullable<decimal> ReturnAmount { get; set; }
+        public Nullable<int> TotalBulks { get; set; }
     }
 }
