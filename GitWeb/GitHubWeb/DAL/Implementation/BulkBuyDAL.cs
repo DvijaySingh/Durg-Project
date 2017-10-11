@@ -158,6 +158,19 @@ namespace DAL.Implementation
 
                     vendorModel.BulkByID = vendorModel.BulkByID == null ? 0 : vendorModel.BulkByID;
                     VendorDetail vendordetails = null;
+                    if (vendorModel.VendorCode == null)
+                    {
+                        Vendor vendor = new Vendor
+                        {
+                            VendorName = vendorModel.VendorName,
+                            Address = vendorModel.Address,
+                            MobileNo= vendorModel.MobileNo,
+                            TotalBulks=1
+                        };
+                        db.Vendors.Add(vendor);
+                        db.SaveChanges();
+                        vendorModel.VendorCode = vendor.VendorCode;
+                    }
                     if (vendorModel.BuyVendorID > 0)
                     {
                         vendordetails = db.VendorDetails.Where(m => m.BuyVendorID == vendorModel.BuyVendorID).FirstOrDefault();
