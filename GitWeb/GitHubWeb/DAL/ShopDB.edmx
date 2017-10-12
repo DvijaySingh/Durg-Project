@@ -100,6 +100,7 @@
           <Property Name="CustomerCode" Type="bigint" />
           <Property Name="CustomerName" Type="varchar" MaxLength="128" />
           <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="OustandingAmont" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TakenAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="InterestRate" Type="decimal" Precision="18" Scale="2" />
           <Property Name="GWeight" Type="decimal" Precision="18" Scale="2" />
@@ -291,15 +292,6 @@
           <Property Name="weight" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CategoryID" Type="bigint" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'db5ae8b958e1b947fbb352a7c400ba93b4.dbo.User' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="User">
-          <Property Name="UserID" Type="bigint" />
-          <Property Name="Name" Type="varchar" MaxLength="200" />
-          <Property Name="Eamil" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar(max)" />
-          <Property Name="ProfilePic" Type="varbinary(max)" />
-        </EntityType>-->
         <EntityType Name="UserMenu">
           <Key>
             <PropertyRef Name="UserMenuID" />
@@ -851,6 +843,7 @@ warning 6013: The table/view 'db5ae8b958e1b947fbb352a7c400ba93b4.dbo.User' does 
           <Property Name="ClosingAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CustomerCode" Type="Int64" />
+          <Property Name="OustandingAmont" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="VendorDetail">
           <Key>
@@ -1193,6 +1186,7 @@ warning 6013: The table/view 'db5ae8b958e1b947fbb352a7c400ba93b4.dbo.User' does 
           <EntitySetMapping Name="BulkBuys">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy">
               <MappingFragment StoreEntitySet="BulkBuy">
+                <ScalarProperty Name="OustandingAmont" ColumnName="OustandingAmont" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
                 <ScalarProperty Name="Interest" ColumnName="Interest" />
                 <ScalarProperty Name="ClosingAmount" ColumnName="ClosingAmount" />

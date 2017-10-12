@@ -9,5 +9,6 @@ namespace DAL.Interface
     public interface IDashBoard
     {
         void Get();
+        void CalculateInterest();
     }
 }

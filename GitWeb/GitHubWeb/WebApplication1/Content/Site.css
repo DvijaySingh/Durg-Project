@@ -202,6 +202,9 @@ div.tab {
 .glyphicon-edit{
     color:darkblue;
 }
+.glyphicon-refresh{
+    color:white;
+}
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
     from {

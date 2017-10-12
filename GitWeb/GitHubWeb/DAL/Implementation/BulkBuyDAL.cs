@@ -18,6 +18,33 @@ namespace DAL.Implementation
             {
                 try
                 {
+                    var todayYear = DateTime.Now.Year;
+                    var CurrentMonth = DateTime.Now.Month;
+                   // calculation for interst
+                    if (BulkInfo.InterestRate!=null && BulkInfo.InterestRate != 0)
+                    {
+                        var buyMonth = BulkInfo.StartDate.Value.Month;
+                        var buyYear = BulkInfo.StartDate.Value.Year;
+                        var monthDiff = ((todayYear - buyYear) * 12) + CurrentMonth - buyMonth;
+                        decimal? interst = 0;
+                        if (BulkInfo.OustandingAmont > 0)
+                        {
+                            if (BulkInfo.TakenAmount < BulkInfo.OustandingAmont)
+                            {
+                                interst = BulkInfo.TakenAmount * BulkInfo.InterestRate * monthDiff / 100;
+                            }
+                            else
+                            {
+                                interst = BulkInfo.OustandingAmont * BulkInfo.InterestRate * monthDiff / 100;
+                            }
+                        }
+                        else
+                        {
+                            interst = BulkInfo.TakenAmount * BulkInfo.InterestRate * monthDiff / 100;
+                        }
+                        BulkInfo.Interest = interst;
+                        BulkInfo.OustandingAmont = BulkInfo.TakenAmount + interst;
+                    }
                     BulkBuy bulkbuy = null;
                     if (BulkInfo.BulkBuyID == 0)
                     {

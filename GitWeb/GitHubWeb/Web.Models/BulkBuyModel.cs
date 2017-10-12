@@ -22,6 +22,6 @@ namespace Web.Models
         public  DateTime? CloseDate { get; set; }
         public  decimal? ClosingAmount { get; set; }
         public  decimal? Interest { get; set; }
-      
+        public decimal? OustandingAmont { get; set; }
     }
 }

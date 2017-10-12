@@ -27,5 +27,6 @@ namespace DAL
         public Nullable<decimal> ClosingAmount { get; set; }
         public Nullable<decimal> Interest { get; set; }
         public Nullable<long> CustomerCode { get; set; }
+        public Nullable<decimal> OustandingAmont { get; set; }
     }
 }
