@@ -32,7 +32,7 @@
                 </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
-                    <button id="@item.BuyerInstallmentID" class="glyphicon glyphicon-edit btnInstallmetedit">Edit</button>
+                    @*<button id="@item.BuyerInstallmentID" class="glyphicon glyphicon-edit btnInstallmetedit">Edit</button>*@
                     @Ajax.ActionLink("Delete", "DeleteInstallMent", "Buyers", new { InstallmentID = item.BuyerInstallmentID, buyerID = item.BuyerID },
                     new AjaxOptions
                     {

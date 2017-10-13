@@ -83,7 +83,13 @@
                     @Html.TextBoxFor(model => model.bulkBuyModel.InterstableAmount, new { @class = "form-control", @id = "txtintAmount" })
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.InterstableAmount, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-md-6"></div>
+                <div class="col-md-3 form-group">
+                    <label> Outstanding Amount</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.OustandingAmont, new { @class = "form-control", @id = "txtintAmount" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.OustandingAmont, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-3"></div>
                 <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
             </div>
 

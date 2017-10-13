@@ -311,7 +311,9 @@ namespace DAL.Implementation
                                     var interest = bulkBuy.Interest;
                                     bulkBuy.OustandingAmont -= installment.Amount - interest;
                                     bulkBuy.Interest = 0;
-                                    bulkBuy.InterstableAmount -= installment.Amount - interest;
+                                    var interstableAmount = bulkBuy.InterstableAmount;
+                                    bulkBuy.InterstableAmount = interstableAmount == null ? installment.Amount - interest : interstableAmount - (installment.Amount - interest);
+                                    
                                     bulkinstDetail.Description = "Amount cut for Interset" + Convert.ToString(interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - interest);
                                 }
                                 else
@@ -355,7 +357,9 @@ namespace DAL.Implementation
                     var bulkbuy = db.BulkBuys.Where(m => m.BulkBuyID == bulkBuyID).FirstOrDefault();
                     var outstandingAmount = bulkbuy.OustandingAmont;
                     bulkbuy.OustandingAmont = outstandingAmount == null ? installment.Amount : outstandingAmount + installment.Amount;
-                    bulkbuy.InterstableAmount += installment.Amount;
+                    var interstableAmount = bulkbuy.InterstableAmount;
+                    bulkbuy.InterstableAmount = interstableAmount == null ? installment.Amount : interstableAmount + installment.Amount;
+                   
 
                     db.BulkBuyInstallments.Remove(installment);
                     db.SaveChanges();

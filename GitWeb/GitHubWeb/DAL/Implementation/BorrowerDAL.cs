@@ -150,7 +150,8 @@ namespace DAL.Implementation
                                     var interest = borrower.Interest;
                                     borrower.Outstanding -= installment.Amount - interest;
                                     borrower.Interest = 0;
-                                    borrower.InterstableAmount -= installment.Amount - interest;
+                                    var interstableAmount = borrower.InterstableAmount;
+                                    borrower.InterstableAmount= interstableAmount==null? installment.Amount - interest: interstableAmount-(installment.Amount - interest);
                                     borrowerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - interest);
                                 }
                                 else
@@ -193,8 +194,11 @@ namespace DAL.Implementation
                 {
                     BorrowerInstallment installment = GetBorrowerInstallment(db, Id);
                     var borrower = db.Borrowers.Where(m => m.BorrowID == installment.BorrowerID).FirstOrDefault();
-                    borrower.Outstanding += installment.Amount;
-                    borrower.InterstableAmount += installment.Amount;
+                   
+                    var outstandingAmount = borrower.Outstanding;
+                    borrower.Outstanding = outstandingAmount == null ? installment.Amount : outstandingAmount + installment.Amount;
+                    var interstableAmount = borrower.InterstableAmount;
+                    borrower.InterstableAmount = interstableAmount == null ? installment.Amount : interstableAmount + installment.Amount;
                     db.BorrowerInstallments.Remove(installment);
                     db.SaveChanges();
                     var lstproducts = db.BorrowerInstallments.Where(m => m.BorrowerID == buyerID).ToList();

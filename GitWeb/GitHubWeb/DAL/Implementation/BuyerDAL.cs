@@ -209,9 +209,10 @@ namespace DAL.Implementation
                         buyerinstDetail = new BuyerInstallment();
                     }
                     installment.CopyProperties(buyerinstDetail);
+                    var buyer = db.Buyers.Where(m => m.BuyerID == installment.BuyerID).FirstOrDefault();
                     if (buyerinstDetail.BuyerInstallmentID == 0)
                     {
-                        var buyer = db.Buyers.Where(m => m.BuyerID == installment.BuyerID).FirstOrDefault();
+                       
                         if (buyer.InterstableAmount > 0)
                         {
                             if (buyer.Interest != null && buyer.Interest != 0)
@@ -221,7 +222,9 @@ namespace DAL.Implementation
                                     var interest = buyer.Interest;
                                     buyer.OutstandingAmount -= installment.Amount - interest;
                                     buyer.Interest = 0;
-                                    buyer.InterstableAmount -= installment.Amount - interest;
+                                    var interstableAmount = buyer.InterstableAmount;
+                                    buyer.InterstableAmount = interstableAmount == null ? installment.Amount - interest : interstableAmount - (installment.Amount - interest);
+                                    
                                     buyerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - interest);
                                 }
                                 else
@@ -236,11 +239,12 @@ namespace DAL.Implementation
                                 buyer.InterstableAmount -= installment.Amount;
                                 buyerinstDetail.Description = "Amount cut for Interset 0 and adjust for amunt is " + Convert.ToString(installment.Amount);
                             }
-                            buyer.LastInstallmentDate = DateTime.Now;
+                          
                             db.SaveChanges();
                         }
                         db.BuyerInstallments.Add(buyerinstDetail);
                     }
+                    buyer.LastInstallmentDate = DateTime.Now;
                     db.SaveChanges();
                     var lstinstallments = db.BuyerInstallments.Where(m => m.BuyerID == buyerinstDetail.BuyerID).ToList();
                     foreach (var cusprod in lstinstallments)
@@ -265,8 +269,10 @@ namespace DAL.Implementation
                     BuyerInstallment installment = GetBuyerInstallment(db, Id);
                     var buyer = db.Buyers.Where(m => m.BuyerID == installment.BuyerID).FirstOrDefault();
                     var outstandingAmount = buyer.OutstandingAmount;
+                   
                     buyer.OutstandingAmount= outstandingAmount == null? installment.Amount: outstandingAmount+installment.Amount;
-                    buyer.InterstableAmount+= installment.Amount;
+                    var interstableAmount = buyer.InterstableAmount;
+                    buyer.InterstableAmount = interstableAmount==null? installment.Amount: interstableAmount+ installment.Amount;
                     db.BuyerInstallments.Remove(installment);
                     db.SaveChanges();
                     var lstproducts = db.BuyerInstallments.Where(m => m.BuyerID == buyerID).ToList();
