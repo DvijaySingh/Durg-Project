@@ -1,0 +1,62 @@
+﻿
+@model Web.Models.ViewModel.BorrowerSearchViewModel
+
+@{
+    ViewBag.Title = "All borrowers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>All Borrowers</h2>*@
+<script src="~/Scripts/Pages/Borrower.js"></script>
+<p style="margin-bottom:2px;">
+    @Html.ActionLink("Create New", "Create", "Borrowers", null, new { @class = "btn btn-default" })
+</p>
+<div class="customer-information">
+    @using (Ajax.BeginForm("Search", "Borrowers",
+                                                                                                                                                                                  new AjaxOptions
+                                                                                                                                                                                  {
+                                                                                                                                                                                      HttpMethod = "Post",
+                                                                                                                                                                                      UpdateTargetId = "lstCusProducts",
+                                                                                                                                                                                      OnSuccess = "RefreshBorrowersGrid"
+                                                                                                                                                                                  }))
+    {
+        <div id="ajaxform">
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Customer Name </label>
+                    @Html.TextBoxFor(model => model.Borrower.Name, new { @class = "form-control" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Customer Code </label>
+                    @Html.TextBoxFor(model => model.Borrower.CustCode, new { @class = "form-control" })
+                </div>
+                <div class="col-md-3 form-group">
+
+                    <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Search" />
+                </div>
+                <div class="col-md-3 form-group">
+
+
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-6 form-group">
+                </div>
+                <div class="col-md-3 form-group">
+
+                </div>
+            </div>
+        </div>
+
+    }
+    <div id="lstCusProducts">
+        @Html.Partial("~/Views/Borrowers/_BorrowerSearch.cshtml", Model)
+    </div>
+
+</div>
+<script>
+    
+
+</script>

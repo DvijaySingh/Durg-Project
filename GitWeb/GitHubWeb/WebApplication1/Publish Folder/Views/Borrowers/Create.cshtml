@@ -1,0 +1,144 @@
+﻿
+@model Web.Models.ViewModel.BorrowerViewModel
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Pages/Borrower.js"></script>
+<center> <label> Buyer </label></center>
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Borrower</button>
+    @*<button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>*@
+</div>
+<div id="custnfo" class="tabcontent">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="customer-information">
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Name </label>
+                    @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
+                    @Html.TextBoxFor(model => model.Borrower.Name, new { @class = "form-control",@id="txtName" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Code</label>
+                    @Html.TextBoxFor(model => model.Borrower.CustCode, new { @class = "form-control", @id = "txtCustCode" })
+                    @Html.ValidationMessageFor(model => model.Borrower.CustCode, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Address </label>
+                    @Html.TextAreaFor(model => model.Borrower.Address, new { @class = "form-control",@id="txtAddress" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Amount </label>
+                    @Html.TextBoxFor(model => model.Borrower.Amont, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Amont, "", new { @class = "text-danger" })
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Interest Rate </label>
+                    @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
+                    @Html.TextBoxFor(model => model.Borrower.InterestRate, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Borrower.InterestRate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Interest </label>
+                    @Html.TextBoxFor(model => model.Borrower.Interest, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Interest, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Date</label>
+                    @Html.TextBoxFor(model => model.Borrower.Date, new { @class = "form-control", @id = "txtdate" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Date, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Page No</label>
+                    @Html.TextBoxFor(model => model.Borrower.PageNo, new { @class = "form-control", @id = "txtpage" })
+                    @Html.ValidationMessageFor(model => model.Borrower.PageNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Inatertable Amount</label>
+                    @Html.TextBoxFor(model => model.Borrower.InterstableAmount, new { @class = "form-control", @id = "txtpage" })
+                    @Html.ValidationMessageFor(model => model.Borrower.InterstableAmount, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6 form-group">
+
+                </div>
+                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
+            </div>
+
+
+        </div>
+
+
+    }
+</div>
+
+
+<div id="insInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+        @using (Ajax.BeginForm("AddInstallment", "Borrowers",
+                                                                                                                                      new AjaxOptions
+                                                                                                                                      {
+                                                                                                                                          HttpMethod = "Post",
+                                                                                                                                          UpdateTargetId = "lstinstallment",
+                                                                                                                                          OnSuccess = "RefreshInstallmentDatatable"
+                                                                                                                                      }))
+        {
+            <div id="ajaxform">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label> Amount </label>
+                        @Html.HiddenFor(m => m.Installments.InstallmentID, new { @id = "hdnInstallment" })
+                        @Html.TextBoxFor(model => model.Installments.Amount, new { @class = "form-control", @type = "number", @id = "txtinsAmount" })
+                        @Html.ValidationMessageFor(model => model.Installments.Amount, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Date </label>
+                        @Html.TextBoxFor(model => model.Installments.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtinsdate" })
+                        @Html.ValidationMessageFor(model => model.Installments.Date, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="col-md-3 form-group">
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input type="submit" class="btn btn-default frm-button" id="btninstallmentSubmit" value="Submit" />
+                    </div>
+                </div>
+
+            </div>
+
+        }
+
+        <div id="lstinstallment">
+            @Html.Partial("~/Views/Borrowers/_BorrowerInstallment.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+<div>
+
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,73 @@
+@model Web.Models.OrderModel
+
+<table class="table table-striped" id="tblCProducts">
+    <thead>
+        <tr>
+
+            <th>
+                Product Name
+            </th>
+            <th>
+               Type
+            </th>
+            <th>
+                AppxWeight
+            </th>
+            <th>
+                ActualWeight
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Description
+            </th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.lstcusProduct)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppxWeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActualWeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
+                    <button id="@item.ProductID" class="btn btn-default btnedit">Edit</button>
+                    @Ajax.ActionLink("Delete", "DeleteCustomerProduct", "CustomerProducts", new { productId = item.ProductID, orderId = item.OrderID },
+                    new AjaxOptions
+                    {
+                        Confirm = "are you sure to perform the deletion.",
+                        HttpMethod = "POST",
+                        UpdateTargetId = "lstCusProducts",
+                        OnSuccess = "RefreshDatatable",
+                    })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

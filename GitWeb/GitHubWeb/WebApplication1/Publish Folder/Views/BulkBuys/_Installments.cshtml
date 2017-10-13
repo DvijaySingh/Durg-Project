@@ -1,0 +1,48 @@
+﻿
+@model Web.Models.ViewModel.BulkBuyViewModel
+
+<table class="table table-striped" id="tblinstallment">
+    <thead>
+        <tr>
+
+            <th>
+               Amount
+            </th>
+            <th>
+              Date
+            </th>
+            <th>
+                Description
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.lstinstallments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstallmentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Delete", "DeleteInstallMent", "BulkBuys", new { InstallmentID = item.InstallmentID,bulkBuyID=item.BulkBuyID },
+                    new AjaxOptions
+                    {
+                        Confirm = "are you sure to perform the deletion.",
+                        HttpMethod = "POST",
+                        UpdateTargetId = "lstinstallment",
+                        OnSuccess = "RefreshInstallmentDatatable",
+                    }, new { @class = "glyphicon glyphicon-remove" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

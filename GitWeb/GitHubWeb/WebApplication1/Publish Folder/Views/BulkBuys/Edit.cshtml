@@ -1,0 +1,140 @@
+﻿
+@model Web.Models.ViewModel.BulkBuyViewModel
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Pages/BulkBuy.js"></script>
+<center> <label> Update </label></center>
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Customer Info</button>
+    <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
+    <button class="tablinks" onclick="openCity(event, 'vendorInfo')">Vendor Info</button>
+    <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
+</div>
+<div id="custnfo" class="tabcontent">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<button type="button" id="btncustInfo" class="btn btn-info" data-toggle="collapse" data-target="#custInfo">
+                <span class="glyphicon glyphicon-chevron-down"></span> Customer Info
+            </button>*@
+        <div class="customer-information">
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Customer Name </label>
+                    @Html.HiddenFor(model => model.bulkBuyModel.BulkBuyID, new { @id = "BulkBuyID" })
+                    @Html.TextBoxFor(model => model.bulkBuyModel.CustomerName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.CustomerName, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Address </label>
+                    @Html.TextAreaFor(model => model.bulkBuyModel.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Amount </label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.TakenAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.TakenAmount, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Rate</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.InterestRate, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.InterestRate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>  Start Date</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.StartDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtOrderDate" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.StartDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Close Date </label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.CloseDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtDelivaryDate" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.CloseDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Status </label>
+                    @Html.DropDownListFor(model => model.bulkBuyModel.Status, new SelectList(
+                  new List<Object>{
+                         new { value = "New" , text = "New"  },new { value = "Pending" , text = "Pending"  },
+                      new { value = "Closed" , text = "Closed" }
+                    }, "value",
+                  "text"), new { @class = "form-control", @id = "ddlStatus" })
+                </div>
+                <div class="col-md-3 form-group">
+
+                    <label> Page No</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.PageNo, new { @class = "form-control", @id = "txtpage" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.PageNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Inatertable Amount</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.InterstableAmount, new { @class = "form-control", @id = "txtintAmount" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.InterstableAmount, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Outstanding Amount</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.OustandingAmont, new { @class = "form-control", @id = "txtintAmount" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.OustandingAmont, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
+            </div>
+
+        </div>
+
+
+    }
+</div>
+
+<div id="productInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+        <div id="AddProduct">
+            @Html.Partial("~/Views/BulkBuys/_AddProduct.cshtml", Model)
+        </div>
+        <div id="lstCusProducts">
+            @Html.Partial("~/Views/BulkBuys/_BulkProducts.cshtml", Model)
+        </div>
+    </div>
+</div>
+<div id="vendorInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+        <div id="AddVendor">
+            @Html.Partial("~/Views/BulkBuys/_AddVendor.cshtml", Model)
+        </div>
+
+        <div id="lstVendors">
+            @Html.Partial("~/Views/BulkBuys/_bulkVendors.cshtml", Model)
+        </div>
+    </div>
+</div>
+<div id="insInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+        <div id="AddInstallment">
+            @Html.Partial("~/Views/BulkBuys/_BulkAddVendorInstallment.cshtml", Model)
+        </div>
+        <div id="lstinstallment">
+            @Html.Partial("~/Views/BulkBuys/_Installments.cshtml", Model)
+        </div>
+    </div>
+</div>
+
+<div>
+
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

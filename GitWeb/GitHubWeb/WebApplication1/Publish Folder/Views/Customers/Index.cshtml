@@ -1,0 +1,68 @@
+﻿@model Web.Models.ViewModel.CustomerSearchViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center> <label> All Customer</label></center>
+@*<p style="margin-bottom:-30px;">
+        @Html.ActionLink("Create New", "Create", "Customers", null, new { @class = "btn btn-default" })
+    </p>*@
+<p >
+    @Html.ActionLink("Create New", "Create", "Customers", null, new { @class = "btn btn-default" })
+</p>
+
+@using (Ajax.BeginForm("Search", "Customers",
+                                                                                                                                                                                          new AjaxOptions
+                                                                                                                                                                                          {
+                                                                                                                                                                                              HttpMethod = "Post",
+                                                                                                                                                                                              UpdateTargetId = "lstCusProducts",
+                                                                                                                                                                                              OnSuccess = "RefreshCustomerGrid"
+                                                                                                                                                                                          }))
+{
+    <div id="ajaxform">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Customer Name </label>
+                @Html.TextBoxFor(model => model.Customer.CustmerName, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Customer Code </label>
+                @Html.TextBoxFor(model => model.Customer.CustCode, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3 form-group">
+
+                <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Search" />
+            </div>
+            <div class="col-md-3 form-group">
+
+
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 form-group">
+            </div>
+            <div class="col-md-3 form-group">
+
+            </div>
+        </div>
+    </div>
+
+}
+<div id="lstCusProducts">
+    @Html.Partial("~/Views/Customers/_CustomerSearch.cshtml", Model)
+</div>
+
+<script>
+    $(document).ready(function () {
+        RefreshCustomerGrid();
+    })
+    function RefreshCustomerGrid() {
+        $("#tblCustomers").DataTable();
+        $('#tblCustomers_length').remove();
+        //$('#tblProducts_filter label').remove();
+        $('#tblCustomers_filter input').addClass('form-control');
+    }
+</script>

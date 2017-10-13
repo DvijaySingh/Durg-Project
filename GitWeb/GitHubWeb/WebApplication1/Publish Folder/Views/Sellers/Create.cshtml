@@ -1,0 +1,183 @@
+﻿
+@model Web.Models.ViewModel.SellerViewModel
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Pages/Seller.js"></script>
+<center> <label> Seller </label></center>
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Seller Info</button>
+    <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
+    <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
+</div>
+<div id="custnfo" class="tabcontent">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="customer-information">
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Seller Name </label>
+                    @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
+                    @Html.TextBoxFor(model => model.sellerInfor.SellerName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.SellerName, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Address </label>
+                    @Html.TextAreaFor(model => model.sellerInfor.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Amount </label>
+                    @Html.TextBoxFor(model => model.sellerInfor.DepositeAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.DepositeAmount, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Outstanding Amount</label>
+                    @Html.TextBoxFor(model => model.sellerInfor.OutstandingAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.OutstandingAmount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>   Date</label>
+                    @Html.TextBoxFor(model => model.sellerInfor.BuyDate, new { @class = "form-control", @id = "txtSelldate" })
+                    @Html.ValidationMessageFor(model => model.sellerInfor.BuyDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6 form-group">
+
+                </div>
+                <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
+            </div>
+
+
+        </div>
+
+
+    }
+</div>
+
+<div id="productInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+        @using (Ajax.BeginForm("AddSellerProduct", "Sellers",
+                                                                                                                          new AjaxOptions
+                                                                                                                          {
+                                                                                                                              HttpMethod = "Post",
+                                                                                                                              UpdateTargetId = "lstCusProducts",
+                                                                                                                              OnSuccess = "RefreshProductDataTable"
+                                                                                                                          }))
+        {
+            <div id="ajaxform">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label> ProductName </label>
+                        @Html.HiddenFor(m => m.productInfo.SellerProductID, new { @id = "hdnProductId" })
+                        @Html.TextBoxFor(model => model.productInfo.ProductName, new { @class = "form-control", @id = "txtProductname" })
+                        @Html.ValidationMessageFor(model => model.productInfo.ProductName, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Type </label>
+
+                        @Html.DropDownListFor(model => model.productInfo.Type, ViewBag.ProductTypeID as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "ddlType" })
+                        @Html.ValidationMessageFor(model => model.productInfo.Type, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Weight(gm) </label>
+                        @Html.TextBoxFor(model => model.productInfo.weight, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
+                        @Html.ValidationMessageFor(model => model.productInfo.weight, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Units</label>
+                        @Html.TextBoxFor(model => model.productInfo.Unit, new { @class = "form-control", @type = "number", @id = "txtUnits" })
+                        @Html.ValidationMessageFor(model => model.productInfo.Unit, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Category</label>
+                        @Html.DropDownListFor(model=>model.productInfo.CategoryID, ViewBag.CategoryID as IEnumerable<SelectListItem>, new {@class= "form-control" })
+                        @Html.ValidationMessageFor(model => model.productInfo.CategoryID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6 form-group">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div id="lstCusProducts">
+            @Html.Partial("~/Views/Sellers/_SellerProducts.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+<div id="insInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+        @using (Ajax.BeginForm("AddSellerInstallment", "Sellers",
+                                                                                                                                  new AjaxOptions
+                                                                                                                                  {
+                                                                                                                                      HttpMethod = "Post",
+                                                                                                                                      UpdateTargetId = "lstinstallment",
+                                                                                                                                      OnSuccess = "RefreshInstallmentDatatable"
+                                                                                                                                  }))
+        {
+            <div id="ajaxform">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label> Amount </label>
+                        @Html.HiddenFor(m => m.Installments.SellerInstallmentID, new { @id = "hdnInstallment" })
+                        @Html.TextBoxFor(model => model.Installments.Amount, new { @class = "form-control", @type = "number", @id = "txtinsAmount" })
+                        @Html.ValidationMessageFor(model => model.Installments.Amount, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Date </label>
+                        @Html.TextBoxFor(model => model.Installments.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtinsdate" })
+                        @Html.ValidationMessageFor(model => model.Installments.Date, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="col-md-3 form-group">
+
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input type="submit" class="btn btn-default frm-button" id="btninstallmentSubmit" value="Submit" />
+                    </div>
+                </div>
+
+            </div>
+
+        }
+
+        <div id="lstinstallment">
+            @Html.Partial("~/Views/Sellers/_SellerInstallments.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+<div>
+
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

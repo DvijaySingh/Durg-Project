@@ -1,0 +1,76 @@
+﻿
+@model Web.Models.ViewModel.BorrowerViewModel
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Pages/Borrower.js"></script>
+<center> <label> Buyer </label></center>
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Borrower</button>
+    <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
+    <div class="clstoplinks">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Borrower.BorrowID }) |
+            @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+<div id="custnfo" class="tabcontent">
+  
+
+        <div class="customer-information">
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label> Name: </label>
+                    @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
+                    @Html.DisplayFor(model => model.Borrower.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Address: </label>
+                    @Html.DisplayFor(model => model.Borrower.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Amount: </label>
+                    @Html.DisplayFor(model => model.Borrower.Amont, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Amont, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Date:</label>
+                    @Html.DisplayFor(model => model.Borrower.Date, new { @class = "form-control", @id = "txtdate" })
+                    @Html.ValidationMessageFor(model => model.Borrower.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+           
+
+
+        </div>
+ 
+</div>
+
+
+<div id="insInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+       
+
+        <div id="lstinstallment">
+            @Html.Partial("~/Views/Borrowers/_BorrowerInstallment.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+<div>
+
+    
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

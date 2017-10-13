@@ -1,0 +1,67 @@
+﻿@using WebApplication1.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12" style="top:5%">
+        <center>
+            <section id="loginForm" class="">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                    @Html.AntiForgeryToken()
+                    <h4>Login</h4>
+                    <hr />
+                    <div class="loginForm customer-information" align="center">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                                @Html.LabelFor(m => m.RememberMe, new { @class = "col-md-4 control-label" })
+                                <div class="checkbox col-md-8 ">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                 
+                                </div>
+                            
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" value="Log in" class="btn btn-default" />
+                            </div>
+                        </div>
+                        <p>
+                           
+                        </p>
+                        @* Enable this once you have account confirmation enabled for password reset functionality
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        </p>*@
+                    </div>
+            }
+            </section>
+        </center>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

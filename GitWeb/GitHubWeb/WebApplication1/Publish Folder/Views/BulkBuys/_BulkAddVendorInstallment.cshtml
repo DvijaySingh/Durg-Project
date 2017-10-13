@@ -1,0 +1,38 @@
+﻿@model Web.Models.ViewModel.BulkBuyViewModel
+
+@using (Ajax.BeginForm("AddInstallment", "BulkBuys",
+                                                                                                                              new AjaxOptions
+                                                                                                                              {
+                                                                                                                                  HttpMethod = "Post",
+                                                                                                                                  UpdateTargetId = "lstinstallment",
+                                                                                                                                  OnSuccess = "RefreshInstallmentDatatable"
+                                                                                                                              }))
+{
+    <div id="ajaxform">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Amount </label>
+                @Html.HiddenFor(m => m.installments.InstallmentID, new { @id = "hdnInstallment" })
+                @Html.HiddenFor(m => m.installments.BulkBuyID, new { @id = "hdnInstallBulkBuyID" })
+                @Html.TextBoxFor(model => model.installments.Amount, new { @class = "form-control", @type = "number", @id = "txtinsAmount" })
+                @Html.ValidationMessageFor(model => model.installments.Amount, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Date </label>
+                @Html.TextBoxFor(model => model.installments.InstallmentDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "txtinsdate" })
+                @Html.ValidationMessageFor(model => model.installments.InstallmentDate, "", new { @class = "text-danger" })
+
+
+            </div>
+            <div class="col-md-3 form-group">
+
+            </div>
+            <div class="col-md-3 form-group">
+                <input type="submit" class="btn btn-default frm-button" id="btninstallmentSubmit" value="Submit" />
+            </div>
+        </div>
+
+    </div>
+
+}

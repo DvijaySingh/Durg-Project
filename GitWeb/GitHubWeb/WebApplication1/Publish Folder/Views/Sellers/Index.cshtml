@@ -1,0 +1,70 @@
+﻿@model Web.Models.ViewModel.SellerSearchViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/Pages/Seller.js"></script>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Ajax.BeginForm("Search", "Sellers",
+                                                                                                                                                      new AjaxOptions
+                                                                                                                                                      {
+                                                                                                                                                          HttpMethod = "Post",
+                                                                                                                                                          UpdateTargetId = "lstCusProducts",
+                                                                                                                                                          OnSuccess = "RefreshGrid"
+                                                                                                                                                      }))
+{
+    <div id="ajaxform">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Seller Name </label>
+
+
+                @Html.TextBoxFor(model => model.seller.SellerName, new { @class = "form-control", @id = "txtProductname" })
+
+
+            </div>
+            <div class="col-md-3 form-group">
+
+            </div>
+            <div class="col-md-3 form-group">
+
+
+            </div>
+            <div class="col-md-3 form-group">
+                <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
+
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 form-group">
+            </div>
+            <div class="col-md-3 form-group">
+
+            </div>
+        </div>
+    </div>
+
+}
+<div id="lstCusProducts">
+    @Html.Partial("~/Views/Sellers/_SellerSearch.cshtml", Model)
+</div>
+<script>
+    $(document).ready(function () {
+        $("#tblSellers").DataTable({
+            paging: true,
+            aaSorting: [],
+            responsive: true
+        });
+        $('#tblSellers_length').remove();
+        $('#tblSellers_filter input').addClass('form-control');
+        //$('div .dt-button').find('a .dt-button').each(function () { this.addClass('btn btn-default') })
+    })
+
+</script>

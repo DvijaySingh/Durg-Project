@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="javascript:CalculateInterst();" title="calculate Interst">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </a>
+        </li>
+        <li>
+            <img src="@Url.Action("UserPhotos", "Account" )" style="width:50px;height:50px; background: #FFFFFF; margin: auto; -moz-border-radius: 60px; border-radius: 100px; padding: 2px; box-shadow: 0px 0px 20px #888;" />
+        </li>
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.Name.Split('@')[0] + "!", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "Change Password" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" title="log out">
+            <span class="glyphicon glyphicon-off"></span>
+            </a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

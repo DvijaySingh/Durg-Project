@@ -1,0 +1,94 @@
+﻿
+@model Web.Models.ViewModel.BuyerViewModel
+
+@{
+    ViewBag.Title = "Buyer Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Pages/Buyer.js"></script>
+<center> <label> Buyer </label></center>
+
+<div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'custnfo')">Customer Info</button>
+    <button class="tablinks" onclick="openCity(event, 'productInfo')">Product Info</button>
+    <button class="tablinks" onclick="openCity(event, 'insInfo')">Installment</button>
+    <div class="clstoplinks">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.buyer.BuyerID }) |
+        @Html.ActionLink("Back to List", "Index", "Buyers", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+<div id="custnfo" class="tabcontent">
+
+    <div class="customer-information">
+
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> Buyer Name: </label>
+                @*@Html.HiddenFor(model => model.buyer.BuyerID, new { @class = "form-control" })*@
+                @Html.DisplayFor(model => model.buyer.BuyerName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.buyer.BuyerName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Address: </label>
+                @Html.DisplayFor(model => model.buyer.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.buyer.Address, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Amount: </label>
+                @Html.DisplayFor(model => model.buyer.DepositeAmount, new { @class = "form-control", @type = "number" })
+                @Html.ValidationMessageFor(model => model.buyer.DepositeAmount, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Outstanding Amount:</label>
+                @Html.DisplayFor(model => model.buyer.OutstandingAmount, new { @class = "form-control", @type = "number" })
+                @Html.ValidationMessageFor(model => model.buyer.OutstandingAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>  Buy Date:</label>
+                @Html.DisplayFor(model => model.buyer.BuyDate, new { @class = "form-control", @id = "txtbuyDate" })
+                @Html.ValidationMessageFor(model => model.buyer.BuyDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6 form-group">
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<div id="productInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+
+
+        <div id="lstCusProducts">
+            @Html.Partial("~/Views/Buyers/_BuyerProducts.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+<div id="insInfo" class="tabcontent">
+    <div id="divcusProducts" class="customer-information">
+
+        <div id="lstinstallment">
+            @Html.Partial("~/Views/Buyers/_BuyerInstallments.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+<div>
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

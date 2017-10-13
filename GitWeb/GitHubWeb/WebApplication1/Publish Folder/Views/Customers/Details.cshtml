@@ -1,0 +1,41 @@
+﻿@model DAL.Customer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center> <label> Customer Details </label></center>
+
+<div>
+  
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustmerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustmerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CustCode }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

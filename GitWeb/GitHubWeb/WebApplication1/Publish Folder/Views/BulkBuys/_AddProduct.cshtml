@@ -1,0 +1,41 @@
+﻿@model Web.Models.ViewModel.BulkBuyViewModel
+@using (Ajax.BeginForm("AddProduct", "BulkBuys",
+                                                                                                                          new AjaxOptions
+                                                                                                                          {
+                                                                                                                              HttpMethod = "Post",
+                                                                                                                              UpdateTargetId = "lstCusProducts",
+                                                                                                                              OnSuccess = "RefreshProductDataTable"
+                                                                                                                          }))
+{
+    <div id="ajaxform">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label> ProductName </label>
+                @Html.HiddenFor(m => m.Products.BulkBuyProductID, new { @id = "hdnProductId" })
+                @Html.HiddenFor(m => m.Products.BulkBuyID, new { @id = "hdnproductBulkBuyID" })
+                @Html.TextBoxFor(model => model.Products.ProductName, new { @class = "form-control", @id = "txtProductname" })
+                @Html.ValidationMessageFor(model => model.Products.ProductName, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Type </label>
+
+                @Html.DropDownListFor(model => model.Products.Type, ViewBag.ProductTypeID as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "ddlType" })
+                @Html.ValidationMessageFor(model => model.Products.Type, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Weight(gm) </label>
+
+                @Html.TextBoxFor(model => model.Products.Weight, new { @class = "form-control", @type = "number", @id = "txtprodWeight" })
+                @Html.ValidationMessageFor(model => model.Products.Weight, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3 form-group">
+                <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Submit" />
+            </div>
+        </div>
+
+    </div>
+
+}

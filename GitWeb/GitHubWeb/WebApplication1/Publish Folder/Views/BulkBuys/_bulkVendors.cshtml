@@ -1,0 +1,79 @@
+﻿
+@model Web.Models.ViewModel.BulkBuyViewModel
+
+<table class="table table-striped" id="tblVendors">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>Mobile</th>
+            <th>
+                Amount 
+            </th>
+            <th>
+                Interest 
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Return Amount
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.lstVendors)
+        {
+            <tr>
+                 
+                <td>
+                    @Html.DisplayFor(modelItem => item.VendorName)
+                </td>
+                 
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TakenAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Interest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnAmount)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
+                    @*<button id="@item.BuyVendorID" class=" btnvendoredit">Edit</button>*@
+                    @Ajax.ActionLink("Update", "GetVendorDetails", "BulkBuys", new { VendorID = item.BuyVendorID },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "AddVendor"
+                    }, new { @class = "glyphicon glyphicon-edit" })
+                    @Ajax.ActionLink("Delete", "DeleteVendor", "BulkBuys", new { VendorID = item.BuyVendorID, bulkBuyID = item.BulkByID },
+                    new AjaxOptions
+                    {
+                        Confirm = "are you sure to perform the deletion.",
+                        HttpMethod = "POST",
+                        UpdateTargetId = "lstVendors",
+                        OnSuccess = "RefreshVendorDatatable",
+                    }, new { @class = "glyphicon glyphicon-remove" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

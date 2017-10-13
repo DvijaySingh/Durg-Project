@@ -1,0 +1,64 @@
+﻿
+@model Web.Models.ViewModel.BorrowerSearchViewModel
+<table class="table" id="tblborrower">
+    <thead>
+        <tr>
+            <th>
+                Customer Name
+            </th>
+            <th>
+                Code
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Amont
+            </th>
+            <th>
+                Interest
+            </th>
+            <th>
+                Date
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AllBorrowers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amont)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Interest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+
+                <td>
+                    <a href="@Url.Action("Edit", "Borrowers",  new { id = item.BorrowID })" title="Update">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>  |
+                    <a href="@Url.Action("Details", "Borrowers",  new { id = item.BorrowID })" title="Details">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>  |
+                    <a href="@Url.Action("Delete", "Borrowers",  new { id = item.BorrowID })" title="Delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

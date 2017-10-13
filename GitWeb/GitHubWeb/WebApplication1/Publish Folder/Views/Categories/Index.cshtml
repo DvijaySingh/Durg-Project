@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DAL.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="customer-information"  >
+ 
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <table class="table table-striped datatables " id="tblCategory">
+        <thead>
+            <tr>
+                <th>
+                    Category Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CategoryID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#tblCategory").DataTable({
+            paging: true,
+            aaSorting: [],
+           
+        });
+        $('#tblCategory_length').remove();
+        $('#tblCategory_filter input').addClass('form-control');
+    })
+   
+</script>
