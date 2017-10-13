@@ -18,5 +18,6 @@ namespace DAL
         public Nullable<long> BulkBuyID { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<System.DateTime> InstallmentDate { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -23,5 +23,9 @@ namespace DAL
         public Nullable<long> CustCode { get; set; }
         public Nullable<decimal> InterestRate { get; set; }
         public Nullable<decimal> Interest { get; set; }
+        public Nullable<decimal> Outstanding { get; set; }
+        public Nullable<int> PageNo { get; set; }
+        public Nullable<decimal> InterstableAmount { get; set; }
+        public Nullable<System.DateTime> LastInstallmentDate { get; set; }
     }
 }

@@ -15,5 +15,8 @@ namespace Web.Models
         public  long? CustCode { get; set; }
         public  decimal? InterestRate { get; set; }
         public  decimal? Interest { get; set; }
+        public decimal? Outstanding { get; set; }
+        public  int? PageNo { get; set; }
+        public decimal? InterstableAmount { get; set; }
     }
 }

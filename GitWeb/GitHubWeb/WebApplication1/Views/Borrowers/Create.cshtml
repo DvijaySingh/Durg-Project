@@ -65,12 +65,16 @@
                     @Html.ValidationMessageFor(model => model.Borrower.Date, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
-                   
+                    <label> Page No</label>
+                    @Html.TextBoxFor(model => model.Borrower.PageNo, new { @class = "form-control", @id = "txtpage" })
+                    @Html.ValidationMessageFor(model => model.Borrower.PageNo, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3 form-group">
-                     
+                    <label> Inatertable Amount</label>
+                    @Html.TextBoxFor(model => model.Borrower.InterstableAmount, new { @class = "form-control", @id = "txtpage" })
+                    @Html.ValidationMessageFor(model => model.Borrower.InterstableAmount, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-6 form-group">
 

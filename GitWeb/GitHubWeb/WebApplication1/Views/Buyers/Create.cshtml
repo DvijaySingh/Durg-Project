@@ -95,6 +95,20 @@
                             @Html.ValidationMessageFor(model => model.buyer.finalDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                   
+                    <div class=" row">
+                        <div class="col-md-6 form-group">
+                            <label> Page No</label>
+                            @Html.TextBoxFor(model => model.buyer.PageNo, new { @class = "form-control", @id = "txtpage" })
+                            @Html.ValidationMessageFor(model => model.buyer.PageNo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label> Inatertable Amount</label>
+                            @Html.TextBoxFor(model => model.buyer.InterstableAmount, new { @class = "form-control", @id = "txtintAmount" })
+                            @Html.ValidationMessageFor(model => model.buyer.InterstableAmount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
 
                 </div>
                 <div class="col-md-4">

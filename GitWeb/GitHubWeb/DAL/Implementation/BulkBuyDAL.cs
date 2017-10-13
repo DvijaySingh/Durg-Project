@@ -20,26 +20,20 @@ namespace DAL.Implementation
                 {
                     var todayYear = DateTime.Now.Year;
                     var CurrentMonth = DateTime.Now.Month;
-                   // calculation for interst
-                    if (BulkInfo.InterestRate!=null && BulkInfo.InterestRate != 0)
+                    // calculation for interst
+                    if (BulkInfo.InterestRate != null && BulkInfo.InterestRate != 0)
                     {
                         var buyMonth = BulkInfo.StartDate.Value.Month;
                         var buyYear = BulkInfo.StartDate.Value.Year;
                         var monthDiff = ((todayYear - buyYear) * 12) + CurrentMonth - buyMonth;
                         decimal? interst = 0;
-                        if (BulkInfo.OustandingAmont > 0)
+                        if (BulkInfo.InterstableAmount > 0)
                         {
-                            if (BulkInfo.TakenAmount < BulkInfo.OustandingAmont)
-                            {
-                                interst = BulkInfo.TakenAmount * BulkInfo.InterestRate * monthDiff / 100;
-                            }
-                            else
-                            {
-                                interst = BulkInfo.OustandingAmont * BulkInfo.InterestRate * monthDiff / 100;
-                            }
+                            interst = BulkInfo.InterstableAmount * BulkInfo.InterestRate * monthDiff / 100;
                         }
                         else
                         {
+                            BulkInfo.InterstableAmount = BulkInfo.TakenAmount;
                             interst = BulkInfo.TakenAmount * BulkInfo.InterestRate * monthDiff / 100;
                         }
                         BulkInfo.Interest = interst;
@@ -307,6 +301,34 @@ namespace DAL.Implementation
                     installment.CopyProperties(bulkinstDetail);
                     if (installment.InstallmentID == 0)
                     {
+                        var bulkBuy = db.BulkBuys.Where(m => m.BulkBuyID == installment.BulkBuyID).FirstOrDefault();
+                        if (bulkBuy.InterstableAmount > 0)
+                        {
+                            if (bulkBuy.Interest != null && bulkBuy.Interest != 0)
+                            {
+                                if (installment.Amount > bulkBuy.Interest)
+                                {
+                                    var interest = bulkBuy.Interest;
+                                    bulkBuy.OustandingAmont -= installment.Amount - interest;
+                                    bulkBuy.Interest = 0;
+                                    bulkBuy.InterstableAmount -= installment.Amount - interest;
+                                    bulkinstDetail.Description = "Amount cut for Interset" + Convert.ToString(interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - interest);
+                                }
+                                else
+                                {
+                                    bulkBuy.Interest -= installment.Amount;
+                                    bulkinstDetail.Description = "Amount cut for Interset" + Convert.ToString(installment.Amount) + " and adjust for amunt is 0";
+                                }
+                            }
+                            else
+                            {
+                                bulkBuy.OustandingAmont -= installment.Amount;
+                                bulkBuy.InterstableAmount -= installment.Amount;
+                                bulkinstDetail.Description = "Amount cut for Interset 0 and adjust for amunt is " + Convert.ToString(installment.Amount);
+                            }
+                            bulkBuy.LastInstallmentDate = DateTime.Now;
+                            db.SaveChanges();
+                        }
                         db.BulkBuyInstallments.Add(bulkinstDetail);
                     }
                     db.SaveChanges();
@@ -330,6 +352,11 @@ namespace DAL.Implementation
                 try
                 {
                     BulkBuyInstallment installment = GetInstallment(db, Id);
+                    var bulkbuy = db.BulkBuys.Where(m => m.BulkBuyID == bulkBuyID).FirstOrDefault();
+                    var outstandingAmount = bulkbuy.OustandingAmont;
+                    bulkbuy.OustandingAmont = outstandingAmount == null ? installment.Amount : outstandingAmount + installment.Amount;
+                    bulkbuy.InterstableAmount += installment.Amount;
+
                     db.BulkBuyInstallments.Remove(installment);
                     db.SaveChanges();
                     var lstproducts = db.BulkBuyInstallments.Where(m => m.BulkBuyID == bulkBuyID).ToList();

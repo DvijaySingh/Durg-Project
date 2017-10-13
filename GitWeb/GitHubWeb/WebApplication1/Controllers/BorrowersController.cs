@@ -124,14 +124,14 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(  BorrowerViewModel borrower)
+        public ActionResult Edit(  BorrowerViewModel objborrower)
         {
             if (ModelState.IsValid)
             {
-                _IBorrower.AddBorrower(borrower.Borrower);
+                _IBorrower.AddBorrower(objborrower.Borrower);
                 return RedirectToAction("Index");
             }
-            return View(borrower);
+            return View(objborrower);
         }
 
         // GET: Borrowers/Delete/5

@@ -80,6 +80,10 @@
           <Property Name="CustCode" Type="bigint" />
           <Property Name="InterestRate" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Interest" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Outstanding" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PageNo" Type="int" />
+          <Property Name="InterstableAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LastInstallmentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="BorrowerInstallment">
           <Key>
@@ -110,6 +114,9 @@
           <Property Name="CloseDate" Type="datetime" />
           <Property Name="ClosingAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Interest" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PageNo" Type="int" />
+          <Property Name="InterstableAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LastInstallmentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="BulkBuyInstallment">
           <Key>
@@ -119,6 +126,7 @@
           <Property Name="BulkBuyID" Type="bigint" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="InstallmentDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BulkBuyProducts">
           <Key>
@@ -145,6 +153,9 @@
           <Property Name="InterestRate" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Interest" Type="decimal" Precision="18" Scale="2" />
           <Property Name="finalDate" Type="datetime" />
+          <Property Name="PageNo" Type="int" />
+          <Property Name="InterstableAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LastInstallmentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="BuyerInstallment">
           <Key>
@@ -580,6 +591,7 @@
           <Property Name="BulkBuyID" Type="Int64" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="InstallmentDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Borrower">
           <Key>
@@ -594,6 +606,10 @@
           <Property Name="CustCode" Type="Int64" />
           <Property Name="InterestRate" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Outstanding" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PageNo" Type="Int32" />
+          <Property Name="InterstableAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LastInstallmentDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="BorrowerInstallment">
           <Key>
@@ -621,6 +637,9 @@
           <Property Name="InterestRate" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="finalDate" Type="DateTime" Precision="3" />
+          <Property Name="PageNo" Type="Int32" />
+          <Property Name="InterstableAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LastInstallmentDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="BuyerInstallment">
           <Key>
@@ -844,6 +863,9 @@
           <Property Name="Interest" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CustomerCode" Type="Int64" />
           <Property Name="OustandingAmont" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PageNo" Type="Int32" />
+          <Property Name="InterstableAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LastInstallmentDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="VendorDetail">
           <Key>
@@ -946,6 +968,7 @@
           <EntitySetMapping Name="BulkBuyInstallments">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuyInstallment">
               <MappingFragment StoreEntitySet="BulkBuyInstallment">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="InstallmentDate" ColumnName="InstallmentDate" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="BulkBuyID" ColumnName="BulkBuyID" />
@@ -956,6 +979,10 @@
           <EntitySetMapping Name="Borrowers">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Borrower">
               <MappingFragment StoreEntitySet="Borrower">
+                <ScalarProperty Name="LastInstallmentDate" ColumnName="LastInstallmentDate" />
+                <ScalarProperty Name="InterstableAmount" ColumnName="InterstableAmount" />
+                <ScalarProperty Name="PageNo" ColumnName="PageNo" />
+                <ScalarProperty Name="Outstanding" ColumnName="Outstanding" />
                 <ScalarProperty Name="Interest" ColumnName="Interest" />
                 <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
                 <ScalarProperty Name="CustCode" ColumnName="CustCode" />
@@ -983,6 +1010,9 @@
           <EntitySetMapping Name="Buyers">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.Buyer">
               <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="LastInstallmentDate" ColumnName="LastInstallmentDate" />
+                <ScalarProperty Name="InterstableAmount" ColumnName="InterstableAmount" />
+                <ScalarProperty Name="PageNo" ColumnName="PageNo" />
                 <ScalarProperty Name="finalDate" ColumnName="finalDate" />
                 <ScalarProperty Name="Interest" ColumnName="Interest" />
                 <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
@@ -1186,6 +1216,9 @@
           <EntitySetMapping Name="BulkBuys">
             <EntityTypeMapping TypeName="db5ae8b958e1b947fbb352a7c400ba93b4Model.BulkBuy">
               <MappingFragment StoreEntitySet="BulkBuy">
+                <ScalarProperty Name="LastInstallmentDate" ColumnName="LastInstallmentDate" />
+                <ScalarProperty Name="InterstableAmount" ColumnName="InterstableAmount" />
+                <ScalarProperty Name="PageNo" ColumnName="PageNo" />
                 <ScalarProperty Name="OustandingAmont" ColumnName="OustandingAmont" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
                 <ScalarProperty Name="Interest" ColumnName="Interest" />

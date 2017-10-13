@@ -43,6 +43,27 @@ namespace DAL.Implementation
                         db.SaveChanges();
                         borrower.CustCode = customer.CustCode;
                     }
+                    var todayYear = DateTime.Now.Year;
+                    var CurrentMonth = DateTime.Now.Month;
+                    // calculation for interst
+                    if (borrower.InterestRate != null && borrower.InterestRate != 0)
+                    {
+                        var buyMonth = borrower.Date.Value.Month;
+                        var buyYear = borrower.Date.Value.Year;
+                        var monthDiff = ((todayYear - buyYear) * 12) + CurrentMonth - buyMonth;
+                        decimal? interst = 0;
+                        if (borrower.InterstableAmount > 0)
+                        {
+                            interst = borrower.InterstableAmount * borrower.InterestRate * monthDiff / 100;
+                        }
+                        else
+                        {
+                            borrower.InterstableAmount = borrower.Amont;
+                            interst = borrower.Amont * borrower.InterestRate * monthDiff / 100;
+                        }
+                        borrower.Interest = interst;
+                        borrower.Outstanding = borrower.Amont + interst;
+                    }
                     Borrower borrowerdb = null;
                     if (borrower.BorrowID == 0)
                     {
@@ -126,9 +147,11 @@ namespace DAL.Implementation
                             {
                                 if (installment.Amount > borrower.Interest)
                                 {
-                                    borrower.Amont -= installment.Amount - borrower.Interest;
+                                    var interest = borrower.Interest;
+                                    borrower.Outstanding -= installment.Amount - interest;
                                     borrower.Interest = 0;
-                                    borrowerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(borrower.Interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - borrower.Interest);
+                                    borrower.InterstableAmount -= installment.Amount - interest;
+                                    borrowerinstDetail.Description = "Amount cut for Interset" + Convert.ToString(interest) + " and adjust for amunt is " + Convert.ToString(installment.Amount - interest);
                                 }
                                 else
                                 {
@@ -138,9 +161,11 @@ namespace DAL.Implementation
                             }
                             else
                             {
-                                borrower.Amont -= installment.Amount;
+                                borrower.InterstableAmount -= installment.Amount;
+                                borrower.Outstanding -= installment.Amount;
                                 borrowerinstDetail.Description = "Amount cut for Interset 0 and adjust for amunt is " + Convert.ToString(installment.Amount) ;
                             }
+                            borrower.LastInstallmentDate = DateTime.Now;
                             db.SaveChanges();
                         }
                         db.BorrowerInstallments.Add(borrowerinstDetail);
@@ -168,7 +193,8 @@ namespace DAL.Implementation
                 {
                     BorrowerInstallment installment = GetBorrowerInstallment(db, Id);
                     var borrower = db.Borrowers.Where(m => m.BorrowID == installment.BorrowerID).FirstOrDefault();
-                    borrower.Amont += installment.Amount;
+                    borrower.Outstanding += installment.Amount;
+                    borrower.InterstableAmount += installment.Amount;
                     db.BorrowerInstallments.Remove(installment);
                     db.SaveChanges();
                     var lstproducts = db.BorrowerInstallments.Where(m => m.BorrowerID == buyerID).ToList();

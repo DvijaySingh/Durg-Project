@@ -23,5 +23,7 @@ namespace Web.Models
         public  decimal? ClosingAmount { get; set; }
         public  decimal? Interest { get; set; }
         public decimal? OustandingAmont { get; set; }
+        public int? PageNo { get; set; }
+        public decimal? InterstableAmount { get; set; }
     }
 }

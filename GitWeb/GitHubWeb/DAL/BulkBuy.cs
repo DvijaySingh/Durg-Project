@@ -28,5 +28,8 @@ namespace DAL
         public Nullable<decimal> Interest { get; set; }
         public Nullable<long> CustomerCode { get; set; }
         public Nullable<decimal> OustandingAmont { get; set; }
+        public Nullable<int> PageNo { get; set; }
+        public Nullable<decimal> InterstableAmount { get; set; }
+        public Nullable<System.DateTime> LastInstallmentDate { get; set; }
     }
 }

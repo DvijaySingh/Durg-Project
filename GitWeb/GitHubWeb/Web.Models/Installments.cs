@@ -10,5 +10,6 @@ namespace Web.Models
         public decimal? Amount { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? InstallmentDate { get; set; }
+        public string Description { get; set; }
     }
 }
