@@ -31,12 +31,17 @@
                 <div class="col-md-3 form-group">
                     <label> Customer Name </label>
                     @Html.HiddenFor(model => model.bulkBuyModel.BulkBuyID, new { @id = "BulkBuyID" })
-                    @Html.TextBoxFor(model => model.bulkBuyModel.CustomerName, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.bulkBuyModel.CustomerName, new { @class = "form-control", @id = "txtCustName" })
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.CustomerName, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
+                    <label> Code</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.CustomerCode, new { @class = "form-control", @id = "txtcustCode" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.CustomerCode, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
                     <label> Address </label>
-                    @Html.TextAreaFor(model => model.bulkBuyModel.Address, new { @class = "form-control" })
+                    @Html.TextAreaFor(model => model.bulkBuyModel.Address, new { @class = "form-control", @id = "txtCustAddress" })
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.Address, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-3 form-group">
@@ -44,11 +49,7 @@
                     @Html.TextBoxFor(model => model.bulkBuyModel.TakenAmount, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.TakenAmount, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-md-3 form-group">
-                    <label> Rate</label>
-                    @Html.TextBoxFor(model => model.bulkBuyModel.InterestRate, new { @class = "form-control", @type = "number" })
-                    @Html.ValidationMessageFor(model => model.bulkBuyModel.InterestRate, "", new { @class = "text-danger" })
-                </div>
+               
             </div>
             <div class="row">
                 <div class="col-md-3 form-group">
@@ -79,6 +80,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3 form-group">
+                    <label> Rate</label>
+                    @Html.TextBoxFor(model => model.bulkBuyModel.InterestRate, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(model => model.bulkBuyModel.InterestRate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 form-group">
                     <label> Inatertable Amount</label>
                     @Html.TextBoxFor(model => model.bulkBuyModel.InterstableAmount, new { @class = "form-control", @id = "txtintAmount" })
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.InterstableAmount, "", new { @class = "text-danger" })
@@ -89,7 +95,7 @@
                     @Html.ValidationMessageFor(model => model.bulkBuyModel.OustandingAmont, "", new { @class = "text-danger" })
 
                 </div>
-                <div class="col-md-3"></div>
+                
                 <div class="col-md-3"><input type="submit" value="Save" class="btn btn-default  " /></div>
             </div>
 

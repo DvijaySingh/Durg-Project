@@ -1,0 +1,68 @@
+﻿@model Web.Models.ViewModel.BulkBuySearchViewModel
+
+<table class="table datatables" id="tblbulkIndex">
+    <thead>
+        <tr>
+            <th>
+                Code
+            </th>
+            <th>
+                Customer Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Amount
+            </th>
+            
+            <th>
+                Interest
+            </th>
+             
+            <th>
+                Status
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AllBulks)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TakenAmount)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Interest)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "BulkBuys",  new { id = item.BulkBuyID })" title="Update">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>  |
+                    <a href="@Url.Action("Details", "BulkBuys",  new { id = item.BulkBuyID })" title="Details">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>  |
+                    <a href="@Url.Action("Delete", "BulkBuys",  new { id = item.BulkBuyID })" title="Delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

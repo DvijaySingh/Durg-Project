@@ -96,6 +96,7 @@
         @using (Ajax.BeginForm("AddInstallment", "Borrowers",
                                                                                                                                           new AjaxOptions
                                                                                                                                           {
+                                                                                                                                              OnBegin = "BorrowerShowModel",
                                                                                                                                               HttpMethod = "Post",
                                                                                                                                               UpdateTargetId = "lstinstallment",
                                                                                                                                               OnSuccess = "RefreshInstallmentDatatable"

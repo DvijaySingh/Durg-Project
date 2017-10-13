@@ -1,105 +1,60 @@
-﻿@model IEnumerable<DAL.BulkBuy>
+﻿@model Web.Models.ViewModel.BulkBuySearchViewModel
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <center><h2>All bulks</h2></center>
-
+<script src="~/Scripts/Pages/BulkBuy.js"></script>
 <p style="margin-bottom:2px;">
     @Html.ActionLink("Create New", "Create", "BulkBuys", null, new { @class = "btn btn-default" })
 </p>
 <div class="customer-information">
-    <table class="table datatables" id="tblbulkIndex">
-        <thead>
-            <tr>
-                <th>
-                     Code
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CustomerName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    Amount
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InterestRate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Interest)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GWeight)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SWeight)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CustomerCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CustomerName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TakenAmount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.InterestRate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Interest)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GWeight)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SWeight)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", "BulkBuys",  new { id = item.BulkBuyID })" title="Update">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>  |
-                        <a href="@Url.Action("Details", "BulkBuys",  new { id = item.BulkBuyID })" title="Details">
-                            <span class="glyphicon glyphicon-list-alt"></span>
-                        </a>  |
-                        <a href="@Url.Action("Delete", "BulkBuys",  new { id = item.BulkBuyID })" title="Delete">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<script>
-    $(document).ready(function () {
-        $("#tblbulkIndex").DataTable({
-            paging: true,
-            aaSorting: [],
-            responsive: true
-        });
-        $('#tblbulkIndex_length').remove();
-        $('#tblbulkIndex_filter input').addClass('form-control');
-        //$('div .dt-button').find('a .dt-button').each(function () { this.addClass('btn btn-default') })
-    })
+    <div class="customer-information">
+        @using (Ajax.BeginForm("Search", "BulkBuys",
+                                                                                                                                                                                          new AjaxOptions
+                                                                                                                                                                                          {
+                                                                                                                                                                                              OnBegin = "BulkShowModel",
+                                                                                                                                                                                              HttpMethod = "Post",
+                                                                                                                                                                                              UpdateTargetId = "lstCusProducts",
+                                                                                                                                                                                              OnSuccess = "RefreshBulksGrid"
+                                                                                                                                                                                          }))
+        {
+            <div id="ajaxform">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label> Customer Name </label>
+                        @Html.TextBoxFor(model => model.BulkBuy.CustomerName, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label> Customer Code </label>
+                        @Html.TextBoxFor(model => model.BulkBuy.CustomerCode, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3 form-group">
 
-</script>
+                        <input type="submit" class="btn btn-default frm-button" id="btnAjaxSubmit" value="Search" />
+                    </div>
+                    <div class="col-md-3 form-group">
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6 form-group">
+                    </div>
+                    <div class="col-md-3 form-group">
+
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div id="lstCusProducts">
+            @Html.Partial("~/Views/BulkBuys/_bulkBuySearch.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+ 

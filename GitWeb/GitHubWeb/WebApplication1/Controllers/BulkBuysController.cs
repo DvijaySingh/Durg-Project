@@ -26,9 +26,21 @@ namespace WebApplication1.Controllers
         // GET: BulkBuys
         public ActionResult Index()
         {
-            return View(db.BulkBuys.ToList());
+            BulkBuySearchViewModel vModel = new BulkBuySearchViewModel();
+            vModel.BulkBuy = new BulkBuyModel();
+            vModel.AllBulks = new List<BulkBuyModel>();
+            return View(vModel);
+            // return View(db.Buyers.ToList());
         }
-
+        public ActionResult Search(BulkBuySearchViewModel objModel)
+        {
+            BulkBuySearchViewModel vModel = new BulkBuySearchViewModel();
+            vModel.BulkBuy = new BulkBuyModel();
+            vModel.AllBulks = new List<BulkBuyModel>();
+            List<BulkBuyModel> objRes = _IBulkProduct.AllBulk(objModel.BulkBuy);
+            vModel.AllBulks.AddRange(objRes);
+            return PartialView("~/Views/BulkBuys/_bulkBuySearch.cshtml", vModel);
+        }
         // GET: BulkBuys/Details/5
         public ActionResult Details(long? id)
         {
@@ -64,8 +76,9 @@ namespace WebApplication1.Controllers
             {
                 _IBulkProduct.AddBulkBuy(bulkBuy.bulkBuyModel);
                 var objbulkBuy = InitilCreateBulk();
-                return View(objbulkBuy);
-                //return RedirectToAction("Index");
+                //return View(objbulkBuy);
+                TempData["Message"] = "Bulk Save Successfully !";
+                return RedirectToAction("Index");
             }
             ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
             return View(bulkBuy);
@@ -82,6 +95,7 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.Vendors = new VendorDetailsModel();
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
+            TempData["Message"] = "Product added Successfully !";
             return PartialView("~/Views/BulkBuys/_BulkProducts.cshtml", objBulkBuyViewModel);
         }
 
@@ -101,6 +115,7 @@ namespace WebApplication1.Controllers
             // Installments
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
+            TempData["Message"] = "Product Deleted Successfully !";
             return PartialView("~/Views/BulkBuys/_BulkProducts.cshtml", objBulkBuyViewModel);
         }
         public ActionResult GetProductDetails(long BulkBuyProductID)
@@ -132,6 +147,7 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.Vendors = new VendorDetailsModel();
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
+            TempData["Message"] = "Vendor added Successfully !";
             return PartialView("~/Views/BulkBuys/_bulkVendors.cshtml", objBulkBuyViewModel);
         }
         public ActionResult DeleteVendor(long VendorID,long bulkBuyID)
@@ -150,6 +166,7 @@ namespace WebApplication1.Controllers
             // Installments
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
+            TempData["Message"] = "Vendor deleted Successfully !";
             return PartialView("~/Views/BulkBuys/_bulkVendors.cshtml", objBulkBuyViewModel);
         }
         public ActionResult GetVendorDetails(long VendorID)
@@ -183,6 +200,7 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             objBulkBuyViewModel.lstinstallments.AddRange(lstinstallment);
+            TempData["Message"] = "Installment Save Successfully !";
             return PartialView("~/Views/BulkBuys/_Installments.cshtml", objBulkBuyViewModel);
         }
         public ActionResult DeleteInstallment(long InstallmentID, long bulkBuyID)
@@ -201,6 +219,7 @@ namespace WebApplication1.Controllers
             objBulkBuyViewModel.installments = new Installments();
             objBulkBuyViewModel.lstinstallments = new List<Installments>();
             objBulkBuyViewModel.lstinstallments.AddRange(lstinstallments);
+            TempData["Message"] = "Installment delete Successfully !";
             return PartialView("~/Views/BulkBuys/_Installments.cshtml", objBulkBuyViewModel);
         }
         public ActionResult GetInstallMent(long InstallmentID)
@@ -248,6 +267,7 @@ namespace WebApplication1.Controllers
             {
                 db.Entry(bulkBuy).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "Bulk updated Successfully !";
                 return RedirectToAction("Index");
             }
             ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
@@ -277,6 +297,7 @@ namespace WebApplication1.Controllers
             BulkBuy bulkBuy = db.BulkBuys.Find(id);
             db.BulkBuys.Remove(bulkBuy);
             db.SaveChanges();
+            TempData["Message"] = "Bulk deleted Successfully !";
             return RedirectToAction("Index");
         }
         private BulkBuyViewModel InitilCreateBulk()

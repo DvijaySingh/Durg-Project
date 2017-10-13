@@ -27,7 +27,11 @@
             @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         </div>*@
     <div class="navbar-collapse collapse">
-
+        @if (TempData["Message"] != null)
+        {
+            <span class="message">@TempData["Message"]</span>
+        }
+    
         @Html.Partial("_LoginPartial")
     </div>
     <div class="column col-md-2 col-xs-1 sidebar-offcanvas" id="sidebar">
@@ -37,13 +41,13 @@
             <li>@Html.ActionLink("Buyer", "Index", "Buyers")</li>
             <li>@Html.ActionLink("Borrower", "Index", "Borrowers")</li>
             <li>@Html.ActionLink("Bulk", "Index", "BulkBuys")</li>
-           
+
             <li>@Html.ActionLink("Category", "Index", "Categories")</li>
             <li>@Html.ActionLink("Product Types", "Index", "ProductTypes")</li>
             <li>@Html.ActionLink("Seller", "Index", "Sellers")</li>
             <li>@Html.ActionLink("Products", "Index", "Products")</li>
             <li>@Html.ActionLink("Order", "Index", "Orders")</li>
-           
+
 
             @*<li>
                     <a href="#" data-target="#item1" data-toggle="collapse"><i class="fa fa-list"></i> <span class="collapse in hidden-xs">Menu <span class="caret"></span></span></a>
@@ -92,9 +96,9 @@
         <div class="clearfix"></div>
     </div>
     <div id="fade"></div>
-        <div id="modal">
-            <img id="loader" src="~/images/ajax-loader.gif" />
-        </div>
+    <div id="modal">
+        <img id="loader" src="~/images/ajax-loader.gif" />
+    </div>
     @*<div id="divProcessing" class="fade" style="display:none">
             <p><img src="~/images/ajax-loader.gif"></p>
         </div>*@

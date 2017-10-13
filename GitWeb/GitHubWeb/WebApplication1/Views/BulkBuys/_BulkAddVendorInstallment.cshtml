@@ -3,6 +3,7 @@
 @using (Ajax.BeginForm("AddInstallment", "BulkBuys",
                                                                                                                               new AjaxOptions
                                                                                                                               {
+                                                                                                                                  OnBegin = "BulkShowModel",
                                                                                                                                   HttpMethod = "Post",
                                                                                                                                   UpdateTargetId = "lstinstallment",
                                                                                                                                   OnSuccess = "RefreshInstallmentDatatable"

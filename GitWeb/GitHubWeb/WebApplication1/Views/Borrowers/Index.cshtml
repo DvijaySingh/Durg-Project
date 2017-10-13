@@ -15,6 +15,7 @@
     @using (Ajax.BeginForm("Search", "Borrowers",
                                                                                                                                                                                   new AjaxOptions
                                                                                                                                                                                   {
+                                                                                                                                                                                      OnBegin = "BorrowerShowModel",
                                                                                                                                                                                       HttpMethod = "Post",
                                                                                                                                                                                       UpdateTargetId = "lstCusProducts",
                                                                                                                                                                                       OnSuccess = "RefreshBorrowersGrid"

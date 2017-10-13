@@ -78,6 +78,7 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 _IBorrower.AddBorrower(borrowerviwmodel.Borrower);
+               TempData["Message"] = "Borrower Save Successfully !";
                 return RedirectToAction("Index");
             }
             return View(borrowerviwmodel);
@@ -89,6 +90,7 @@ namespace WebApplication1.Controllers
             borrowerviewModel.Installments = new BorrowerInstallmentModel();
             borrowerviewModel.Lstinstallments = new List<BorrowerInstallmentModel>();
             borrowerviewModel.Lstinstallments.AddRange(lstinstallment);
+            TempData["Message"] = "Installment Save Successfully !";
             return PartialView("~/Views/Borrowers/_BorrowerInstallment.cshtml", borrowerviewModel);
         }
         public ActionResult DeleteInstallment(long InstallmentID, long BorrowerID)
@@ -102,6 +104,7 @@ namespace WebApplication1.Controllers
             borrowerviewModel.Installments = new BorrowerInstallmentModel();
             borrowerviewModel.Lstinstallments = new List<BorrowerInstallmentModel>();
             borrowerviewModel.Lstinstallments.AddRange(lstinstallments);
+            TempData["Message"] = "Installment delete Successfully !";
             return PartialView("~/Views/Borrowers/_BorrowerInstallment.cshtml", borrowerviewModel);
         }
         // GET: Borrowers/Edit/5
@@ -129,6 +132,7 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 _IBorrower.AddBorrower(objborrower.Borrower);
+                TempData["Message"] = "Borrower update Successfully !";
                 return RedirectToAction("Index");
             }
             return View(objborrower);
@@ -157,6 +161,7 @@ namespace WebApplication1.Controllers
             Borrower borrower = db.Borrowers.Find(id);
             db.Borrowers.Remove(borrower);
             db.SaveChanges();
+            TempData["Message"] = "Borrower delete Successfully !";
             return RedirectToAction("Index");
         }
         private BorrowerViewModel InitilCreateBulk()

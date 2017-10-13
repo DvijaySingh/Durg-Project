@@ -16,6 +16,7 @@
     @using (Ajax.BeginForm("Search", "Buyers",
                                                                                                                                                                           new AjaxOptions
                                                                                                                                                                           {
+                                                                                                                                                                              OnBegin= "BuyerShowModel",
                                                                                                                                                                               HttpMethod = "Post",
                                                                                                                                                                               UpdateTargetId = "lstCusProducts",
                                                                                                                                                                               OnSuccess = "RefreshBuyerGrid"

@@ -29,5 +29,7 @@ namespace DAL.Interface
         List<Installments> DeleteDeleteInstallment(long Id, long bulkBuyID);
         Installments GetInstallmentDetails(long Id);
         BulkBuyInstallment GetInstallment(ShopDevEntities db, long Id);
+
+        List<BulkBuyModel> AllBulk(BulkBuyModel bulkmodel);
     }
 }

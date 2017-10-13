@@ -52,6 +52,7 @@
                     new AjaxOptions
                     {
                         Confirm = "are you sure to perform the deletion.",
+                        OnBegin= "BuyerShowModel",
                         HttpMethod = "POST",
                         UpdateTargetId = "lstCusProducts",
                         OnSuccess = "RefreshDatatable",

@@ -97,6 +97,7 @@ function RefreshProductDataTable() {
     $('#txtprodWeight').val('');
     $('#txtunit').val('');
     $('#txtprodRate').val('');
+    closeModal();
 }
 
 
@@ -113,6 +114,7 @@ function RefreshInstallmentDatatable() {
     $('#hdnInstallment').val('');
     $('#txtinsAmount').val('');
     $('#txtinsdate').val('');
+    closeModal();
 }
 function getDate(element) {
     var date;
@@ -296,6 +298,11 @@ function RefreshBuyerGrid() {
     });
     $('#tblbuyers_length').remove();
     $('#tblbuyers_filter input').addClass('form-control');
+    closeModal();
+}
+
+function BuyerShowModel() {
+    openModal();
 }
 
 

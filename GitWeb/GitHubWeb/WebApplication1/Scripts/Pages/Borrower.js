@@ -33,24 +33,6 @@
     document.getElementById("defaultOpen").click();
 
 });
-function RefreshProductDataTable() {
-    $("#tblbulkProducts").DataTable({
-        paging: true,
-        aaSorting: [],
-        responsive: true
-
-    });
-    $('#tblbulkProducts_length').remove();
-    //$('#tblProducts_filter label').remove();
-    $('#tblbulkProducts_filter input').addClass('form-control');
-
-    $('#hdnProductId').val('');
-    $('#txtProductname').val('');
-    $('#ddlType option:selected').val(0);
-    $('#txtprodWeight').val('');
-    $('#txtunit').val('');
-}
-
 
 function RefreshInstallmentDatatable() {
     $("#tblinstallment").DataTable({
@@ -65,6 +47,7 @@ function RefreshInstallmentDatatable() {
     $('#hdnInstallment').val('');
     $('#txtinsAmount').val('');
     $('#txtinsdate').val('');
+    closeModal();
 }
 function getDate(element) {
     var date;
@@ -197,5 +180,10 @@ function RefreshBorrowersGrid() {
     });
     $('#tblborrower_length').remove();
     $('#tblborrower_filter input').addClass('form-control');
+    closeModal();
+}
+
+function BorrowerShowModel() {
+    openModal();
 }
 

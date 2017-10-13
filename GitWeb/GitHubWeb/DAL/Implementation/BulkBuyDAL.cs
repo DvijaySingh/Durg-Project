@@ -18,6 +18,17 @@ namespace DAL.Implementation
             {
                 try
                 {
+                    if (BulkInfo.CustomerCode == null)
+                    {
+                        Customer customer = new Customer
+                        {
+                            CustmerName = BulkInfo.CustomerName,
+                            Address = BulkInfo.Address
+                        };
+                        db.Customers.Add(customer);
+                        db.SaveChanges();
+                        BulkInfo.CustomerCode = customer.CustCode;
+                    }
                     var todayYear = DateTime.Now.Year;
                     var CurrentMonth = DateTime.Now.Month;
                     // calculation for interst
@@ -484,9 +495,37 @@ namespace DAL.Implementation
             return bulkmodel;
         }
 
-       
+        public List<BulkBuyModel> AllBulk(BulkBuyModel bulkmodel)
+        {
+            List<BulkBuyModel> Allcust = new List<BulkBuyModel>();
+            using (ShopDevEntities db = new ShopDevEntities())
+            {
+                try
+                {
+                    var res = from buyer in db.BulkBuys
+                              where (buyer.CustomerName.Contains(bulkmodel.CustomerName) ||
+                              buyer.CustomerCode == bulkmodel.CustomerCode)
+                                || (string.IsNullOrEmpty(bulkmodel.CustomerName) && bulkmodel.CustomerCode == null)
+
+                              select buyer;
+                    foreach (var seller in res)
+                    {
+                        BulkBuyModel sellerModel = new BulkBuyModel();
+                        seller.CopyProperties(sellerModel);
+                        Allcust.Add(sellerModel);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+                return Allcust;
+            }
+        }
 
 
-       
+
+
+
     }
 }

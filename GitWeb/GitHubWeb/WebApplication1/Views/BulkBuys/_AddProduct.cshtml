@@ -2,6 +2,7 @@
 @using (Ajax.BeginForm("AddProduct", "BulkBuys",
                                                                                                                           new AjaxOptions
                                                                                                                           {
+                                                                                                                              OnBegin = "BulkShowModel",
                                                                                                                               HttpMethod = "Post",
                                                                                                                               UpdateTargetId = "lstCusProducts",
                                                                                                                               OnSuccess = "RefreshProductDataTable"

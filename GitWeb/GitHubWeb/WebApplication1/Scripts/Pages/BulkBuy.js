@@ -116,7 +116,7 @@
     RefreshVendorDatatable();
     RefreshInstallmentDatatable();
     document.getElementById("defaultOpen").click();
-
+    CustomerAutoFill();
 
     var Address = $('#txtAddress');
     var MobileNo = $('#txtMobileNo');
@@ -165,6 +165,7 @@ function RefreshProductDataTable() {
     $('#txtProductname').val('');
     $('#ddlType option:selected').val(0);
     $('#txtprodWeight').val('');
+    closeModal();
 }
 
 function RefreshVendorDatatable() {
@@ -188,6 +189,7 @@ function RefreshVendorDatatable() {
     $('#txtendDate').val('');
     $('#txtrate').val('');
     $('#txtReturnAmount').val('');
+    closeModal();
 }
 function RefreshInstallmentDatatable() {
     $("#tblinstallment").DataTable({
@@ -202,6 +204,7 @@ function RefreshInstallmentDatatable() {
     $('#hdnInstallment').val('');
     $('#txtinsAmount').val('');
     $('#txtinsdate').val('');
+    closeModal();
 }
 function getDate(element) {
     var date;
@@ -237,6 +240,106 @@ function openCity(evt, cityName) {
 }
 function CallProductInfo() {
     document.getElementById("productInfo").click();
+}
+
+function BulkShowModel() {
+    openModal();
+}
+function CustomerAutoFill() {
+    $.ajax({
+        url: "/Buyers/GetAllCustomers",
+        cache: false,
+        type: "GET",
+        data: {},
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            var lstdata = data;
+            $("#txtCustName").autocomplete({
+                minLength: 1,
+                open: function () {
+                    $('.ui-menu')
+                        .width($('#txtCustName').width() + 22);
+                },
+                source: lstdata,
+                innerHeight: "200",
+                select: function (event, ui) {
+                    event.preventDefault();
+                    var labelValue = ui.item.label;
+                    if (labelValue.indexOf('(') > 0) {
+                        var codeAndText = labelValue.split('(');
+                        $('#txtCustName').val(codeAndText[0]);
+                        var categoryAndType = (codeAndText[1].slice(0, -1)).split('#');;
+                        $('#txtCustAddress').val(categoryAndType[1]);
+                        $('#txtcustCode').val(categoryAndType[0]);
+                    }
+                    else {
+                        $("#txtCustName").val(labelValue);
+                    }
+                },
+                click: function (event, ui) {
+                    try {
+                        event.preventDefault();
+                        $("#txtCustName").val(ui.item.label);
+                    }
+                    catch (e) { }
+                },
+            }).focus(function () {
+                try {
+                    $(this).autocomplete("search", "");
+                }
+                catch (e) { }
+            });
+            // for cust code auto complete
+            $("#txtcustCode").autocomplete({
+                minLength: 1,
+                open: function () {
+                    $('.ui-menu')
+                        .width($('#txtcustCode').width() + 22);
+                },
+                source: lstdata,
+                innerHeight: "200",
+                select: function (event, ui) {
+                    event.preventDefault();
+                    var labelValue = ui.item.label;
+                    if (labelValue.indexOf('(') > 0) {
+                        var codeAndText = labelValue.split('(');
+                        $('#txtCustName').val(codeAndText[0]);
+                        var categoryAndType = (codeAndText[1].slice(0, -1)).split('#');;
+                        $('#txtCustAddress').val(categoryAndType[1]);
+                        $('#txtcustCode').val(categoryAndType[0]);
+                    }
+                    else {
+                        $("#txtcustCode").val(labelValue);
+                    }
+                },
+                click: function (event, ui) {
+                    try {
+                        event.preventDefault();
+                        $("#txtcustCode").val(ui.item.label);
+                    }
+                    catch (e) { }
+                },
+            }).focus(function () {
+                try {
+                    $(this).autocomplete("search", "");
+                }
+                catch (e) { }
+            });
+        },
+        error: function () {
+        }
+    });
+
+}
+function RefreshBulksGrid() {
+    $("#tblbulkIndex").DataTable({
+        paging: true,
+        aaSorting: [],
+        responsive: true
+    });
+    $('#tblbulkIndex_length').remove();
+    $('#tblbulkIndex_filter input').addClass('form-control');
+    closeModal();
 }
 
 

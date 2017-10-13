@@ -88,7 +88,7 @@ img {
 }
 
 .datatables {
-    background: #EEE;
+    background: #167f8a;
     padding: 3px 3px;
     border: 1px solid #FFF;
     border-radius: 5px;
@@ -204,6 +204,11 @@ div.tab {
 }
 .glyphicon-refresh{
     color:white;
+}
+.message{
+    margin-left: 25%;
+    color: white;
+    font-weight: bold;
 }
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {

@@ -48,9 +48,10 @@
                     new AjaxOptions
                     {
                         Confirm = "are you sure to perform the deletion.",
+                        OnBegin = "BulkShowModel",
                         HttpMethod = "POST",
                         UpdateTargetId = "lstCusProducts",
-                        OnSuccess = "RefreshDatatable",
+                        OnSuccess = "RefreshProductDataTable",
                     }, new { @class = "glyphicon glyphicon-remove" })
                 </td>
             </tr>

@@ -31,7 +31,7 @@ namespace WebApplication1.Controllers
             vModel.Buyer = new BuyerModel();
             vModel.Allbuyer = new List<BuyerModel>();
             return View(vModel);
-           // return View(db.Buyers.ToList());
+            // return View(db.Buyers.ToList());
         }
         public ActionResult Search(BuyerSearchViewModel objModel)
         {
@@ -72,25 +72,26 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( BuyerViewModel buyerobj,HttpPostedFileBase file)
+        public ActionResult Create(BuyerViewModel buyerobj, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                if(file!=null)
+                if (file != null)
                 {
                     using (MemoryStream target = new MemoryStream())
                     {
                         file.InputStream.CopyTo(target);
                         buyerobj.buyer.Bill = target.ToArray();
                     }
-                     
+
                 }
-               long buyerID= _IBuyer.AddBuyer(buyerobj.buyer);
+                long buyerID = _IBuyer.AddBuyer(buyerobj.buyer);
+                TempData["Message"] = "Buyer Save Successfully !";
                 return RedirectToAction("Edit", new { id = buyerID });
             }
             else
             {
-                buyerobj= InitilCreateBulk();
+                buyerobj = InitilCreateBulk();
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
             ViewBag.ProductTypeID = new SelectList(db.ProductTypes, "TypeName", "TypeName");
@@ -105,9 +106,10 @@ namespace WebApplication1.Controllers
             objbuyer.productInfo = new BuyerProductModel();
             objbuyer.LstProducts = new List<BuyerProductModel>();
             objbuyer.LstProducts.AddRange(lstAddedProducts);
-           
+
             objbuyer.Installments = new BuyerInstallmentModel();
             objbuyer.LstInstallments = new List<BuyerInstallmentModel>();
+            TempData["Message"] = "Product added Successfully !";
             return PartialView("~/Views/Buyers/_BuyerProducts.cshtml", objbuyer);
         }
 
@@ -121,11 +123,12 @@ namespace WebApplication1.Controllers
             objBuyer.productInfo = new BuyerProductModel();
             objBuyer.LstProducts = new List<BuyerProductModel>();
             objBuyer.LstProducts.AddRange(lstproducts);
-            
+
 
             // Installments
             objBuyer.Installments = new BuyerInstallmentModel();
             objBuyer.LstInstallments = new List<BuyerInstallmentModel>();
+            TempData["Message"] = "Product deleted Successfully !";
             return PartialView("~/Views/Buyers/_BuyerProducts.cshtml", objBuyer);
         }
         public ActionResult AddBuyerInstallment(BuyerViewModel buyerviewModel)
@@ -133,10 +136,11 @@ namespace WebApplication1.Controllers
             List<BuyerInstallmentModel> lstinstallment = _IBuyer.AddBuyerInstallment(buyerviewModel.Installments);
             buyerviewModel.buyer = new BuyerModel();
             buyerviewModel.LstProducts = new List<BuyerProductModel>();
-           
+
             buyerviewModel.Installments = new BuyerInstallmentModel();
             buyerviewModel.LstInstallments = new List<BuyerInstallmentModel>();
             buyerviewModel.LstInstallments.AddRange(lstinstallment);
+            TempData["Message"] = "Installment Save Successfully !";
             return PartialView("~/Views/Buyers/_BuyerInstallments.cshtml", buyerviewModel);
         }
         public ActionResult DeleteInstallment(long InstallmentID, long buyerID)
@@ -152,10 +156,11 @@ namespace WebApplication1.Controllers
             buyerViewModel.Installments = new BuyerInstallmentModel();
             buyerViewModel.LstInstallments = new List<BuyerInstallmentModel>();
             buyerViewModel.LstInstallments.AddRange(lstinstallments);
+            TempData["Message"] = "Installment deleted Successfully !";
             return PartialView("~/Views/Buyers/_BuyerInstallments.cshtml.cshtml", buyerViewModel);
         }
 
-       
+
         // GET: Buyers/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -178,7 +183,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( BuyerViewModel buyerviewmodel, HttpPostedFileBase file)
+        public ActionResult Edit(BuyerViewModel buyerviewmodel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -192,6 +197,7 @@ namespace WebApplication1.Controllers
 
                 }
                 _IBuyer.AddBuyer(buyerviewmodel.buyer);
+                TempData["Message"] = "Buyer updated Successfully !";
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryName", "CategoryName");
@@ -222,6 +228,7 @@ namespace WebApplication1.Controllers
             Buyer buyer = db.Buyers.Find(id);
             db.Buyers.Remove(buyer);
             db.SaveChanges();
+            TempData["Message"] = "Buyer deleted Successfully !";
             return RedirectToAction("Index");
         }
         private BuyerViewModel InitilCreateBulk()
@@ -231,24 +238,24 @@ namespace WebApplication1.Controllers
             objbuyer.productInfo = new BuyerProductModel();
             objbuyer.LstProducts = new List<BuyerProductModel>();
             objbuyer.Installments = new BuyerInstallmentModel();
-            objbuyer.LstInstallments    = new List<BuyerInstallmentModel>();
+            objbuyer.LstInstallments = new List<BuyerInstallmentModel>();
             return objbuyer;
         }
         public JsonResult GetAllProducts()
         {
             var products = (from prod in db.Products
                             join category in db.Categories on prod.CategoryID equals category.CategoryID
-                            where prod.Unit>0
-                         select prod.ProductName  + "("+category.CategoryName+ "#" + prod.Type + ")").Distinct().ToList();
+                            where prod.Unit > 0
+                            select prod.ProductName + "(" + category.CategoryName + "#" + prod.Type + ")").Distinct().ToList();
             return Json(products, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllCustomers()
         {
             var customers = (from cus in db.Customers
-                            select cus.CustmerName + "(" + cus.CustCode + "#" + cus.Address + ")").Distinct().ToList();
+                             select cus.CustmerName + "(" + cus.CustCode + "#" + cus.Address + ")").Distinct().ToList();
             return Json(customers, JsonRequestBehavior.AllowGet);
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

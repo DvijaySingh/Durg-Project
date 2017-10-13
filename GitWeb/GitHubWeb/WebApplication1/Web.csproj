@@ -301,7 +301,6 @@
     <Content Include="Views\BulkBuys\Create.cshtml" />
     <Content Include="Views\BulkBuys\Delete.cshtml" />
     <Content Include="Views\BulkBuys\Details.cshtml" />
-    <Content Include="Views\BulkBuys\Index.cshtml" />
     <Content Include="Views\BulkBuys\_BulkProducts.cshtml" />
     <Content Include="Views\BulkBuys\_bulkVendors.cshtml" />
     <Content Include="Views\BulkBuys\_Installments.cshtml" />
@@ -349,6 +348,8 @@
     <Content Include="Views\BulkBuys\_AddVendor.cshtml" />
     <Content Include="Views\BulkBuys\_AddProduct.cshtml" />
     <Content Include="Views\BulkBuys\Edit.cshtml" />
+    <Content Include="Views\BulkBuys\_bulkBuySearch.cshtml" />
+    <Content Include="Views\BulkBuys\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
